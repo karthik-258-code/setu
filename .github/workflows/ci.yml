@@ -1,0 +1,34 @@
+# Setu CI (GitHub Actions). The repository's final home is GitHub; this is the
+# canonical pipeline. .gitlab-ci.yml mirrors it while the repo lives on GitLab.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test
+      - run: pnpm content:validate
+      - run: pnpm build
+      - name: Enforce student app bundle budget (1 MB gzipped JS)
+        run: |
+          if [ -d apps/web/dist/assets ]; then
+            total=$(find apps/web/dist/assets -name '*.js' -exec gzip -c {} \; | wc -c)
+            echo "gzipped JS bytes: $total"
+            test "$total" -le 1048576
+          else
+            echo "apps/web not built yet, skipping budget check"
+          fi

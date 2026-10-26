@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+coverage/
+.pnpm-store/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.DS_Store
+.vite/
+apps/web/dev-dist/
+apps/api/prisma/*.db
+sim/.venv/
+sim/**/__pycache__/
+sim/**/*.ipynb_checkpoints/

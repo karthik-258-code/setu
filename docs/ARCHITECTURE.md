@@ -140,9 +140,12 @@ Budget `READINESS_MAX_ITEMS = 12`, depth `READINESS_MAX_DEPTH = 3`. Questions ar
 
 1. **Direct phase.** `targets = chapterExternalPrereqs(graph, chapterId) minus trimmed` (teacher-removed), ordered by impact = number of chapter concepts that transitively depend on the prerequisite (desc), then topo order. Ask **one** question per target.
 2. **Descend phase.** For each target answered wrong: status `failed`; push its direct prerequisites (depth+1, if `<= 3` and not already asked/cleared) to the **front** of the queue, ordered by impact. Ask one question each; recurse on wrong answers.
-3. **Confirm phase.** With remaining budget, ask a second question to each concept answered correctly once (closest to the chapter first). Two correct: `cleared`. One correct then wrong: `uncertain`, and descend if depth allows.
-4. **Chapter phase.** If every target is `cleared` and budget `>= 2`: ask two chapter questions (difficulty 2, from the first two chapter concepts in topo order). Both correct: `advancedEntry = true`.
+   A concept answered correctly once (and never wrong) has status **`cleared`** immediately. One correct answer is enough evidence to stop descending that branch; BKT already records the lower confidence of a single answer.
+3. **Chapter phase.** Runs **before** confirm. If no target is `failed` or `uncertain` and budget `>= 2`: ask two chapter questions (difficulty 2, from the first two chapter concepts in topo order). Both correct: `advancedEntry = true`. Students with any failure skip this phase.
+4. **Confirm phase.** With whatever budget remains, ask a second question to each concept answered correctly exactly once (closest to the chapter first, that is lowest depth, then impact). Correct again: stays `cleared`. Wrong: becomes `uncertain`, and descend into its prerequisites if depth and budget allow.
 5. Stop when budget is exhausted or nothing is left. Concepts never reached stay `pending` and are treated as unknown (prior only).
+
+Budget check for `CH.M8.LINEAR_EQ_ONE_VAR` (7 external prerequisites): an all-correct student uses 7 direct + 2 chapter + 3 confirm = 12 and can reach `advancedEntry`; a student like Ravi spends the budget on descents and confirmations and never sees chapter questions.
 
 Output `ReadinessSummary` is stored as a `readiness_completed` event, so replay reproduces it.
 

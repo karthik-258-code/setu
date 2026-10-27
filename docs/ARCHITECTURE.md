@@ -113,7 +113,7 @@ Dependency direction (never reversed): `engine <- content <- shared <- api | web
 | `bkt.ts` | `bktUpdate(pKnown, correct, params): number`, `priorFromPrerequisites(graph, conceptId, mastery, params): number`, `paramsFor(concept): BktParams` | |
 | `replay.ts` | `initialState(studentId): StudentState`, `applyEvent(pack, state, event): StudentState`, `replay(pack, events, studentId): StudentState` | reducer; events sorted by `ts` (as instants) then `id` before folding; events of other students are ignored by `replay` |
 | `readiness.ts` | `startReadiness(pack, state, chapterId, trimmed): ReadinessSession`, `nextReadinessQuestion(pack, session, rng): { session, question: Question \| null }`, `recordReadinessAnswer(pack, session, attempt): ReadinessSession`, `readinessSummary(session, now): ReadinessSummary` | functions only manage the diagnostic; the caller writes the `attempt` events (mode `readiness`) and the final `readiness_completed` event |
-| `ladder.ts` | `nextDifficulty(progress, lastAttempt): Difficulty` | |
+| `ladder.ts` | `nextDifficulty(progress, lastAttempt): Difficulty`, `ladderMove(progress, lastAttempt): "up" \| "down" \| "hold"`, `startingDifficulty(state, pack, chapterId, conceptId): Difficulty` | `progress` already includes `lastAttempt` in its streaks; used by `replay.ts` |
 | `policy.ts` | `nextRecommendation(ctx: PolicyContext): Recommendation` | |
 | `recheck.ts` | `scheduleSpaced(conceptId, masteredAt): Recheck[]`, `dueRechecks(state, now): Recheck[]` | |
 | `grouping.ts` | `buildGapMap(pack, chapterId, students): GapMap`, `buildGapGroups(pack, chapterId, students, attemptsByStudent): GapGroup[]` | |
@@ -166,9 +166,9 @@ Output `ReadinessSummary` is stored as a `readiness_completed` event, so replay 
 | `R8_EXTENSION` | frontier empty, all chapter concepts mastered, `extensionLocked == false` | `mode: extension`, difficulty 3 questions tagged `extension` |
 | `R9_DONE` | nothing else | `mode: done` |
 
-**Difficulty ladder** (`ladder.ts`): start at 1, or 2 if Learn was skipped or `advancedEntry`. Up one (max 3) after two consecutive correct with `hintsUsed == 0`. Down one (min 1) after two consecutive wrong **or** any attempt carrying a `misconceptionCode`; a down-move also sets `progress.learnViewed = false` so R5 shows a targeted worked example next.
+**Difficulty ladder** (`ladder.ts`): start at 1, or 2 if Learn was skipped or `advancedEntry`. Up one (max 3) after two consecutive correct with `hintsUsed == 0`. Down one (min 1) after two consecutive wrong **or** any attempt carrying a `misconceptionCode`; a down-move also sets `progress.learnViewed = false` so R5 shows a targeted worked example next. `progress.difficulty` is derived state: replay applies the ladder after every `solve` or `extension` attempt (and a down-move also resets both streaks), and creates a concept's progress at `startingDifficulty(state, pack, chapterId, conceptId)`; the policy reads `progress.difficulty` and never recomputes it.
 
-**Test outcome:** after the 3 test attempts, if `pKnown >= 0.9` the concept is mastered (`masteredAt = now`, spaced re-checks scheduled). Otherwise back to Solve at difficulty `max(1, current - 1)`.
+**Test outcome:** after the 3 test attempts, if `pKnown >= 0.9` the concept is mastered (`masteredAt = now`, spaced re-checks scheduled). Otherwise back to Solve at difficulty `max(1, current - 1)`. Replay applies this when `testAttempts` reaches `TEST_QUESTIONS`: if not mastered it sets the difficulty and resets `solveAttempts` and `testAttempts` to 0; if mastered it resets `testAttempts` only. Spaced re-check scheduling is task 1.6.
 
 **Re-check outcome:** `pKnown < 0.9` after a re-check reopens the concept (`masteredAt` cleared, difficulty 1, `learnViewed = false`).
 

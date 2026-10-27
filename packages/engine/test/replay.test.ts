@@ -331,7 +331,7 @@ describe("attempt events", () => {
     });
   });
 
-  it("creates progress at difficulty 1 and tracks streaks, mode counters and seen questions", () => {
+  it("creates progress and tracks streaks, mode counters and seen questions", () => {
     const state = replay(
       pack,
       [
@@ -347,9 +347,10 @@ describe("attempt events", () => {
       ],
       STUDENT,
     );
+    // Two correct solves climb 1 -> 2; test attempts do not move the ladder.
     expect(state.progress["M6.ZERO"]).toEqual({
       conceptId: "M6.ZERO",
-      difficulty: 1,
+      difficulty: 2,
       streakCorrect: 0,
       streakWrong: 2,
       solveAttempts: 2,
@@ -720,5 +721,196 @@ describe("event bookkeeping", () => {
     expect(() =>
       applyEvent(pack, initialState(STUDENT), attempt("a", "M6.ZERO", { studentId: "other" })),
     ).toThrow(/belongs to student other/);
+  });
+});
+
+describe("difficulty ladder in replay", () => {
+  const C = "M6.ZERO";
+  const solve = (id: string, minutes: number, overrides = {}) =>
+    attempt(id, C, { ts: at(minutes), mode: "solve", ...overrides });
+  const wrong = (id: string, minutes: number, overrides = {}) =>
+    solve(id, minutes, { correct: false, ...overrides });
+
+  it("starts at difficulty 1 and goes up after two correct solves without hints", () => {
+    const one = replay(pack, [solve("a", 1)], STUDENT);
+    expect(one.progress[C]).toMatchObject({ difficulty: 1, streakCorrect: 1 });
+    const two = replay(pack, [solve("a", 1), solve("b", 2)], STUDENT);
+    expect(two.progress[C]).toMatchObject({ difficulty: 2, streakCorrect: 2 });
+  });
+
+  it("does not go up when hints were used, and extension attempts move the ladder too", () => {
+    const hinted = replay(pack, [solve("a", 1), solve("b", 2, { hintsUsed: 1 })], STUDENT);
+    expect(hinted.progress[C]?.difficulty).toBe(1);
+    const ext = replay(
+      pack,
+      [solve("a", 1, { mode: "extension" }), solve("b", 2, { mode: "extension" })],
+      STUDENT,
+    );
+    expect(ext.progress[C]?.difficulty).toBe(2);
+  });
+
+  it("goes down on a misconception, resets learnViewed and both streaks", () => {
+    const state = replay(
+      pack,
+      [
+        solve("a", 1),
+        solve("b", 2),
+        { ...base("v", 3), type: "learn_viewed", conceptId: C, resourceId: "r1" },
+        wrong("c", 4, { difficulty: 2, misconceptionCode: "F-ADD-DENOM" }),
+      ],
+      STUDENT,
+    );
+    expect(state.progress[C]).toMatchObject({
+      difficulty: 1,
+      learnViewed: false,
+      streakCorrect: 0,
+      streakWrong: 0,
+      lastMisconception: "F-ADD-DENOM",
+    });
+  });
+
+  it("goes down after two consecutive wrong answers and keeps difficulty 1 as the floor", () => {
+    const up = [solve("a", 1), solve("b", 2)];
+    const down = replay(pack, [...up, wrong("c", 3), wrong("d", 4)], STUDENT);
+    expect(down.progress[C]).toMatchObject({ difficulty: 1, streakWrong: 0 });
+    const floor = replay(pack, [wrong("c", 3, { misconceptionCode: "F-ADD-DENOM" })], STUDENT);
+    expect(floor.progress[C]).toMatchObject({ difficulty: 1, learnViewed: false });
+  });
+
+  it("starts at difficulty 2 for a concept readiness cleared or a student with advancedEntry", () => {
+    const cleared = replay(
+      pack,
+      [
+        {
+          ...base("r", 1),
+          type: "readiness_completed",
+          chapterId: FIXTURE_CHAPTER_ID,
+          summary: summary({ cleared: [C] }),
+        },
+        solve("a", 2),
+      ],
+      STUDENT,
+    );
+    expect(cleared.progress[C]?.difficulty).toBe(2);
+    const advanced = replay(
+      pack,
+      [
+        {
+          ...base("r", 1),
+          type: "readiness_completed",
+          chapterId: FIXTURE_CHAPTER_ID,
+          summary: summary({ advancedEntry: true }),
+        },
+        solve("a", 2, { ts: at(2) }),
+      ],
+      STUDENT,
+    );
+    expect(advanced.progress[C]?.difficulty).toBe(2);
+  });
+
+  it("applies advancedEntry to progress that readiness answers already created", () => {
+    const state = replay(
+      pack,
+      [
+        attempt("q", "M8.HEX", { ts: at(1), mode: "readiness" }),
+        {
+          ...base("r", 2),
+          type: "readiness_completed",
+          chapterId: FIXTURE_CHAPTER_ID,
+          summary: summary({ advancedEntry: true }),
+        },
+      ],
+      STUDENT,
+    );
+    expect(state.progress["M8.HEX"]?.difficulty).toBe(2);
+  });
+
+  it("does not change difficulty for readiness, learn or recheck attempts", () => {
+    const state = replay(
+      pack,
+      [
+        attempt("a", C, { ts: at(1), mode: "readiness" }),
+        attempt("b", C, { ts: at(2), mode: "readiness" }),
+        attempt("c", C, { ts: at(3), mode: "recheck" }),
+        attempt("d", C, { ts: at(4), mode: "recheck" }),
+      ],
+      STUDENT,
+    );
+    expect(state.progress[C]?.difficulty).toBe(1);
+  });
+
+  describe("test round outcome", () => {
+    const test = (id: string, minutes: number, overrides = {}) =>
+      attempt(id, C, { ts: at(minutes), mode: "test", ...overrides });
+
+    it("failed round: difficulty down one, solveAttempts and testAttempts reset", () => {
+      const state = replay(
+        pack,
+        [
+          solve("s1", 1),
+          solve("s2", 2),
+          solve("s3", 3, { difficulty: 2, correct: false }),
+          test("t1", 5, { correct: false }),
+          test("t2", 6, { correct: false }),
+          test("t3", 7, { correct: false }),
+        ],
+        STUDENT,
+      );
+      // s1, s2 climb 1 -> 2; the wrong s3 holds at 2; the failed round steps back to 1.
+      expect(state.progress[C]).toMatchObject({ difficulty: 1, solveAttempts: 0, testAttempts: 0 });
+      expect(state.mastery[C]?.masteredAt).toBeUndefined();
+    });
+
+    it("failed round from difficulty 3 lands on 2", () => {
+      const state = replay(
+        pack,
+        [
+          solve("s1", 1),
+          solve("s2", 2),
+          solve("s3", 3),
+          // Drops pKnown to 0.3 without touching the ladder, so the test round can fail.
+          {
+            ...base("o", 4),
+            type: "teacher_override",
+            teacherId: TEACHER,
+            conceptId: C,
+            mastered: false,
+          },
+          test("t1", 5, { correct: false }),
+          test("t2", 6, { correct: false }),
+          test("t3", 7, { correct: false }),
+        ],
+        STUDENT,
+      );
+      expect(state.progress[C]).toMatchObject({ difficulty: 2, solveAttempts: 0, testAttempts: 0 });
+    });
+
+    it("failed round at difficulty 1 stays at 1", () => {
+      const state = replay(
+        pack,
+        [
+          test("t1", 1, { correct: false }),
+          test("t2", 2, { correct: false }),
+          test("t3", 3, { correct: false }),
+        ],
+        STUDENT,
+      );
+      expect(state.progress[C]).toMatchObject({ difficulty: 1, testAttempts: 0 });
+    });
+
+    it("passed round: masteredAt is set, testAttempts reset, difficulty and solveAttempts kept", () => {
+      const state = replay(
+        pack,
+        [solve("s1", 1), solve("s2", 2), test("t1", 3), test("t2", 4), test("t3", 5)],
+        STUDENT,
+      );
+      expect(state.mastery[C]?.masteredAt).toBe(at(3));
+      expect(state.progress[C]).toMatchObject({ difficulty: 2, solveAttempts: 2, testAttempts: 0 });
+    });
+
+    it("mid-round attempts only count; no outcome before TEST_QUESTIONS", () => {
+      const state = replay(pack, [solve("s1", 1), test("t1", 2, { correct: false })], STUDENT);
+      expect(state.progress[C]).toMatchObject({ difficulty: 1, solveAttempts: 1, testAttempts: 1 });
+    });
   });
 });

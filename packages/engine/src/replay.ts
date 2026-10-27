@@ -1,11 +1,13 @@
 import { bktUpdate, paramsFor, priorFromPrerequisites } from "./bkt";
-import { MASTERY_THRESHOLD, RECENT_ATTEMPTS_KEPT } from "./types";
+import { ladderMove, nextDifficulty, startingDifficulty } from "./ladder";
+import { MASTERY_THRESHOLD, RECENT_ATTEMPTS_KEPT, TEST_QUESTIONS } from "./types";
 import type {
   AssignEvent,
   AttemptEvent,
   ConceptId,
   ConceptProgress,
   ContentPack,
+  Difficulty,
   MarkTaughtEvent,
   MasteryState,
   Mode,
@@ -23,6 +25,8 @@ const OVERRIDE_MASTERED_PKNOWN = 0.9;
 const OVERRIDE_NOT_MASTERED_CEILING = 0.3;
 /** Modes in which crossing the mastery threshold sets `masteredAt` (ARCHITECTURE 5.2). */
 const MASTERY_MODES: readonly Mode[] = ["test", "recheck", "verify"];
+/** Modes whose attempts move the difficulty ladder (ARCHITECTURE 5.4). */
+const LADDER_MODES: readonly Mode[] = ["solve", "extension"];
 
 /** The state of a student with no events. */
 export function initialState(studentId: StudentId): StudentState {
@@ -43,10 +47,15 @@ function requireConceptId(pack: ContentPack, id: ConceptId): void {
   if (!(id in pack.graph.concepts)) throw new Error(`Unknown concept id: ${id}`);
 }
 
-function newProgress(conceptId: ConceptId): ConceptProgress {
+/** Progress for a concept the student has not touched yet, at its starting difficulty. */
+function newProgress(
+  pack: ContentPack,
+  state: StudentState,
+  conceptId: ConceptId,
+): ConceptProgress {
   return {
     conceptId,
-    difficulty: 1,
+    difficulty: startingDifficulty(state, pack, pack.chapterId, conceptId),
     streakCorrect: 0,
     streakWrong: 0,
     solveAttempts: 0,
@@ -104,8 +113,8 @@ function applyAttempt(pack: ContentPack, state: StudentState, event: AttemptEven
     mastery.masteredAt = event.ts;
   }
 
-  const old = state.progress[event.conceptId] ?? newProgress(event.conceptId);
-  const progress: ConceptProgress = {
+  const old = state.progress[event.conceptId] ?? newProgress(pack, state, event.conceptId);
+  let progress: ConceptProgress = {
     ...old,
     streakCorrect: event.correct ? old.streakCorrect + 1 : 0,
     streakWrong: event.correct ? 0 : old.streakWrong + 1,
@@ -116,6 +125,26 @@ function applyAttempt(pack: ContentPack, state: StudentState, event: AttemptEven
       : [...old.seenQuestionIds, event.questionId],
   };
   if (event.misconceptionCode !== undefined) progress.lastMisconception = event.misconceptionCode;
+
+  if (LADDER_MODES.includes(event.mode)) {
+    const move = ladderMove(progress, event);
+    progress = { ...progress, difficulty: nextDifficulty(progress, event) };
+    if (move === "down") {
+      // A down-move shows a targeted worked example next (R5) and counts streaks afresh.
+      progress = { ...progress, learnViewed: false, streakCorrect: 0, streakWrong: 0 };
+    }
+  } else if (event.mode === "test" && progress.testAttempts >= TEST_QUESTIONS) {
+    // End of a test round: mastered starts a new round count; otherwise back to solve, one easier.
+    progress =
+      mastery.pKnown >= MASTERY_THRESHOLD
+        ? { ...progress, testAttempts: 0 }
+        : {
+            ...progress,
+            difficulty: Math.max(1, progress.difficulty - 1) as Difficulty,
+            solveAttempts: 0,
+            testAttempts: 0,
+          };
+  }
 
   return {
     ...state,
@@ -145,13 +174,30 @@ function applyReadiness(
 
   const progress = { ...state.progress };
   for (const id of summary.cleared) {
-    progress[id] = { ...(progress[id] ?? newProgress(id)), clearedByReadiness: true };
+    progress[id] = {
+      ...(progress[id] ?? newProgress(pack, state, id)),
+      clearedByReadiness: true,
+    };
   }
-  return {
+  const next: StudentState = {
     ...state,
     progress,
     readiness: { ...state.readiness, [event.chapterId]: summary },
   };
+  // Readiness answers create progress before the summary exists. Now that the cleared flags and
+  // `advancedEntry` are known, concepts that have not started solving get their starting difficulty.
+  const chapter = pack.graph.chapters[event.chapterId];
+  const ids = new Set([...summary.cleared, ...(chapter?.conceptIds ?? [])]);
+  for (const id of ids) {
+    const p = next.progress[id];
+    if (p && p.solveAttempts === 0 && p.testAttempts === 0) {
+      next.progress = {
+        ...next.progress,
+        [id]: { ...p, difficulty: startingDifficulty(next, pack, event.chapterId, id) },
+      };
+    }
+  }
+  return next;
 }
 
 function applyOverride(
@@ -238,7 +284,7 @@ function applyBody(pack: ContentPack, state: StudentState, event: StudentEvent):
       return applyAttempt(pack, state, event);
     case "learn_viewed": {
       requireConceptId(pack, event.conceptId);
-      const old = state.progress[event.conceptId] ?? newProgress(event.conceptId);
+      const old = state.progress[event.conceptId] ?? newProgress(pack, state, event.conceptId);
       return {
         ...state,
         progress: { ...state.progress, [event.conceptId]: { ...old, learnViewed: true } },

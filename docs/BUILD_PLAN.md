@@ -42,7 +42,7 @@ Paste this, replacing `N.x`:
 - [x] **1.3 Replay reducer.** `replay.ts`: `initialState`, `applyEvent` for every `StudentEvent`, `replay`. Covers mastery, progress, readiness summary storage, rechecks, assigned, extension lock, recentAttempts cap, deterministic sort by `ts` then `id`. Test: order independence; teacher override + verification flow.
 - [x] **1.4 Readiness.** `readiness.ts` per 5.3. Tests: never exceeds 12 items; descends from a failed prerequisite into Class 6; `advancedEntry` path; teacher-trimmed prerequisites skipped; `uncertain` on one-right-one-wrong.
 - [x] **1.5 Ladder and policy.** `ladder.ts`, `policy.ts`, `selectQuestions.ts` per 5.4. Tests: every rule fires on a crafted state; Anjali and Ravi scenarios from the submission section 2.4 reproduce the described entry points and reasons (`ruleId`s), including the targeted worked example for `F-ADD-DENOM`.
-- [ ] **1.6 Re-checks.** `recheck.ts` per 5.5. Tests on interval progression and reopening.
+- [x] **1.6 Re-checks.** `recheck.ts` per 5.5. Tests on interval progression and reopening.
 - [ ] **1.7 Gap Map and groups.** `grouping.ts` per 5.6. Tests: group cap of 5, `other` merge, dominant misconception, suggested questions, ready/not-attempted handling.
 - [ ] **1.8 Golden vectors.** `test/golden/`: three fixtures (Anjali, Ravi, an override case) as `(pack, events) -> expected StudentState`. Loader test in engine; the API will reuse them in 4.4.
 

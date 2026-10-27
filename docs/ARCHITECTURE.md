@@ -176,6 +176,8 @@ Output `ReadinessSummary` is stored as a `readiness_completed` event, so replay 
 
 ### 5.5 Spaced re-checks
 
+Applied in replay, with helpers in `recheck.ts`. When `masteredAt` is first set, a `spaced` re-check is scheduled at `masteredAt + 2` days. A round ends after `RECHECK_QUESTIONS` (3) attempts on the concept since the re-check's `dueAt`, in mode `recheck` (for `spaced` and `after_taught`) or `verify` (for `verify_override`). **Pass** (`pKnown >= 0.9`): the re-check is removed; a `spaced` one is replaced by the next interval counted from `masteredAt` (none after 21 days); a `verify_override` one clears `pendingVerification` and `modelPKnown`. **Fail:** the concept reopens (`masteredAt` cleared, difficulty 1, `learnViewed = false`, streaks and solve/test counters reset, spaced re-checks removed); a failed verification also restores `pKnown` to `modelPKnown` with `source = model`.
+
 `RECHECK_INTERVALS_DAYS = [2, 7, 21]` from `masteredAt`. Passing a re-check advances to the next interval; failing reopens the concept and restarts the schedule after it is re-mastered.
 
 ### 5.6 Gap Map and groups

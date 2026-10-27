@@ -1,5 +1,12 @@
 import { bktUpdate, paramsFor, priorFromPrerequisites } from "./bkt";
 import { ladderMove, nextDifficulty, startingDifficulty } from "./ladder";
+import {
+  RECHECK_QUESTIONS,
+  activeRecheck,
+  nextSpaced,
+  roundAttempts,
+  scheduleSpaced,
+} from "./recheck";
 import { MASTERY_THRESHOLD, RECENT_ATTEMPTS_KEPT, TEST_QUESTIONS } from "./types";
 import type {
   AssignEvent,
@@ -13,6 +20,7 @@ import type {
   Mode,
   ReadinessCompletedEvent,
   Recheck,
+  RecheckKind,
   StudentEvent,
   StudentId,
   StudentState,
@@ -146,11 +154,67 @@ function applyAttempt(pack: ContentPack, state: StudentState, event: AttemptEven
           };
   }
 
+  const recentAttempts = [...state.recentAttempts, event].slice(-RECENT_ATTEMPTS_KEPT);
+
+  // Newly mastered: the first spaced re-check (ARCHITECTURE 5.5).
+  let rechecks = state.rechecks;
+  if (before?.masteredAt === undefined && mastery.masteredAt !== undefined) {
+    for (const r of scheduleSpaced(event.conceptId, mastery.masteredAt)) {
+      rechecks = withRecheck(rechecks, r);
+    }
+  }
+
+  // End of a re-check or verification round.
+  if (event.mode === "recheck" || event.mode === "verify") {
+    const kinds: readonly RecheckKind[] =
+      event.mode === "verify" ? ["verify_override"] : ["spaced", "after_taught"];
+    const active = activeRecheck(rechecks, event.conceptId, kinds, event.ts);
+    if (
+      active &&
+      roundAttempts(recentAttempts, event.conceptId, event.mode, active.dueAt) >= RECHECK_QUESTIONS
+    ) {
+      const remaining = rechecks.filter(
+        (r) => !(r.conceptId === active.conceptId && r.kind === active.kind),
+      );
+      if (mastery.pKnown >= MASTERY_THRESHOLD) {
+        rechecks = remaining;
+        if (active.kind === "verify_override") {
+          delete mastery.pendingVerification;
+          delete mastery.modelPKnown;
+        }
+        if (active.kind === "spaced" && mastery.masteredAt !== undefined) {
+          const next = nextSpaced(active, mastery.masteredAt);
+          if (next) rechecks = withRecheck(rechecks, next);
+        }
+      } else {
+        // Failed: reopen the concept; the spaced schedule restarts once it is re-mastered.
+        rechecks = remaining.filter((r) => !(r.conceptId === event.conceptId && r.kind === "spaced"));
+        if (active.kind === "verify_override") {
+          mastery.pKnown = mastery.modelPKnown ?? mastery.pKnown;
+          mastery.source = "model";
+          delete mastery.pendingVerification;
+          delete mastery.modelPKnown;
+        }
+        delete mastery.masteredAt;
+        progress = {
+          ...progress,
+          difficulty: 1,
+          learnViewed: false,
+          streakCorrect: 0,
+          streakWrong: 0,
+          solveAttempts: 0,
+          testAttempts: 0,
+        };
+      }
+    }
+  }
+
   return {
     ...state,
     mastery: { ...state.mastery, [event.conceptId]: mastery },
     progress: { ...state.progress, [event.conceptId]: progress },
-    recentAttempts: [...state.recentAttempts, event].slice(-RECENT_ATTEMPTS_KEPT),
+    rechecks,
+    recentAttempts,
   };
 }
 

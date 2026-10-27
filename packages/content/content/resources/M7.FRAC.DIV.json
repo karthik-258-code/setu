@@ -1,0 +1,43 @@
+[
+  {
+    "id": "M7.FRAC.DIV.R.explanation.01",
+    "conceptId": "M7.FRAC.DIV",
+    "type": "explanation",
+    "body": {
+      "en": "Dividing by a fraction asks how many of that fraction fit into the number. How many quarters are in 2? Eight, so 2 ÷ 1/4 = 8. The rule: to divide by a fraction, multiply by its reciprocal (turn it upside down). 3/5 ÷ 2/7 = 3/5 × 7/2 = 21/10. Only the second fraction, the one you divide by, is flipped. Dividing by a whole number works too: 4/5 ÷ 2 = 4/5 × 1/2 = 2/5.",
+      "te": "భిన్నంతో భాగించడం అంటే ఆ భిన్నం ఆ సంఖ్యలో ఎన్నిసార్లు పడుతుందో అడగడం. 2 లో ఎన్ని నాలుగోవంతులు ఉన్నాయి? ఎనిమిది, కాబట్టి 2 ÷ 1/4 = 8. నియమం: భిన్నంతో భాగించడానికి దాని వ్యుత్క్రమంతో గుణించు (దాన్ని తలకిందులు చేయి). 3/5 ÷ 2/7 = 3/5 × 7/2 = 21/10. రెండవ భిన్నాన్ని, అంటే భాజకాన్ని మాత్రమే తిప్పాలి. పూర్ణాంకంతో భాగించడం కూడా అంతే: 4/5 ÷ 2 = 4/5 × 1/2 = 2/5."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.FRAC.DIV.R.worked_example.01",
+    "conceptId": "M7.FRAC.DIV",
+    "type": "worked_example",
+    "body": {
+      "en": "**Find 3/4 ÷ 3/8.** Flip the divisor: 3/8 becomes 8/3. Multiply: 3/4 × 8/3 = 24/12 = **2**. Check: two pieces of 3/8 make 6/8 = 3/4.",
+      "te": "**3/4 ÷ 3/8 కనుగొను.** భాజకాన్ని తిప్పు: 3/8 అవుతుంది 8/3. గుణించు: 3/4 × 8/3 = 24/12 = **2**. సరిచూడు: 3/8 యొక్క రెండు ముక్కలు 6/8 = 3/4."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.FRAC.DIV.R.worked_example.02.F-DIV-NO-RECIP",
+    "conceptId": "M7.FRAC.DIV",
+    "type": "worked_example",
+    "targetsMisconception": "F-DIV-NO-RECIP",
+    "body": {
+      "en": "**A common slip:** writing 1/2 ÷ 1/4 = 1/8 by multiplying straight across. Ask the real question: how many quarters fit in a half? Two quarters make a half, so the answer is **2**, not 1/8. That is why we flip the divisor: 1/2 × 4/1 = 4/2 = 2. Dividing by a number smaller than 1 makes the answer bigger.",
+      "te": "**తరచూ జరిగే పొరపాటు:** నేరుగా గుణించి 1/2 ÷ 1/4 = 1/8 అని రాయడం. అసలు ప్రశ్న అడుగు: ఒక సగంలో ఎన్ని నాలుగోవంతులు పడతాయి? రెండు నాలుగోవంతులు కలిస్తే సగం, కాబట్టి జవాబు **2**, 1/8 కాదు. అందుకే భాజకాన్ని తిప్పుతాం: 1/2 × 4/1 = 4/2 = 2. 1 కంటే చిన్న సంఖ్యతో భాగిస్తే జవాబు పెద్దదవుతుంది."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.FRAC.DIV.R.hint.01",
+    "conceptId": "M7.FRAC.DIV",
+    "type": "hint",
+    "body": {
+      "en": "Keep the first fraction, change ÷ to ×, and flip the second fraction.",
+      "te": "మొదటి భిన్నాన్ని అలాగే ఉంచు, ÷ ను × గా మార్చు, రెండవ భిన్నాన్ని తిప్పు."
+    },
+    "reviewStatus": "draft"
+  }
+]

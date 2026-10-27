@@ -1,0 +1,43 @@
+[
+  {
+    "id": "M7.INT.MUL_DIV.R.explanation.01",
+    "conceptId": "M7.INT.MUL_DIV",
+    "type": "explanation",
+    "body": {
+      "en": "To multiply or divide integers, work out the size first and then the sign. The sizes multiply as usual: 3 × 4 = 12. For the sign: same signs give a positive answer, different signs give a negative answer. So (-3) × 4 = -12, 3 × (-4) = -12 and (-3) × (-4) = 12. Division follows the same rule: (-20) ÷ 5 = -4 and (-20) ÷ (-5) = 4. Two negatives make a positive because taking away a debt leaves you better off.",
+      "te": "పూర్ణ సంఖ్యలను గుణించడానికి లేదా భాగించడానికి ముందు విలువను, తర్వాత గుర్తును కనుగొను. విలువలు మామూలుగానే గుణించబడతాయి: 3 × 4 = 12. గుర్తు కోసం: ఒకే గుర్తులు ఉంటే జవాబు ధనం, వేర్వేరు గుర్తులు ఉంటే జవాబు రుణం. కాబట్టి (-3) × 4 = -12, 3 × (-4) = -12, (-3) × (-4) = 12. భాగహారానికీ ఇదే నియమం: (-20) ÷ 5 = -4, (-20) ÷ (-5) = 4. ఒక అప్పును తీసివేస్తే మన స్థితి మెరుగవుతుంది, అందుకే రెండు రుణ సంఖ్యల గుణకారం ధనం."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.INT.MUL_DIV.R.worked_example.01",
+    "conceptId": "M7.INT.MUL_DIV",
+    "type": "worked_example",
+    "body": {
+      "en": "**Find (-6) × (-7) ÷ (-3).** Work from left to right. (-6) × (-7): same signs, so positive: 42. Then 42 ÷ (-3): different signs, so negative: **-14**.",
+      "te": "**(-6) × (-7) ÷ (-3) కనుగొను.** ఎడమ నుండి కుడికి సాధించు. (-6) × (-7): ఒకే గుర్తులు, కాబట్టి ధనం: 42. తర్వాత 42 ÷ (-3): వేర్వేరు గుర్తులు, కాబట్టి రుణం: **-14**."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.INT.MUL_DIV.R.worked_example.02.I-SIGN-MUL",
+    "conceptId": "M7.INT.MUL_DIV",
+    "type": "worked_example",
+    "targetsMisconception": "I-SIGN-MUL",
+    "body": {
+      "en": "**Why (-3) × (-4) is +12, not -12.** Look at the pattern: 3 × (-4) = -12, 2 × (-4) = -8, 1 × (-4) = -4, 0 × (-4) = 0. Each time the first number goes down by 1, the answer goes up by 4. Keep going: (-1) × (-4) = 4, (-2) × (-4) = 8, (-3) × (-4) = **12**. Two negatives multiply to a positive.",
+      "te": "**(-3) × (-4) ఎందుకు +12, -12 కాదు.** ఈ క్రమం చూడు: 3 × (-4) = -12, 2 × (-4) = -8, 1 × (-4) = -4, 0 × (-4) = 0. మొదటి సంఖ్య 1 తగ్గిన ప్రతిసారీ జవాబు 4 పెరుగుతుంది. అలాగే కొనసాగించు: (-1) × (-4) = 4, (-2) × (-4) = 8, (-3) × (-4) = **12**. రెండు రుణ సంఖ్యల గుణకారం ధనం."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.INT.MUL_DIV.R.hint.01",
+    "conceptId": "M7.INT.MUL_DIV",
+    "type": "hint",
+    "body": {
+      "en": "Count the minus signs. An even number of them gives a positive answer, an odd number gives a negative one.",
+      "te": "రుణ గుర్తులను లెక్కించు. సరి సంఖ్యలో ఉంటే జవాబు ధనం, బేసి సంఖ్యలో ఉంటే రుణం."
+    },
+    "reviewStatus": "draft"
+  }
+]

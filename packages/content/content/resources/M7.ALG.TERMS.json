@@ -1,0 +1,32 @@
+[
+  {
+    "id": "M7.ALG.TERMS.R.explanation.01",
+    "conceptId": "M7.ALG.TERMS",
+    "type": "explanation",
+    "body": {
+      "en": "An algebraic expression is built from terms joined by + or -. In 4x² - 3xy + 7, the terms are 4x², -3xy and 7. Each term has a numerical coefficient and a variable part: in -3xy the coefficient is -3 and the variable part is xy. A term with no variable, like 7, is a constant. When a variable appears alone, its coefficient is 1: x means 1x, and -y means -1y. The sign in front of a term belongs to its coefficient.",
+      "te": "బీజీయ సమాసం + లేదా - తో కలిపిన పదాలతో నిర్మితమవుతుంది. 4x² - 3xy + 7 లో పదాలు 4x², -3xy, 7. ప్రతి పదానికి ఒక సంఖ్యా గుణకం, ఒక చరరాశి భాగం ఉంటాయి: -3xy లో గుణకం -3, చరరాశి భాగం xy. 7 లాగా చరరాశి లేని పదం స్థిరాంకం. చరరాశి ఒంటరిగా ఉంటే దాని గుణకం 1: x అంటే 1x, -y అంటే -1y. పదం ముందున్న గుర్తు దాని గుణకానికి చెందుతుంది."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.ALG.TERMS.R.worked_example.01",
+    "conceptId": "M7.ALG.TERMS",
+    "type": "worked_example",
+    "body": {
+      "en": "**List the terms and coefficients of 5a - b + 2ab - 9.** Terms: 5a, -b, 2ab, -9. Coefficients: 5 (of a), **-1** (of b, since -b = -1b), 2 (of ab). The constant term is -9.",
+      "te": "**5a - b + 2ab - 9 యొక్క పదాలు, గుణకాలు రాయి.** పదాలు: 5a, -b, 2ab, -9. గుణకాలు: 5 (a ది), **-1** (b ది, ఎందుకంటే -b = -1b), 2 (ab ది). స్థిరాంక పదం -9."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.ALG.TERMS.R.hint.01",
+    "conceptId": "M7.ALG.TERMS",
+    "type": "hint",
+    "body": {
+      "en": "Split the expression at each + or - sign, and keep the sign with the term that follows it.",
+      "te": "సమాసాన్ని ప్రతి + లేదా - గుర్తు వద్ద విడదీయి, గుర్తును దాని తర్వాతి పదంతోనే ఉంచు."
+    },
+    "reviewStatus": "draft"
+  }
+]

@@ -27,7 +27,7 @@ Paste this, replacing `N.x`:
   *Done when:* `pnpm install --frozen-lockfile && pnpm lint && pnpm typecheck` pass locally and CI is green on the branch.
 - [x] **0.2 Engine package.** `packages/engine`: `src/index.ts`, `src/rng.ts` (mulberry32, pick, shuffle), vitest config, one smoke test. Add `sim` script placeholder that prints usage (filled in 6.2).
   *Done when:* `pnpm --filter @setu/engine test` runs a real test.
-- [ ] **0.3 Content package.** `packages/content` with `content/` folders from ARCHITECTURE 6.2, `src/schema.ts` (zod mirroring `types.ts`), `validate` and `pack` scripts (can validate an empty graph).
+- [x] **0.3 Content package.** `packages/content` with `content/` folders from ARCHITECTURE 6.2, `src/schema.ts` (zod mirroring `types.ts`), `validate` and `pack` scripts (can validate an empty graph).
   *Done when:* `pnpm content:validate` passes on an empty content set and fails on a planted cycle (unit test).
 - [ ] **0.4 Shared package.** `packages/shared`: zod DTOs for every endpoint in ARCHITECTURE 8.1, `ApiClient` interface from 7.4.
 - [ ] **0.5 Web app shell.** `apps/web`: Vite + React + TS + Tailwind + `vite-plugin-pwa`; routes from 7.2 render placeholder pages with the route name; Dexie schema from 7.3; language toggle context (en/te) with a `t(LocalizedText)` helper and the "English only" marker.

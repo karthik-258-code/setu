@@ -13,8 +13,8 @@
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
     "lint": "pnpm -r lint",
-    "content:validate": "node scripts/run-if-present.mjs packages/content @setu/content validate",
-    "content:pack": "node scripts/run-if-present.mjs packages/content @setu/content pack",
+    "content:validate": "pnpm --filter @setu/content run validate",
+    "content:pack": "pnpm --filter @setu/content run pack",
     "sim": "pnpm --filter @setu/engine sim",
     "format": "prettier --write ."
   },

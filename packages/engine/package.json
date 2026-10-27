@@ -10,7 +10,8 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "test": "vitest run --passWithNoTests",
+    "test": "vitest run",
+    "sim": "node scripts/sim.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint ."
   },

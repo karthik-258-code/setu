@@ -25,7 +25,7 @@ Paste this, replacing `N.x`:
 
 - [x] **0.1 Workspace tooling.** Add `pnpm-lock.yaml`; root ESLint flat config (typescript-eslint, react-hooks) and Prettier; `lint` scripts in every package. Choose a router for the web app and record it in DECISIONS.md.
   *Done when:* `pnpm install --frozen-lockfile && pnpm lint && pnpm typecheck` pass locally and CI is green on the branch.
-- [ ] **0.2 Engine package.** `packages/engine`: `src/index.ts`, `src/rng.ts` (mulberry32, pick, shuffle), vitest config, one smoke test. Add `sim` script placeholder that prints usage (filled in 6.2).
+- [x] **0.2 Engine package.** `packages/engine`: `src/index.ts`, `src/rng.ts` (mulberry32, pick, shuffle), vitest config, one smoke test. Add `sim` script placeholder that prints usage (filled in 6.2).
   *Done when:* `pnpm --filter @setu/engine test` runs a real test.
 - [ ] **0.3 Content package.** `packages/content` with `content/` folders from ARCHITECTURE 6.2, `src/schema.ts` (zod mirroring `types.ts`), `validate` and `pack` scripts (can validate an empty graph).
   *Done when:* `pnpm content:validate` passes on an empty content set and fails on a planted cycle (unit test).

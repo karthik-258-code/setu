@@ -2,6 +2,7 @@ import { priorFromPrerequisites, paramsFor } from "./bkt";
 import { ancestors, frontier } from "./graph";
 import type { MasteryView } from "./graph";
 import { startingDifficulty } from "./ladder";
+import { effectiveMastery } from "./mastery";
 import { selectQuestions } from "./selectQuestions";
 import {
   LEARN_SKIP_THRESHOLD,
@@ -75,28 +76,7 @@ function isMastered(ctx: PolicyContext, conceptId: ConceptId): boolean {
  * the teacher, keeps its own estimate.
  */
 function frontierMastery(ctx: PolicyContext): MasteryView {
-  const view: Record<ConceptId, { pKnown: number }> = {};
-  for (const [id, m] of Object.entries(ctx.state.mastery)) view[id] = { pKnown: m.pKnown };
-
-  const summary = ctx.state.readiness[ctx.chapterId];
-  if (!summary) return view;
-  const completedAt = Date.parse(summary.completedAt);
-  const doubtful = new Set([...summary.failed, ...summary.uncertain]);
-  const implied = new Set<ConceptId>();
-  for (const id of summary.cleared) {
-    implied.add(id);
-    for (const a of ancestors(ctx.pack.graph, id)) implied.add(a);
-  }
-  for (const id of implied) {
-    if (doubtful.has(id)) continue;
-    const m = ctx.state.mastery[id];
-    if (m) {
-      if (m.source === "teacher_override" && m.pendingVerification !== true) continue;
-      if (m.lastAttemptAt !== undefined && Date.parse(m.lastAttemptAt) > completedAt) continue;
-    }
-    view[id] = { pKnown: Math.max(m?.pKnown ?? 0, MASTERY_THRESHOLD) };
-  }
-  return view;
+  return effectiveMastery(ctx.pack, ctx.state, ctx.chapterId);
 }
 
 /**

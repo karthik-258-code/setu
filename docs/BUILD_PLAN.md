@@ -44,7 +44,7 @@ Paste this, replacing `N.x`:
 - [x] **1.5 Ladder and policy.** `ladder.ts`, `policy.ts`, `selectQuestions.ts` per 5.4. Tests: every rule fires on a crafted state; Anjali and Ravi scenarios from the submission section 2.4 reproduce the described entry points and reasons (`ruleId`s), including the targeted worked example for `F-ADD-DENOM`.
 - [x] **1.6 Re-checks.** `recheck.ts` per 5.5. Tests on interval progression and reopening.
 - [x] **1.7 Gap Map and groups.** `grouping.ts` per 5.6. Tests: group cap of 5, `other` merge, dominant misconception, suggested questions, ready/not-attempted handling.
-- [ ] **1.8 Golden vectors.** `test/golden/`: three fixtures (Anjali, Ravi, an override case) as `(pack, events) -> expected StudentState`. Loader test in engine; the API will reuse them in 4.4.
+- [x] **1.8 Golden vectors.** `test/golden/`: three fixtures (Anjali, Ravi, an override case) as `(pack, events) -> expected StudentState`. Loader test in engine; the API will reuse them in 4.4.
 
 ## Phase 2: Content (27 Oct)
 

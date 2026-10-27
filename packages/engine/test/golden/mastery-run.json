@@ -1,0 +1,44 @@
+{
+  "name": "mastery-run",
+  "description": "Root concept, three correct solves then two correct test answers. pKnown follows the verified BKT run 0.3 -> 0.7268293 -> 0.9383345 -> 0.9884850 -> 0.9979344 -> 0.9996322. The ladder climbs 1 -> 2 -> 3; mastery is first reached in test mode at t1, which schedules the 2-day spaced re-check. The test round is incomplete (2 of 3).",
+  "studentId": "golden-student",
+  "events": [
+    { "id": "s1", "type": "attempt", "studentId": "golden-student", "ts": "2026-10-27T10:01:00.000Z", "questionId": "M6.G.A.Q1", "conceptId": "M6.G.A", "mode": "solve", "difficulty": 1, "correct": true, "hintsUsed": 0, "timeMs": 5000 },
+    { "id": "s2", "type": "attempt", "studentId": "golden-student", "ts": "2026-10-27T10:02:00.000Z", "questionId": "M6.G.A.Q2", "conceptId": "M6.G.A", "mode": "solve", "difficulty": 1, "correct": true, "hintsUsed": 0, "timeMs": 5000 },
+    { "id": "s3", "type": "attempt", "studentId": "golden-student", "ts": "2026-10-27T10:03:00.000Z", "questionId": "M6.G.A.Q3", "conceptId": "M6.G.A", "mode": "solve", "difficulty": 2, "correct": true, "hintsUsed": 0, "timeMs": 5000 },
+    { "id": "t1", "type": "attempt", "studentId": "golden-student", "ts": "2026-10-27T10:04:00.000Z", "questionId": "M6.G.A.Q2", "conceptId": "M6.G.A", "mode": "test", "difficulty": 3, "correct": true, "hintsUsed": 0, "timeMs": 5000 },
+    { "id": "t2", "type": "attempt", "studentId": "golden-student", "ts": "2026-10-27T10:05:00.000Z", "questionId": "M6.G.A.Q3", "conceptId": "M6.G.A", "mode": "test", "difficulty": 3, "correct": true, "hintsUsed": 0, "timeMs": 5000 }
+  ],
+  "expected": {
+    "eventCount": 5,
+    "lastEventTs": "2026-10-27T10:05:00.000Z",
+    "mastery": {
+      "M6.G.A": {
+        "pKnown": 0.9996322,
+        "attempts": 5,
+        "correct": 5,
+        "lastAttemptAt": "2026-10-27T10:05:00.000Z",
+        "lastCorrectAt": "2026-10-27T10:05:00.000Z",
+        "masteredAt": "2026-10-27T10:04:00.000Z",
+        "source": "model",
+        "pendingVerification": null
+      }
+    },
+    "progress": {
+      "M6.G.A": {
+        "difficulty": 3,
+        "streakCorrect": 5,
+        "streakWrong": 0,
+        "solveAttempts": 3,
+        "testAttempts": 2,
+        "learnViewed": false,
+        "clearedByReadiness": false,
+        "seenQuestionIds": ["M6.G.A.Q1", "M6.G.A.Q2", "M6.G.A.Q3"]
+      }
+    },
+    "rechecks": [
+      { "conceptId": "M6.G.A", "dueAt": "2026-10-29T10:04:00.000Z", "intervalDays": 2, "kind": "spaced" }
+    ],
+    "readiness": {}
+  }
+}

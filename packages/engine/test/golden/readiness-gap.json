@@ -1,0 +1,77 @@
+{
+  "name": "readiness-gap",
+  "description": "Ravi in miniature. Readiness: wrong on B with F-ADD-DENOM (prior 0.3 x (0.4 + 0.6 x 0.3) = 0.174, after a wrong answer 0.2205249), then right on its prerequisite A (0.3 -> 0.7268293). The summary marks A cleared (its starting difficulty becomes 2) and B failed; the student then views the worked example targeting the misconception.",
+  "studentId": "golden-student",
+  "events": [
+    { "id": "r1", "type": "attempt", "studentId": "golden-student", "ts": "2026-10-27T10:01:00.000Z", "questionId": "M7.G.B.Q2", "conceptId": "M7.G.B", "mode": "readiness", "difficulty": 2, "correct": false, "selectedOptionId": "b", "misconceptionCode": "F-ADD-DENOM", "hintsUsed": 0, "timeMs": 8000 },
+    { "id": "r2", "type": "attempt", "studentId": "golden-student", "ts": "2026-10-27T10:02:00.000Z", "questionId": "M6.G.A.Q2", "conceptId": "M6.G.A", "mode": "readiness", "difficulty": 2, "correct": true, "selectedOptionId": "a", "hintsUsed": 0, "timeMs": 6000 },
+    {
+      "id": "rc",
+      "type": "readiness_completed",
+      "studentId": "golden-student",
+      "ts": "2026-10-27T10:03:00.000Z",
+      "chapterId": "CH.M8.GOLDEN",
+      "summary": {
+        "chapterId": "CH.M8.GOLDEN",
+        "cleared": ["M6.G.A"],
+        "failed": ["M7.G.B"],
+        "uncertain": [],
+        "pending": [],
+        "itemsUsed": 2,
+        "advancedEntry": false,
+        "misconceptions": { "F-ADD-DENOM": 1 },
+        "completedAt": "2026-10-27T10:03:00.000Z"
+      }
+    },
+    { "id": "lv", "type": "learn_viewed", "studentId": "golden-student", "ts": "2026-10-27T10:04:00.000Z", "conceptId": "M7.G.B", "resourceId": "M7.G.B.R.worked_example.01.F-ADD-DENOM" }
+  ],
+  "expected": {
+    "eventCount": 4,
+    "lastEventTs": "2026-10-27T10:04:00.000Z",
+    "mastery": {
+      "M6.G.A": {
+        "pKnown": 0.7268293,
+        "attempts": 1,
+        "correct": 1,
+        "masteredAt": null,
+        "source": "model"
+      },
+      "M7.G.B": {
+        "pKnown": 0.2205249,
+        "attempts": 1,
+        "correct": 0,
+        "lastCorrectAt": null,
+        "masteredAt": null,
+        "source": "model"
+      }
+    },
+    "progress": {
+      "M6.G.A": {
+        "difficulty": 2,
+        "clearedByReadiness": true,
+        "learnViewed": false
+      },
+      "M7.G.B": {
+        "difficulty": 1,
+        "clearedByReadiness": false,
+        "learnViewed": true,
+        "lastMisconception": "F-ADD-DENOM",
+        "seenQuestionIds": ["M7.G.B.Q2"]
+      }
+    },
+    "rechecks": [],
+    "readiness": {
+      "CH.M8.GOLDEN": {
+        "chapterId": "CH.M8.GOLDEN",
+        "cleared": ["M6.G.A"],
+        "failed": ["M7.G.B"],
+        "uncertain": [],
+        "pending": [],
+        "itemsUsed": 2,
+        "advancedEntry": false,
+        "misconceptions": { "F-ADD-DENOM": 1 },
+        "completedAt": "2026-10-27T10:03:00.000Z"
+      }
+    }
+  }
+}

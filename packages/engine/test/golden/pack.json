@@ -1,0 +1,59 @@
+{
+  "packVersion": "golden-1",
+  "builtAt": "2026-10-27T00:00:00.000Z",
+  "chapterId": "CH.M8.GOLDEN",
+  "concepts": [
+    {
+      "id": "M6.G.A",
+      "classLevel": 6,
+      "subject": "math",
+      "chapterId": "CH.M6.GOLDEN",
+      "title": { "en": "Golden A" },
+      "prerequisites": [],
+      "boardTags": ["NCERT"]
+    },
+    {
+      "id": "M7.G.B",
+      "classLevel": 7,
+      "subject": "math",
+      "chapterId": "CH.M7.GOLDEN",
+      "title": { "en": "Golden B" },
+      "prerequisites": ["M6.G.A"],
+      "boardTags": ["NCERT"]
+    },
+    {
+      "id": "M8.G.C",
+      "classLevel": 8,
+      "subject": "math",
+      "chapterId": "CH.M8.GOLDEN",
+      "title": { "en": "Golden C" },
+      "prerequisites": ["M7.G.B"],
+      "boardTags": ["NCERT"]
+    }
+  ],
+  "chapters": [
+    {
+      "id": "CH.M8.GOLDEN",
+      "classLevel": 8,
+      "subject": "math",
+      "title": { "en": "Golden chapter" },
+      "conceptIds": ["M8.G.C"],
+      "boardTags": ["NCERT"],
+      "depth": "full"
+    }
+  ],
+  "questionDifficulties": [1, 2, 3],
+  "misconceptions": {
+    "F-ADD-DENOM": { "code": "F-ADD-DENOM", "label": { "en": "Adds denominators" } }
+  },
+  "resources": [
+    {
+      "id": "M7.G.B.R.worked_example.01.F-ADD-DENOM",
+      "conceptId": "M7.G.B",
+      "type": "worked_example",
+      "body": { "en": "Worked example for B" },
+      "targetsMisconception": "F-ADD-DENOM",
+      "reviewStatus": "draft"
+    }
+  ]
+}

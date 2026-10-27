@@ -191,7 +191,14 @@ export interface ContentPack {
 // Events (the only thing that is stored and synced)
 // ---------------------------------------------------------------------------
 
-export type Mode = "readiness" | "learn" | "solve" | "test" | "recheck" | "verify" | "extension";
+export type Mode =
+  | "readiness"
+  | "learn"
+  | "solve"
+  | "test"
+  | "recheck"
+  | "verify"
+  | "extension";
 
 interface EventBase {
   /** Client-generated UUID v4; server upserts by this id. */
@@ -377,21 +384,13 @@ export interface ReadinessSession {
   budgetLeft: number;
   queue: ReadinessQueueItem[];
   askedQuestionIds: QuestionId[];
-  results: Record<
-    ConceptId,
-    { depth: number; asked: number; correct: number; status: ReadinessStatus }
-  >;
+  results: Record<ConceptId, { depth: number; asked: number; correct: number; status: ReadinessStatus }>;
   /** Prerequisites the teacher removed before launch. */
   trimmed: ConceptId[];
   misconceptions: Record<MisconceptionCode, number>;
   chapterCorrect: number;
   /** The question currently shown, if any. */
-  current?: {
-    conceptId: ConceptId;
-    questionId: QuestionId;
-    depth: number;
-    isChapterQuestion: boolean;
-  };
+  current?: { conceptId: ConceptId; questionId: QuestionId; depth: number; isChapterQuestion: boolean };
 }
 
 // ---------------------------------------------------------------------------
@@ -466,10 +465,5 @@ export interface WeeklyView {
   to: IsoTimestamp;
   moved: { studentId: StudentId; fromGroupId: string; toGroupId: string }[];
   blockingConcepts: { conceptId: ConceptId; studentCount: number }[];
-  recheckResults: {
-    conceptId: ConceptId;
-    taughtAt: IsoTimestamp;
-    passed: number;
-    failed: number;
-  }[];
+  recheckResults: { conceptId: ConceptId; taughtAt: IsoTimestamp; passed: number; failed: number }[];
 }

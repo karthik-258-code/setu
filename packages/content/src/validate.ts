@@ -112,12 +112,58 @@ export function acyclicGraphRule(concepts: Concept[], chapters: Chapter[]): Cont
   }
 }
 
+/**
+ * Rule: chapters and concepts agree. Every concept's `chapterId` names a chapter whose
+ * `conceptIds` lists it, at the same class level; every listed concept exists. Skipped when
+ * there are no chapters yet.
+ */
+export function chapterMembershipRule(concepts: Concept[], chapters: Chapter[]): ContentError[] {
+  if (chapters.length === 0) return [];
+  const errors: ContentError[] = [];
+  const conceptById = new Map(concepts.map((c) => [c.id, c]));
+  const chapterById = new Map(chapters.map((ch) => [ch.id, ch]));
+  for (const chapter of chapters) {
+    for (const id of chapter.conceptIds) {
+      const concept = conceptById.get(id);
+      if (!concept) {
+        errors.push({ file: CHAPTERS_FILE, message: `${chapter.id}: unknown concept "${id}"` });
+      } else if (concept.chapterId !== chapter.id) {
+        errors.push({
+          file: CHAPTERS_FILE,
+          message: `${chapter.id}: lists ${id}, whose chapterId is "${concept.chapterId}"`,
+        });
+      }
+    }
+  }
+  for (const concept of concepts) {
+    const chapter = chapterById.get(concept.chapterId);
+    if (!chapter) {
+      errors.push({
+        file: CONCEPTS_FILE,
+        message: `${concept.id}: unknown chapter "${concept.chapterId}"`,
+      });
+    } else if (!chapter.conceptIds.includes(concept.id)) {
+      errors.push({
+        file: CONCEPTS_FILE,
+        message: `${concept.id}: not listed in ${chapter.id}.conceptIds`,
+      });
+    } else if (chapter.classLevel !== concept.classLevel) {
+      errors.push({
+        file: CONCEPTS_FILE,
+        message: `${concept.id}: class ${concept.classLevel} but ${chapter.id} is class ${chapter.classLevel}`,
+      });
+    }
+  }
+  return errors;
+}
+
 /** Validates all content. Graph rules run only when the concept file passed its schema. */
 export function validateContent(input: ContentInput): ContentError[] {
   const { errors, parsed } = schemaRule(input);
   if (parsed.concepts) {
     errors.push(...unknownPrerequisitesRule(parsed.concepts));
     errors.push(...acyclicGraphRule(parsed.concepts, parsed.chapters ?? []));
+    errors.push(...chapterMembershipRule(parsed.concepts, parsed.chapters ?? []));
   }
   return errors;
 }

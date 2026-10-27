@@ -1,1 +1,65 @@
-[]
+[
+  {
+    "id": "CH.M6.FOUNDATIONS",
+    "classLevel": 6,
+    "subject": "math",
+    "title": { "en": "Class 6 foundations", "te": "6వ తరగతి పునాదులు" },
+    "conceptIds": ["M6.INT.CONCEPT", "M6.INT.ADD_SUB", "M6.NUM.LCM_HCF", "M6.FRAC.CONCEPT", "M6.FRAC.EQUIV", "M6.FRAC.COMPARE", "M6.FRAC.ADD_SUB_LIKE", "M6.FRAC.ADD_SUB_UNLIKE", "M6.DEC.CONCEPT", "M6.DEC.ADD_SUB", "M6.ALG.VARIABLE", "M6.ALG.EQUATION_INTRO"],
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "depth": "skeleton"
+  },
+  {
+    "id": "CH.M7.FOUNDATIONS",
+    "classLevel": 7,
+    "subject": "math",
+    "title": { "en": "Class 7 foundations", "te": "7వ తరగతి పునాదులు" },
+    "conceptIds": ["M7.INT.MUL_DIV", "M7.INT.PROPERTIES", "M7.FRAC.MUL", "M7.FRAC.DIV", "M7.DEC.MUL_DIV", "M7.RAT.CONCEPT", "M7.ALG.TERMS", "M7.ALG.LIKE_TERMS", "M7.ALG.ADD_SUB_EXPR", "M7.ALG.VALUE_OF_EXPR"],
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "depth": "skeleton"
+  },
+  {
+    "id": "CH.M7.SIMPLE_EQUATIONS",
+    "classLevel": 7,
+    "subject": "math",
+    "title": { "en": "Simple Equations", "te": "సామాన్య సమీకరణాలు" },
+    "conceptIds": ["M7.SEQ.SETUP", "M7.SEQ.BALANCE", "M7.SEQ.TRANSPOSE", "M7.SEQ.APPLY"],
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "depth": "skeleton"
+  },
+  {
+    "id": "CH.M8.LINEAR_EQ_ONE_VAR",
+    "classLevel": 8,
+    "subject": "math",
+    "title": { "en": "Linear Equations in One Variable", "te": "ఏక చరరాశిలో రేఖీయ సమీకరణాలు" },
+    "conceptIds": ["M8.LEQ.ONE_SIDE", "M8.LEQ.BOTH_SIDES", "M8.LEQ.BRACKETS", "M8.LEQ.FRACTIONS", "M8.LEQ.REDUCIBLE", "M8.LEQ.WORD_NUMBER", "M8.LEQ.WORD_AGE_PERIMETER"],
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "depth": "full"
+  },
+  {
+    "id": "CH.M9.FOUNDATIONS",
+    "classLevel": 9,
+    "subject": "math",
+    "title": { "en": "Class 9 foundations", "te": "9వ తరగతి పునాదులు" },
+    "conceptIds": ["M9.POLY.CONCEPT", "M9.COORD.PLOT"],
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "depth": "skeleton"
+  },
+  {
+    "id": "CH.M9.LINEAR_EQ_TWO_VAR",
+    "classLevel": 9,
+    "subject": "math",
+    "title": { "en": "Linear Equations in Two Variables", "te": "రెండు చరరాశులలో రేఖీయ సమీకరణాలు" },
+    "conceptIds": ["M9.LE2V.CONCEPT", "M9.LE2V.SOLUTIONS", "M9.LE2V.GRAPH"],
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "depth": "skeleton"
+  },
+  {
+    "id": "CH.M10.PAIR_LINEAR_EQ",
+    "classLevel": 10,
+    "subject": "math",
+    "title": { "en": "Pair of Linear Equations in Two Variables", "te": "రెండు చరరాశులలో రేఖీయ సమీకరణాల జత" },
+    "conceptIds": ["M10.PLE.GRAPHICAL", "M10.PLE.SUBSTITUTION", "M10.PLE.ELIMINATION", "M10.PLE.WORD"],
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "depth": "skeleton"
+  }
+]

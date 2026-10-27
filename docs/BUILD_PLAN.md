@@ -38,7 +38,7 @@ Paste this, replacing `N.x`:
 ## Phase 1: Engine (26 to 27 Oct)
 
 - [x] **1.1 Graph.** `graph.ts` per ARCHITECTURE 5.1: build, `assertDag`, topo order, prereqs/ancestors/descendants, `chapterExternalPrereqs`, `frontier`, `rootCauseGap`. Tests on a 10-node fixture including a diamond and a cross-class chain.
-- [ ] **1.2 BKT.** `bkt.ts` per 5.2 with hand-computed test values (for example pL=0.3, correct, defaults gives posterior 0.6585366, updated 0.7268293).
+- [x] **1.2 BKT.** `bkt.ts` per 5.2 with hand-computed test values (for example pL=0.3, correct, defaults gives posterior 0.6585366, updated 0.7268293).
 - [ ] **1.3 Replay reducer.** `replay.ts`: `initialState`, `applyEvent` for every `StudentEvent`, `replay`. Covers mastery, progress, readiness summary storage, rechecks, assigned, extension lock, recentAttempts cap, deterministic sort by `ts` then `id`. Test: order independence; teacher override + verification flow.
 - [ ] **1.4 Readiness.** `readiness.ts` per 5.3. Tests: never exceeds 12 items; descends from a failed prerequisite into Class 6; `advancedEntry` path; teacher-trimmed prerequisites skipped; `uncertain` on one-right-one-wrong.
 - [ ] **1.5 Ladder and policy.** `ladder.ts`, `policy.ts`, `selectQuestions.ts` per 5.4. Tests: every rule fires on a crafted state; Anjali and Ravi scenarios from the submission section 2.4 reproduce the described entry points and reasons (`ruleId`s), including the targeted worked example for `F-ADD-DENOM`.

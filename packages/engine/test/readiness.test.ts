@@ -331,7 +331,7 @@ describe("recordReadinessAnswer", () => {
     });
   });
 
-  it("marks a concept failed on a wrong answer and pending after one right answer", () => {
+  it("marks a concept failed on a wrong answer and cleared after one right answer", () => {
     const first = nextReadinessQuestion(spine, start(spine, SPINE_CHAPTER_ID), mulberry32(1));
     const id = (first.question as Question).conceptId;
     const right = recordReadinessAnswer(
@@ -339,7 +339,7 @@ describe("recordReadinessAnswer", () => {
       first.session,
       attemptFor(first.question as Question, true, 1),
     );
-    expect(right.results[id]).toMatchObject({ asked: 1, correct: 1, status: "pending" });
+    expect(right.results[id]).toMatchObject({ asked: 1, correct: 1, status: "cleared" });
   });
 });
 
@@ -422,7 +422,7 @@ describe("confirming and clearing", () => {
     expect(depths[0]).toBe(0);
   });
 
-  it("clears a concept after two correct answers and never asks the same question twice", () => {
+  it("keeps a concept cleared after a correct second answer and never asks the same question twice", () => {
     const run = play(fixture, start(fixture, FIXTURE_CHAPTER_ID), allCorrect);
     const summary = readinessSummary(run.session, NOW);
     expect(summary.cleared.sort()).toEqual(["M6.TWO", "M7.DELTA", "M7.GAMMA"]);
@@ -431,6 +431,54 @@ describe("confirming and clearing", () => {
     }
     const ids = run.asked.map((q) => q.id);
     expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it("clears a concept on its first correct answer, before any confirmation", () => {
+    const first = nextReadinessQuestion(fixture, start(fixture, FIXTURE_CHAPTER_ID), mulberry32(1));
+    const question = first.question as Question;
+    const after = recordReadinessAnswer(fixture, first.session, attemptFor(question, true, 1));
+    expect(after.results[question.conceptId]).toMatchObject({
+      asked: 1,
+      correct: 1,
+      status: "cleared",
+    });
+    expect(after.queue.map((i) => i.conceptId)).not.toContain(question.conceptId);
+  });
+
+  it("turns cleared into uncertain when the second answer in confirm is wrong", () => {
+    const pack = fixture;
+    let session = start(pack, FIXTURE_CHAPTER_ID);
+    const rng = mulberry32(1);
+    const attempts: AttemptEvent[] = [];
+    let secondAnswerSeen = false;
+    for (let n = 1; n <= READINESS_MAX_ITEMS; n++) {
+      const next = nextReadinessQuestion(pack, session, rng);
+      if (!next.question) break;
+      session = next.session;
+      const conceptId = next.question.conceptId;
+      const isSecond = session.phase === "confirm" && session.results[conceptId]?.asked === 2;
+      const correct = !(isSecond && !secondAnswerSeen);
+      const before = session.results[conceptId]?.status;
+      if (isSecond && !secondAnswerSeen) {
+        secondAnswerSeen = true;
+        expect(before).toBe("cleared");
+      }
+      const event = attemptFor(next.question, correct, n);
+      attempts.push(event);
+      session = recordReadinessAnswer(pack, session, event);
+      if (isSecond && !correct) {
+        expect(session.results[conceptId]).toMatchObject({
+          asked: 2,
+          correct: 1,
+          status: "uncertain",
+        });
+      }
+    }
+    expect(secondAnswerSeen).toBe(true);
+    const summary = readinessSummary(session, NOW);
+    expect(summary.uncertain).toHaveLength(1);
+    expect(summary.cleared).not.toContain(summary.uncertain[0]);
+    expect(summary.failed).toEqual([]);
   });
 
   it("marks a concept uncertain on right-then-wrong and descends when depth allows", () => {
@@ -447,6 +495,7 @@ describe("confirming and clearing", () => {
       correct: 1,
       status: "uncertain",
     });
+    // The chapter questions came before the confirmation, so the downgrade does not undo them.
     // GAMMA's prerequisites are now asked at depth 1, after the second GAMMA question.
     const order = run.asked.map((q) => q.conceptId);
     const secondGamma = order.lastIndexOf("M7.GAMMA");
@@ -454,7 +503,7 @@ describe("confirming and clearing", () => {
       new Set(["M7.ALPHA", "M7.BETA"]),
     );
     expect(run.session.results["M7.ALPHA"]?.depth).toBe(1);
-    expect(summary.advancedEntry).toBe(false);
+    expect(summary.advancedEntry).toBe(true);
   });
 
   it("does not descend from an uncertain concept at the depth limit", () => {
@@ -474,7 +523,7 @@ describe("confirming and clearing", () => {
     expect(uncertainAtLimit.session.results["M6.C0"]).toBeUndefined();
   });
 
-  it("leaves a concept pending when it has no second question to confirm with", () => {
+  it("keeps a concept cleared when it has no second question to confirm with", () => {
     const pack: ContentPack = {
       ...fixture,
       questions: fixture.questions.filter((q) => q.conceptId !== "M6.TWO" || q.difficulty === 2),
@@ -483,16 +532,16 @@ describe("confirming and clearing", () => {
     expect(run.session.results["M6.TWO"]).toMatchObject({
       asked: 1,
       correct: 1,
-      status: "pending",
+      status: "cleared",
     });
-    expect(readinessSummary(run.session, NOW).advancedEntry).toBe(false);
+    expect(readinessSummary(run.session, NOW).advancedEntry).toBe(true);
   });
 });
 
 describe("chapter phase and advancedEntry", () => {
   it("asks two difficulty-2 chapter questions when every target is cleared, then sets advancedEntry", () => {
     const run = play(fixture, start(fixture, FIXTURE_CHAPTER_ID), allCorrect);
-    const chapterQuestions = run.asked.slice(-2);
+    const chapterQuestions = run.asked.slice(3, 5);
     // First two chapter concepts in topo order: HEX before IOTA (IOTA depends on HEX).
     expect(chapterQuestions.map((q) => q.conceptId)).toEqual(["M8.HEX", "M8.IOTA"]);
     expect(chapterQuestions.every((q) => q.difficulty === 2)).toBe(true);
@@ -513,20 +562,32 @@ describe("chapter phase and advancedEntry", () => {
     expect(summary.itemsUsed).toBe(12);
     expect(summary.cleared).toHaveLength(5);
     expect(summary.advancedEntry).toBe(true);
-    expect(run.asked.slice(-2).map((q) => q.conceptId)).toEqual([
+    expect(run.asked.slice(5, 7).map((q) => q.conceptId)).toEqual([
       "M8.LEQ.ONE_SIDE",
       "M8.LEQ.BOTH_SIDES",
     ]);
   });
 
-  it("does not ask chapter questions when seven targets leave under two items", () => {
-    const run = play(spine, start(spine, SPINE_CHAPTER_ID), allCorrect);
+  it("reaches advancedEntry with exactly 12 items for an untrimmed all-correct Class 6-8 run", () => {
+    const session = start(spine, SPINE_CHAPTER_ID);
+    const targets = session.queue.map((item) => item.conceptId);
+    const run = play(spine, session, allCorrect);
     const summary = readinessSummary(run.session, NOW);
     expect(summary.itemsUsed).toBe(12);
-    expect(run.asked.some((q) => q.conceptId.startsWith("M8"))).toBe(false);
-    expect(summary.advancedEntry).toBe(false);
-    expect(summary.cleared).toHaveLength(5);
-    expect(summary.pending).toHaveLength(2);
+    expect(summary.advancedEntry).toBe(true);
+    expect(summary.cleared).toHaveLength(7);
+    expect(summary.pending).toEqual([]);
+    expect(summary.uncertain).toEqual([]);
+
+    // 7 direct, then 2 chapter, then 3 confirm (one per concept, lowest depth then impact).
+    const concepts = run.asked.map((q) => q.conceptId);
+    const direct = concepts.slice(0, 7);
+    expect(direct).toEqual(targets);
+    expect(concepts.slice(7, 9)).toEqual(["M8.LEQ.ONE_SIDE", "M8.LEQ.BOTH_SIDES"]);
+    const confirm = concepts.slice(9);
+    expect(confirm).toHaveLength(3);
+    expect(confirm).toEqual(direct.slice(0, 3));
+    expect(run.session.phase).toBe("done");
   });
 
   it("does not set advancedEntry when a chapter question is wrong", () => {
@@ -541,15 +602,20 @@ describe("chapter phase and advancedEntry", () => {
     expect(run.session.chapterCorrect).toBe(1);
   });
 
-  it("skips the chapter phase if any target is not cleared", () => {
-    for (const plan of [{ "M7.GAMMA": [true, false] }, { "M7.DELTA": [false] }] as Record<
-      string,
-      boolean[]
-    >[]) {
-      const run = play(fixture, start(fixture, FIXTURE_CHAPTER_ID), byConcept(plan));
+  it("skips the chapter phase if any target is failed", () => {
+    for (const id of ["M7.GAMMA", "M7.DELTA"]) {
+      const run = play(fixture, start(fixture, FIXTURE_CHAPTER_ID), byConcept({ [id]: [false] }));
       expect(run.asked.some((q) => q.conceptId.startsWith("M8"))).toBe(false);
       expect(readinessSummary(run.session, NOW).advancedEntry).toBe(false);
     }
+  });
+
+  it("asks the chapter questions before the confirm phase", () => {
+    const run = play(fixture, start(fixture, FIXTURE_CHAPTER_ID), allCorrect);
+    const concepts = run.asked.map((q) => q.conceptId);
+    expect(concepts.slice(3, 5)).toEqual(["M8.HEX", "M8.IOTA"]);
+    expect(concepts.slice(5)).toHaveLength(3);
+    expect(concepts.slice(5).every((id) => !id.startsWith("M8"))).toBe(true);
   });
 
   it("goes straight to the chapter questions when the teacher trimmed every prerequisite", () => {
@@ -562,13 +628,14 @@ describe("chapter phase and advancedEntry", () => {
     expect(readinessSummary(run.session, NOW).advancedEntry).toBe(true);
   });
 
-  it("does not run the chapter phase when too little budget is left", () => {
-    const session = { ...start(fixture, FIXTURE_CHAPTER_ID), budgetLeft: 7 };
+  it("does not run the chapter phase when under two items are left", () => {
+    const session = { ...start(fixture, FIXTURE_CHAPTER_ID), budgetLeft: 4 };
     const run = play(fixture, session, allCorrect);
-    // Three first questions and three confirmations leave one item, so no chapter questions.
+    // Three first questions leave one item: no chapter questions, one confirmation.
     expect(run.asked.some((q) => q.conceptId.startsWith("M8"))).toBe(false);
-    expect(run.asked).toHaveLength(6);
-    expect(run.session.budgetLeft).toBe(1);
+    expect(run.asked).toHaveLength(4);
+    expect(run.session.budgetLeft).toBe(0);
+    expect(readinessSummary(run.session, NOW).advancedEntry).toBe(false);
   });
 });
 
@@ -724,50 +791,30 @@ describe("readinessSummary", () => {
 
 describe("Ravi (Decode submission 2.4)", () => {
   // Ravi picks 2/5 on 1/2 + 1/3 (F-ADD-DENOM), passes equivalent fractions, and gets the other
-  // prerequisites right. The teacher trimmed three prerequisites so the budget reaches the
-  // confirmation of the Class 6 concept.
-  const trimmed = ["M7.SEQ.TRANSPOSE", "M7.SEQ.SETUP", "M7.INT.PROPERTIES"];
+  // prerequisites right. No prerequisite is trimmed.
+  const ravi = byConcept({ "M6.FRAC.ADD_SUB_UNLIKE": [false] });
 
   it("fails adding unlike fractions with F-ADD-DENOM and clears equivalent fractions", () => {
-    const run = play(
-      spine,
-      start(spine, SPINE_CHAPTER_ID, trimmed),
-      byConcept({ "M6.FRAC.ADD_SUB_UNLIKE": [false] }),
-    );
+    const run = play(spine, start(spine, SPINE_CHAPTER_ID), ravi);
     const summary = readinessSummary(run.session, NOW);
     expect(summary.failed).toEqual(["M6.FRAC.ADD_SUB_UNLIKE"]);
     expect(summary.cleared).toContain("M6.FRAC.EQUIV");
+    expect(summary.pending).toEqual([]);
     expect(summary.misconceptions).toEqual({ "F-ADD-DENOM": 1 });
     expect(summary.advancedEntry).toBe(false);
     expect(summary.itemsUsed).toBe(12);
     expect(run.session.results["M6.FRAC.EQUIV"]?.depth).toBe(1);
-  });
-
-  it("with all seven prerequisites the budget ends before equivalent fractions is confirmed", () => {
-    const run = play(
-      spine,
-      start(spine, SPINE_CHAPTER_ID),
-      byConcept({ "M6.FRAC.ADD_SUB_UNLIKE": [false] }),
-    );
-    const summary = readinessSummary(run.session, NOW);
-    expect(summary.failed).toEqual(["M6.FRAC.ADD_SUB_UNLIKE"]);
-    expect(summary.cleared).not.toContain("M6.FRAC.EQUIV");
-    expect(run.session.results["M6.FRAC.EQUIV"]).toMatchObject({ asked: 1, correct: 1 });
-    expect(summary.itemsUsed).toBe(12);
+    // A failure skips the chapter phase.
+    expect(run.asked.some((q) => q.conceptId.startsWith("M8"))).toBe(false);
   });
 
   it("feeds replay so the written attempts lower adding unlike fractions and raise equivalent fractions", () => {
-    const run = play(
-      spine,
-      start(spine, SPINE_CHAPTER_ID, trimmed),
-      byConcept({ "M6.FRAC.ADD_SUB_UNLIKE": [false] }),
-    );
+    const run = play(spine, start(spine, SPINE_CHAPTER_ID), ravi);
     const state = replay(spine, run.attempts, STUDENT);
     expect(state.mastery["M6.FRAC.ADD_SUB_UNLIKE"]?.pKnown).toBeLessThan(0.3);
     expect(state.mastery["M6.FRAC.EQUIV"]?.pKnown).toBeGreaterThan(
       state.mastery["M6.FRAC.ADD_SUB_UNLIKE"]?.pKnown ?? 1,
     );
-    expect(state.mastery["M6.FRAC.EQUIV"]?.pKnown).toBeGreaterThan(0.85);
     expect(state.progress["M6.FRAC.ADD_SUB_UNLIKE"]?.lastMisconception).toBe("F-ADD-DENOM");
   });
 });

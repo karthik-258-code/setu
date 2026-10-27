@@ -127,7 +127,7 @@ function descend(
   return { ...session, results, queue: [...front, ...session.queue] };
 }
 
-/** Concepts answered correctly exactly once, closest to the chapter (lowest depth) first. */
+/** Cleared concepts answered exactly once, closest to the chapter (lowest depth) first, then by impact. */
 function confirmItems(pack: ContentPack, session: ReadinessSession): ReadinessQueueItem[] {
   const byDepth = new Map<number, ConceptId[]>();
   for (const [id, result] of Object.entries(session.results)) {
@@ -162,15 +162,22 @@ function finish(session: ReadinessSession): ReadinessSession {
   return { ...session, phase: "done", queue: [] };
 }
 
+/** True once a question of a chapter concept has been served (the chapter phase never repeats). */
+function chapterAsked(pack: ContentPack, session: ReadinessSession): boolean {
+  const inChapter = new Set(pack.graph.chapters[session.chapterId]?.conceptIds ?? []);
+  const asked = new Set(session.askedQuestionIds);
+  return pack.questions.some((q) => asked.has(q.id) && inChapter.has(q.conceptId));
+}
+
 /**
  * Brings `phase` and `queue` up to date after the session changed (no question may be
  * pending). direct/descend/confirm are derived from the head of the queue; when the queue
- * runs dry the next phase is set up: confirm, then chapter, then done.
+ * runs dry the next phase is set up: chapter, then confirm, then done.
  */
 function settle(pack: ContentPack, session: ReadinessSession): ReadinessSession {
   if (session.phase === "done") return session;
   if (session.budgetLeft <= 0) return finish(session);
-  if (session.phase === "chapter") return session.queue.length > 0 ? session : finish(session);
+  if (session.phase === "chapter" && session.queue.length > 0) return session;
 
   const head = session.queue[0];
   if (head) {
@@ -179,14 +186,17 @@ function settle(pack: ContentPack, session: ReadinessSession): ReadinessSession 
     return { ...session, phase };
   }
 
-  const confirm = confirmItems(pack, session);
-  if (confirm.length > 0) return { ...session, phase: "confirm", queue: confirm };
-
-  const targets = Object.values(session.results).filter((r) => r.depth === 0);
-  if (targets.every((r) => r.status === "cleared") && session.budgetLeft >= CHAPTER_QUESTIONS) {
+  // A target the check could not ask (no question left) is not cleared either.
+  const targetsOk = Object.values(session.results).every(
+    (r) => r.depth !== 0 || r.status === "cleared",
+  );
+  if (targetsOk && session.budgetLeft >= CHAPTER_QUESTIONS && !chapterAsked(pack, session)) {
     const items = chapterItems(pack, session);
     if (items.length === CHAPTER_QUESTIONS) return { ...session, phase: "chapter", queue: items };
   }
+
+  const confirm = confirmItems(pack, session);
+  if (confirm.length > 0) return { ...session, phase: "confirm", queue: confirm };
   return finish(session);
 }
 
@@ -285,14 +295,14 @@ export function nextReadinessQuestion(
 }
 
 function statusAfterAnswer(result: ReadinessResult): ReadinessStatus {
-  if (result.asked === 1) return result.correct === 1 ? "pending" : "failed";
+  if (result.asked === 1) return result.correct === 1 ? "cleared" : "failed";
   return result.correct === result.asked ? "cleared" : "uncertain";
 }
 
 /**
  * Records the answer to `session.current` and moves the phase on. A wrong first answer marks
- * the concept `failed`; two correct answers mark it `cleared`; correct then wrong is
- * `uncertain`. `failed` and `uncertain` concepts queue their direct prerequisites at the front
+ * the concept `failed`; a first correct answer marks it `cleared` straight away; a wrong
+ * second answer (in the confirm phase) downgrades `cleared` to `uncertain`. `failed` and `uncertain` concepts queue their direct prerequisites at the front
  * (depth + 1, up to `READINESS_MAX_DEPTH`). Throws if no question is pending or the attempt is
  * for a different question or student. The caller also writes the attempt event.
  */

@@ -1,0 +1,132 @@
+// ARCHITECTURE 8.3. Content is not stored here (packs are files). Student PII is
+// limited to firstName, rollNo, classroomId, lang and pinHash.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model School {
+  id         String      @id @default(cuid())
+  name       String
+  board      String
+  district   String
+  classrooms Classroom[]
+  teachers   Teacher[]
+}
+
+model Classroom {
+  id                 String              @id @default(cuid())
+  schoolId           String
+  classLevel         Int
+  section            String
+  code               String              @unique
+  launchedChapters   Json                @default("[]")
+  school             School              @relation(fields: [schoolId], references: [id])
+  students           Student[]
+  teacherAssignments TeacherAssignment[]
+
+  @@index([schoolId])
+}
+
+model Teacher {
+  id           String              @id @default(cuid())
+  schoolId     String
+  name         String
+  email        String              @unique
+  passwordHash String
+  role         String              @default("teacher")
+  school       School              @relation(fields: [schoolId], references: [id])
+  assignments  TeacherAssignment[]
+  events       Event[]
+
+  @@index([schoolId])
+}
+
+model TeacherAssignment {
+  teacherId   String
+  classroomId String
+  teacher     Teacher   @relation(fields: [teacherId], references: [id])
+  classroom   Classroom @relation(fields: [classroomId], references: [id])
+
+  @@id([teacherId, classroomId])
+  @@index([classroomId])
+}
+
+model Student {
+  id            String         @id @default(cuid())
+  classroomId   String
+  firstName     String
+  rollNo        String
+  pinHash       String
+  lang          String         @default("en")
+  classroom     Classroom      @relation(fields: [classroomId], references: [id])
+  events        Event[]
+  masteryStates MasteryState[]
+  rechecks      Recheck[]
+
+  @@unique([classroomId, rollNo])
+}
+
+model Device {
+  id          String      @id
+  label       String
+  lastSeenAt  DateTime
+  events      Event[]
+  syncBatches SyncBatch[]
+}
+
+model Event {
+  id         String   @id
+  studentId  String
+  type       String
+  payload    Json
+  ts         DateTime
+  receivedAt DateTime @default(now())
+  deviceId   String?
+  teacherId  String?
+  student    Student  @relation(fields: [studentId], references: [id])
+  device     Device?  @relation(fields: [deviceId], references: [id])
+  teacher    Teacher? @relation(fields: [teacherId], references: [id])
+
+  @@index([studentId, ts])
+}
+
+model MasteryState {
+  studentId  String
+  conceptId  String
+  pKnown     Float
+  attempts   Int       @default(0)
+  masteredAt DateTime?
+  source     String    @default("model")
+  updatedAt  DateTime  @updatedAt
+  student    Student   @relation(fields: [studentId], references: [id])
+
+  @@id([studentId, conceptId])
+}
+
+model Recheck {
+  id        String   @id @default(cuid())
+  studentId String
+  conceptId String
+  dueAt     DateTime
+  kind      String
+  done      Boolean  @default(false)
+  student   Student  @relation(fields: [studentId], references: [id])
+
+  @@index([studentId, dueAt])
+}
+
+model SyncBatch {
+  id         String   @id @default(cuid())
+  deviceId   String
+  eventCount Int
+  receivedAt DateTime @default(now())
+  device     Device   @relation(fields: [deviceId], references: [id])
+
+  @@index([deviceId])
+}

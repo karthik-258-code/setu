@@ -1,0 +1,32 @@
+[
+  {
+    "id": "M6.NUM.LCM_HCF.R.explanation.01",
+    "conceptId": "M6.NUM.LCM_HCF",
+    "type": "explanation",
+    "body": {
+      "en": "The LCM (lowest common multiple) of two numbers is the smallest number that both of them divide exactly. Multiples of 4 are 4, 8, 12, 16, ...; multiples of 6 are 6, 12, 18, ...; the first number in both lists is 12, so the LCM of 4 and 6 is 12. The HCF (highest common factor) is the biggest number that divides both. Factors of 12 are 1, 2, 3, 4, 6, 12; factors of 18 are 1, 2, 3, 6, 9, 18; the HCF is 6. We use the LCM to find a common denominator when adding fractions.",
+      "te": "రెండు సంఖ్యల క.సా.గు. (కనిష్ఠ సామాన్య గుణిజం) అంటే ఆ రెండింటితోనూ నిశ్శేషంగా భాగించబడే అతి చిన్న సంఖ్య. 4 యొక్క గుణిజాలు 4, 8, 12, 16, ...; 6 యొక్క గుణిజాలు 6, 12, 18, ...; రెండు జాబితాలలో మొదట వచ్చేది 12, కాబట్టి 4, 6 ల క.సా.గు. 12. గ.సా.భా. (గరిష్ఠ సామాన్య భాజకం) అంటే రెండు సంఖ్యలనూ భాగించే అతి పెద్ద సంఖ్య. 12 యొక్క కారణాంకాలు 1, 2, 3, 4, 6, 12; 18 యొక్క కారణాంకాలు 1, 2, 3, 6, 9, 18; గ.సా.భా. 6. భిన్నాలను కలిపేటప్పుడు సామాన్య హారం కనుగొనడానికి క.సా.గు. వాడతాం."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.NUM.LCM_HCF.R.worked_example.01",
+    "conceptId": "M6.NUM.LCM_HCF",
+    "type": "worked_example",
+    "body": {
+      "en": "**Find the LCM of 3 and 4.** Multiples of 3: 3, 6, 9, 12, 15. Multiples of 4: 4, 8, 12, 16. The first number in both lists is 12, so **LCM = 12**. That is why 1/3 + 1/4 is worked out in twelfths.",
+      "te": "**3, 4 ల క.సా.గు. కనుగొను.** 3 యొక్క గుణిజాలు: 3, 6, 9, 12, 15. 4 యొక్క గుణిజాలు: 4, 8, 12, 16. రెండు జాబితాలలో మొదటి సంఖ్య 12, కాబట్టి **క.సా.గు. = 12**. అందుకే 1/3 + 1/4 ను పన్నెండోవంతులలో సాధిస్తాం."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.NUM.LCM_HCF.R.hint.01",
+    "conceptId": "M6.NUM.LCM_HCF",
+    "type": "hint",
+    "body": {
+      "en": "List the multiples of the bigger number until you reach one that the smaller number also divides.",
+      "te": "పెద్ద సంఖ్య యొక్క గుణిజాలను రాస్తూ వెళ్ళు, చిన్న సంఖ్య కూడా భాగించే గుణిజం వచ్చే వరకు."
+    },
+    "reviewStatus": "draft"
+  }
+]

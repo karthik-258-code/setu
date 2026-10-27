@@ -1,0 +1,32 @@
+[
+  {
+    "id": "M6.FRAC.ADD_SUB_LIKE.R.explanation.01",
+    "conceptId": "M6.FRAC.ADD_SUB_LIKE",
+    "type": "explanation",
+    "body": {
+      "en": "Like fractions have the same denominator, so their pieces are the same size. To add them, add the numerators and keep the denominator: 2/7 + 3/7 = 5/7, because 2 sevenths and 3 sevenths make 5 sevenths. Subtraction works the same way: 6/9 - 2/9 = 4/9. The denominator does not change, because the size of each piece does not change. Simplify the answer if you can: 3/8 + 1/8 = 4/8 = 1/2.",
+      "te": "సజాతి భిన్నాలకు హారం ఒకటే, కాబట్టి వాటి ముక్కల పరిమాణం ఒకటే. వాటిని కలపడానికి లవాలను కలిపి హారాన్ని అలాగే ఉంచాలి: 2/7 + 3/7 = 5/7, ఎందుకంటే 2 ఏడోవంతులు, 3 ఏడోవంతులు కలిసి 5 ఏడోవంతులు. తీసివేత కూడా అలాగే: 6/9 - 2/9 = 4/9. ప్రతి ముక్క పరిమాణం మారదు కాబట్టి హారం మారదు. వీలైతే జవాబును కనిష్ఠ రూపంలోకి మార్చు: 3/8 + 1/8 = 4/8 = 1/2."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.FRAC.ADD_SUB_LIKE.R.worked_example.01",
+    "conceptId": "M6.FRAC.ADD_SUB_LIKE",
+    "type": "worked_example",
+    "body": {
+      "en": "**Find 5/12 + 4/12.** The denominators are the same, so add the tops: 5 + 4 = 9. Keep the denominator 12: 9/12. Simplify by dividing top and bottom by 3: **9/12 = 3/4**.",
+      "te": "**5/12 + 4/12 కనుగొను.** హారాలు ఒకటే, కాబట్టి పై సంఖ్యలు కలుపు: 5 + 4 = 9. హారం 12 అలాగే ఉంచు: 9/12. పై, కింది సంఖ్యలను 3 తో భాగించి కనిష్ఠ రూపం: **9/12 = 3/4**."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.FRAC.ADD_SUB_LIKE.R.hint.01",
+    "conceptId": "M6.FRAC.ADD_SUB_LIKE",
+    "type": "hint",
+    "body": {
+      "en": "The pieces are the same size: add or subtract only the top numbers.",
+      "te": "ముక్కలు ఒకే పరిమాణం: పై సంఖ్యలను మాత్రమే కలుపు లేదా తీసివెయ్యి."
+    },
+    "reviewStatus": "draft"
+  }
+]

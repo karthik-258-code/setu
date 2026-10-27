@@ -1,0 +1,43 @@
+[
+  {
+    "id": "M6.FRAC.ADD_SUB_UNLIKE.R.explanation.01",
+    "conceptId": "M6.FRAC.ADD_SUB_UNLIKE",
+    "type": "explanation",
+    "body": {
+      "en": "Unlike fractions have different denominators, so their pieces are different sizes and cannot be added directly. First rewrite both with a common denominator, usually the LCM of the denominators. Then add or subtract the numerators. For 1/2 + 1/3: the LCM of 2 and 3 is 6, so 1/2 = 3/6 and 1/3 = 2/6, and 3/6 + 2/6 = 5/6. Never add the denominators: halves and thirds do not make fifths.",
+      "te": "విజాతి భిన్నాలకు హారాలు వేరు, కాబట్టి వాటి ముక్కల పరిమాణం వేరు; వాటిని నేరుగా కలపలేం. ముందుగా రెండింటినీ సామాన్య హారంతో రాయాలి, సాధారణంగా హారాల క.సా.గు. తో. తర్వాత లవాలను కలపాలి లేదా తీసివేయాలి. 1/2 + 1/3 లో 2, 3 ల క.సా.గు. 6, కాబట్టి 1/2 = 3/6, 1/3 = 2/6, మరియు 3/6 + 2/6 = 5/6. హారాలను ఎప్పుడూ కలపకూడదు: సగాలు, మూడోవంతులు కలిసి ఐదోవంతులు కావు."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.FRAC.ADD_SUB_UNLIKE.R.worked_example.01",
+    "conceptId": "M6.FRAC.ADD_SUB_UNLIKE",
+    "type": "worked_example",
+    "body": {
+      "en": "**Find 3/4 - 1/6.** The LCM of 4 and 6 is 12. 3/4 = 9/12 (multiply top and bottom by 3) and 1/6 = 2/12 (multiply by 2). Now 9/12 - 2/12 = **7/12**.",
+      "te": "**3/4 - 1/6 కనుగొను.** 4, 6 ల క.సా.గు. 12. 3/4 = 9/12 (పై, కింది సంఖ్యలను 3 తో గుణించాం), 1/6 = 2/12 (2 తో గుణించాం). ఇప్పుడు 9/12 - 2/12 = **7/12**."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.FRAC.ADD_SUB_UNLIKE.R.worked_example.02.F-ADD-DENOM",
+    "conceptId": "M6.FRAC.ADD_SUB_UNLIKE",
+    "type": "worked_example",
+    "targetsMisconception": "F-ADD-DENOM",
+    "body": {
+      "en": "**Why 1/2 + 1/3 is not 2/5.** Eat half a roti, then a third more. You have eaten more than half, but 2/5 is less than half! Adding tops and bottoms gave a wrong answer. Cut everything into sixths instead: 1/2 = 3/6 and 1/3 = 2/6. Now the pieces are the same size, so 3/6 + 2/6 = **5/6**. Always make the denominators equal first, then add only the numerators.",
+      "te": "**1/2 + 1/3, 2/5 ఎందుకు కాదు.** రొట్టెలో సగం తిని, ఇంకా మూడోవంతు తిన్నావు అనుకో. నువ్వు సగం కంటే ఎక్కువ తిన్నావు, కానీ 2/5 సగం కంటే తక్కువ! లవాలను, హారాలను కలిపితే తప్పు జవాబు వచ్చింది. బదులుగా అన్నింటినీ ఆరోవంతులుగా విభజించు: 1/2 = 3/6, 1/3 = 2/6. ఇప్పుడు ముక్కలు ఒకే పరిమాణం, కాబట్టి 3/6 + 2/6 = **5/6**. ఎప్పుడూ ముందుగా హారాలను సమానం చేసి, తర్వాత లవాలను మాత్రమే కలుపు."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.FRAC.ADD_SUB_UNLIKE.R.hint.01",
+    "conceptId": "M6.FRAC.ADD_SUB_UNLIKE",
+    "type": "hint",
+    "body": {
+      "en": "Find the LCM of the denominators and rewrite both fractions with it before adding.",
+      "te": "హారాల క.సా.గు. కనుగొని, కలపడానికి ముందు రెండు భిన్నాలనూ దానితో రాయి."
+    },
+    "reviewStatus": "draft"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "M6.FRAC.CONCEPT.R.explanation.01",
+    "conceptId": "M6.FRAC.CONCEPT",
+    "type": "explanation",
+    "body": {
+      "en": "A fraction shows part of a whole that has been cut into equal pieces. In 3/4, the denominator 4 says the whole is cut into 4 equal parts, and the numerator 3 says we take 3 of them. The pieces must be equal: a roti torn into 4 uneven bits is not cut into quarters. A fraction is also a division: 3/4 means 3 ÷ 4. When the numerator equals the denominator, as in 4/4, we have one whole.",
+      "te": "భిన్నం అనేది సమాన భాగాలుగా విభజించిన మొత్తంలో ఒక భాగాన్ని చూపిస్తుంది. 3/4 లో హారం 4 మొత్తాన్ని 4 సమాన భాగాలుగా విభజించామని, లవం 3 వాటిలో 3 భాగాలు తీసుకున్నామని చెబుతాయి. భాగాలు సమానంగా ఉండాలి: రొట్టెను అసమానంగా 4 ముక్కలు చేస్తే అవి నాలుగోవంతులు కావు. భిన్నం భాగహారం కూడా: 3/4 అంటే 3 ÷ 4. లవం హారానికి సమానమైతే, 4/4 లాగా, ఒక పూర్తి మొత్తం వస్తుంది."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.FRAC.CONCEPT.R.worked_example.01",
+    "conceptId": "M6.FRAC.CONCEPT",
+    "type": "worked_example",
+    "body": {
+      "en": "**A chocolate bar has 8 equal pieces. Ravi eats 3. What fraction did he eat?** The whole has 8 equal pieces, so the denominator is 8. He ate 3 pieces, so the numerator is 3. He ate **3/8** of the bar, and **5/8** is left.",
+      "te": "**ఒక చాక్లెట్ బార్‌లో 8 సమాన ముక్కలు ఉన్నాయి. రవి 3 తిన్నాడు. అతను ఎంత భిన్నం తిన్నాడు?** మొత్తంలో 8 సమాన ముక్కలు, కాబట్టి హారం 8. అతను 3 ముక్కలు తిన్నాడు, కాబట్టి లవం 3. అతను బార్‌లో **3/8** తిన్నాడు, **5/8** మిగిలింది."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.FRAC.CONCEPT.R.hint.01",
+    "conceptId": "M6.FRAC.CONCEPT",
+    "type": "hint",
+    "body": {
+      "en": "The bottom number counts the equal parts in the whole; the top number counts the parts you take.",
+      "te": "కింది సంఖ్య మొత్తంలోని సమాన భాగాలను లెక్కిస్తుంది; పై సంఖ్య నువ్వు తీసుకున్న భాగాలను లెక్కిస్తుంది."
+    },
+    "reviewStatus": "draft"
+  }
+]

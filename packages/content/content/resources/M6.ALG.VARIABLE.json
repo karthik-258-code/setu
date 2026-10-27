@@ -1,0 +1,32 @@
+[
+  {
+    "id": "M6.ALG.VARIABLE.R.explanation.01",
+    "conceptId": "M6.ALG.VARIABLE",
+    "type": "explanation",
+    "body": {
+      "en": "A variable is a letter, such as x or n, that stands for a number we do not know yet or a number that can change. If one pencil costs ₹5, then n pencils cost 5 × n rupees, written 5n. The letter lets us write one rule for every case: for 3 pencils, n = 3 and the cost is 5 × 3 = ₹15. In algebra, 5n means 5 times n, and n + 4 means 4 more than n.",
+      "te": "చరరాశి అంటే మనకు ఇంకా తెలియని లేదా మారగల సంఖ్యను సూచించే అక్షరం, ఉదాహరణకు x లేదా n. ఒక పెన్సిల్ ధర ₹5 అయితే, n పెన్సిళ్ళ ధర 5 × n రూపాయలు, దీన్ని 5n అని రాస్తాం. అక్షరం వల్ల అన్ని సందర్భాలకూ ఒకే నియమం రాయగలం: 3 పెన్సిళ్ళకు n = 3, ధర 5 × 3 = ₹15. బీజగణితంలో 5n అంటే 5 సార్లు n, n + 4 అంటే n కంటే 4 ఎక్కువ."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.ALG.VARIABLE.R.worked_example.01",
+    "conceptId": "M6.ALG.VARIABLE",
+    "type": "worked_example",
+    "body": {
+      "en": "**Anjali is 3 years older than her brother. If her brother is b years old, how old is Anjali?** 'Older by 3' means add 3, so Anjali is **b + 3** years old. If her brother is 9, then b = 9 and Anjali is 9 + 3 = 12.",
+      "te": "**అంజలి తన తమ్ముడి కంటే 3 సంవత్సరాలు పెద్దది. తమ్ముడి వయస్సు b సంవత్సరాలు అయితే అంజలి వయస్సు ఎంత?** '3 సంవత్సరాలు పెద్ద' అంటే 3 కలపాలి, కాబట్టి అంజలి వయస్సు **b + 3** సంవత్సరాలు. తమ్ముడి వయస్సు 9 అయితే b = 9, అంజలి వయస్సు 9 + 3 = 12."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.ALG.VARIABLE.R.hint.01",
+    "conceptId": "M6.ALG.VARIABLE",
+    "type": "hint",
+    "body": {
+      "en": "Replace the letter with a small number and check that the rule still makes sense.",
+      "te": "అక్షరానికి బదులు ఒక చిన్న సంఖ్యను పెట్టి, నియమం సరిగ్గా ఉందో చూడు."
+    },
+    "reviewStatus": "draft"
+  }
+]

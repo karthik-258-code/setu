@@ -1,0 +1,43 @@
+[
+  {
+    "id": "M6.INT.ADD_SUB.R.explanation.01",
+    "conceptId": "M6.INT.ADD_SUB",
+    "type": "explanation",
+    "body": {
+      "en": "To add integers, think of moving on a number line. Adding a positive number moves you right; adding a negative number moves you left. So -7 + 3 starts at -7 and moves 3 right to -4. When the signs are the same, add the sizes and keep the sign: -4 + (-5) = -9. When the signs are different, subtract the smaller size from the bigger one and take the sign of the bigger: -7 + 3 = -4. Subtracting an integer is the same as adding its opposite: 6 - (-2) = 6 + 2 = 8.",
+      "te": "పూర్ణ సంఖ్యలను కలపడానికి సంఖ్యారేఖపై కదలడం ఊహించుకో. ధన సంఖ్యను కలిపితే కుడివైపు, రుణ సంఖ్యను కలిపితే ఎడమవైపు కదులుతాం. కాబట్టి -7 + 3 లో -7 వద్ద మొదలుపెట్టి కుడివైపు 3 అడుగులు కదిలి -4 వద్ద ఆగుతాం. గుర్తులు ఒకటే అయితే విలువలను కలిపి అదే గుర్తు ఉంచాలి: -4 + (-5) = -9. గుర్తులు వేరైతే పెద్ద విలువ నుండి చిన్న విలువను తీసివేసి, పెద్దదాని గుర్తు ఇవ్వాలి: -7 + 3 = -4. ఒక పూర్ణ సంఖ్యను తీసివేయడం అంటే దాని వ్యతిరేక సంఖ్యను కలపడమే: 6 - (-2) = 6 + 2 = 8."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.INT.ADD_SUB.R.worked_example.01",
+    "conceptId": "M6.INT.ADD_SUB",
+    "type": "worked_example",
+    "body": {
+      "en": "**Find -9 + 4.** The signs are different. The sizes are 9 and 4. Bigger minus smaller: 9 - 4 = 5. The bigger size, 9, belongs to -9, so the answer is negative: **-9 + 4 = -5**. On the number line: start at -9, move 4 right, land on -5.",
+      "te": "**-9 + 4 కనుగొను.** గుర్తులు వేరు. విలువలు 9 మరియు 4. పెద్దది నుండి చిన్నది: 9 - 4 = 5. పెద్ద విలువ 9, -9 కి చెందినది కాబట్టి జవాబు రుణం: **-9 + 4 = -5**. సంఖ్యారేఖపై: -9 వద్ద మొదలుపెట్టి, కుడివైపు 4 అడుగులు కదిలి, -5 వద్ద ఆగు."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.INT.ADD_SUB.R.worked_example.02.I-SIGN-ADD",
+    "conceptId": "M6.INT.ADD_SUB",
+    "type": "worked_example",
+    "targetsMisconception": "I-SIGN-ADD",
+    "body": {
+      "en": "**A common slip:** writing -7 + 3 = 4 or -7 + 3 = 10. Picture it: you owe ₹7 and someone gives you ₹3. You still owe ₹4, so the answer is **-4**. On the number line, start at -7 and take 3 steps right: -6, -5, -4. The answer is negative because the bigger size, 7, came with the minus sign.",
+      "te": "**తరచూ జరిగే పొరపాటు:** -7 + 3 = 4 లేదా -7 + 3 = 10 అని రాయడం. ఊహించు: నువ్వు ₹7 బాకీ ఉన్నావు, ఎవరో ₹3 ఇచ్చారు. ఇంకా ₹4 బాకీ ఉన్నావు, కాబట్టి జవాబు **-4**. సంఖ్యారేఖపై -7 వద్ద మొదలుపెట్టి కుడివైపు 3 అడుగులు వెయ్యి: -6, -5, -4. పెద్ద విలువ 7 రుణ గుర్తుతో ఉంది కాబట్టి జవాబు రుణం."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.INT.ADD_SUB.R.hint.01",
+    "conceptId": "M6.INT.ADD_SUB",
+    "type": "hint",
+    "body": {
+      "en": "Start at the first number on a number line. Adding a negative number moves you left.",
+      "te": "సంఖ్యారేఖపై మొదటి సంఖ్య వద్ద మొదలుపెట్టు. రుణ సంఖ్యను కలిపితే ఎడమవైపు కదులుతాం."
+    },
+    "reviewStatus": "draft"
+  }
+]

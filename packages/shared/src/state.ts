@@ -52,6 +52,7 @@ export const masteryStateSchema = mirror<MasteryState>()(
       masteredAt: isoTimestampSchema.optional(),
       source: z.enum(["model", "teacher_override"]),
       pendingVerification: z.boolean().optional(),
+      modelPKnown: probability.optional(),
     })
     .strict(),
 );

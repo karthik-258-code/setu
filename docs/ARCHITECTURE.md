@@ -111,7 +111,7 @@ Dependency direction (never reversed): `engine <- content <- shared <- api | web
 | `rng.ts` | `mulberry32(seed): () => number`, `pick(rng, arr)`, `shuffle(rng, arr)` | |
 | `graph.ts` | `buildGraph(concepts, chapters): ConceptGraph`, `assertDag(graph)`, `directPrereqs(graph, id)`, `ancestors(graph, id)`, `descendants(graph, id)`, `chapterExternalPrereqs(graph, chapterId): ConceptId[]`, `frontier(graph, mastery, scope, threshold)`, `rootCauseGap(graph, mastery, chapterId): ConceptId \| null` | `topoOrder` computed once by Kahn's algorithm, tie-break by `classLevel` then id |
 | `bkt.ts` | `bktUpdate(pKnown, correct, params): number`, `priorFromPrerequisites(graph, conceptId, mastery, params): number`, `paramsFor(concept): BktParams` | |
-| `replay.ts` | `initialState(studentId): StudentState`, `applyEvent(pack, state, event): StudentState`, `replay(pack, events, studentId): StudentState` | reducer; events sorted by `ts` then `id` before folding |
+| `replay.ts` | `initialState(studentId): StudentState`, `applyEvent(pack, state, event): StudentState`, `replay(pack, events, studentId): StudentState` | reducer; events sorted by `ts` (as instants) then `id` before folding; events of other students are ignored by `replay` |
 | `readiness.ts` | `startReadiness(pack, state, chapterId, trimmed): ReadinessSession`, `nextReadinessQuestion(pack, session, rng): Question \| null`, `recordReadinessAnswer(pack, session, attempt): ReadinessSession`, `readinessSummary(session, now): ReadinessSummary` | |
 | `ladder.ts` | `nextDifficulty(progress, lastAttempt): Difficulty` | |
 | `policy.ts` | `nextRecommendation(ctx: PolicyContext): Recommendation` | |
@@ -169,7 +169,7 @@ Output `ReadinessSummary` is stored as a `readiness_completed` event, so replay 
 
 **Re-check outcome:** `pKnown < 0.9` after a re-check reopens the concept (`masteredAt` cleared, difficulty 1, `learnViewed = false`).
 
-**Teacher override** (`teacher_override` event): sets `pKnown = 0.9`, `source = teacher_override`, `pendingVerification = true` and schedules a `verify_override` re-check for the next session. Failing verification restores the model estimate and clears the flag. **Mark taught** schedules an `after_taught` re-check (`dueAt = now`) for every student in the group.
+**Teacher override** (`teacher_override` event): sets `pKnown = 0.9`, `source = teacher_override`, `pendingVerification = true` and schedules a `verify_override` re-check for the next session. The model's estimate just before the override is kept in `MasteryState.modelPKnown` (present only while `pendingVerification` is true); failing verification restores it and clears the flag. `teacher_override` with `mastered = false` sets `source = teacher_override`, `pKnown = min(current, 0.3)` and clears `masteredAt`. **Mark taught** schedules an `after_taught` re-check (`dueAt = now`) for every student in the group.
 
 ### 5.5 Spaced re-checks
 

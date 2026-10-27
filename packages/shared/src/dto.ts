@@ -136,7 +136,9 @@ export const teacherEventResponseSchema = z
 
 // --- GET /health ------------------------------------------------------------
 
-export const healthResponseSchema = z.object({ status: z.literal("ok") }).strict();
+export const healthResponseSchema = z
+  .object({ status: z.literal("ok"), version: nonEmpty })
+  .strict();
 
 // --- Inferred types ---------------------------------------------------------
 

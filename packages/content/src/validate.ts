@@ -5,7 +5,7 @@
  */
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { assertDag, buildGraph } from "@setu/engine";
+import { RULE_IDS, assertDag, buildGraph } from "@setu/engine";
 import type { Chapter, Concept } from "@setu/engine";
 import type { z } from "zod";
 import {
@@ -157,6 +157,69 @@ export function chapterMembershipRule(concepts: Concept[], chapters: Chapter[]):
   return errors;
 }
 
+/**
+ * Placeholders a reason template may use. The UI fills them from `Recommendation.reasonParams`:
+ * `{chapter}` and `{concept}` become the titles of `chapterId` and `conceptId`,
+ * `{misconception}` the label of `misconceptionCode`, `{difficulty}` and `{count}` the numbers.
+ */
+export const REASON_PLACEHOLDERS = ["chapter", "concept", "difficulty", "count", "misconception"];
+
+function placeholdersIn(text: string): string[] {
+  return [...text.matchAll(/\{(\w+)\}/g)].map((m) => m[1] ?? "").sort();
+}
+
+/**
+ * Rule: every engine rule has a reason template in English and Telugu, using only known
+ * placeholders, the same ones in both languages. Skipped when there are no chapters yet.
+ */
+export function reasonsRule(reasons: unknown, chapters: Chapter[]): ContentError[] {
+  if (chapters.length === 0) return [];
+  const parsed = reasonsFileSchema.safeParse(reasons);
+  if (!parsed.success) return []; // already reported by schemaRule
+  const allowed = new Set(REASON_PLACEHOLDERS);
+  const errors: ContentError[] = [];
+  const report = (message: string): void => {
+    errors.push({ file: REASONS_FILE, message });
+  };
+  for (const id of RULE_IDS) {
+    const template = parsed.data[id];
+    if (!template) {
+      report(`${id}: missing reason template`);
+      continue;
+    }
+    const en = placeholdersIn(template.en);
+    for (const p of en) if (!allowed.has(p)) report(`${id}: unknown placeholder {${p}}`);
+    if (template.te === undefined) report(`${id}: missing Telugu (te)`);
+    else if (placeholdersIn(template.te).join(",") !== en.join(",")) {
+      report(`${id}: en and te use different placeholders`);
+    }
+  }
+  return errors;
+}
+
+/**
+ * Rule: misconceptions are keyed by their own code and carry Telugu for the label and the
+ * teacher note. Skipped when there are no chapters yet.
+ */
+export function misconceptionsRule(misconceptions: unknown, chapters: Chapter[]): ContentError[] {
+  if (chapters.length === 0) return [];
+  const parsed = misconceptionsFileSchema.safeParse(misconceptions);
+  if (!parsed.success) return [];
+  const errors: ContentError[] = [];
+  for (const [key, m] of Object.entries(parsed.data)) {
+    if (m.code !== key) {
+      errors.push({ file: MISCONCEPTIONS_FILE, message: `${key}: code is "${m.code}"` });
+    }
+    if (m.label.te === undefined) {
+      errors.push({ file: MISCONCEPTIONS_FILE, message: `${key}: label has no Telugu (te)` });
+    }
+    if (m.teacherNote && m.teacherNote.te === undefined) {
+      errors.push({ file: MISCONCEPTIONS_FILE, message: `${key}: teacherNote has no Telugu (te)` });
+    }
+  }
+  return errors;
+}
+
 /** Validates all content. Graph rules run only when the concept file passed its schema. */
 export function validateContent(input: ContentInput): ContentError[] {
   const { errors, parsed } = schemaRule(input);
@@ -165,6 +228,8 @@ export function validateContent(input: ContentInput): ContentError[] {
     errors.push(...acyclicGraphRule(parsed.concepts, parsed.chapters ?? []));
     errors.push(...chapterMembershipRule(parsed.concepts, parsed.chapters ?? []));
   }
+  errors.push(...reasonsRule(input.reasons, parsed.chapters ?? []));
+  errors.push(...misconceptionsRule(input.misconceptions, parsed.chapters ?? []));
   return errors;
 }
 

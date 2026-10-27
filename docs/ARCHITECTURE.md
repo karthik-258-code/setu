@@ -292,10 +292,15 @@ The service worker precaches the app shell and caches `/packs/*.json` with a cac
 All network access goes through one interface:
 
 ```ts
+// packages/shared/src/api-client.ts; DTO types are inferred from the zod schemas in @setu/shared
 interface ApiClient {
-  login(...); studentLogin(...);
+  login(request: TeacherLoginRequest): Promise<TeacherLoginResponse>;
+  studentLogin(request: StudentLoginRequest): Promise<StudentLoginResponse>;
+  getMyState(): Promise<StudentState>;
   getPack(chapterId): Promise<ContentPack>;
-  sync(events: StudentEvent[]): Promise<{ accepted: string[]; serverTime: string }>;
+  sync(events: StudentEvent[]): Promise<{ accepted: string[]; rejected: { id: string; reason: string }[]; serverTime: string }>;
+  getClassrooms(): Promise<ClassroomSummary[]>;
+  launchChapter(classroomId, request: LaunchRequest): Promise<LaunchResponse>;
   getGapMap(classroomId, chapterId): Promise<GapMap>;
   getGroups(classroomId, chapterId): Promise<GapGroup[]>;
   getEvidence(classroomId, studentId, conceptId): Promise<AttemptEvent[]>;
@@ -318,7 +323,7 @@ POST /auth/student/login                     {classroomCode, rollNo, pin} -> {ac
 POST /auth/refresh
 GET  /packs/:chapterId                       ContentPack (ETag / If-None-Match)
 GET  /me/state                               StudentState (restore on a new device)
-POST /sync                                   {deviceId, events[]} -> {accepted[], serverTime}
+POST /sync                                   {deviceId, events[<=200]} -> {accepted[], rejected[{id, reason}], serverTime}
 GET  /classrooms                             teacher's classrooms
 POST /classrooms/:id/launch                  {chapterId, trimmed[]}
 GET  /classrooms/:id/gapmap?chapterId=

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "M8.LEQ.WORD_NUMBER.R.explanation.01",
+    "conceptId": "M8.LEQ.WORD_NUMBER",
+    "type": "explanation",
+    "body": {
+      "en": "To solve a word problem, follow four steps. Read it and decide what the unknown is, and give it a letter. Write the other quantities using that letter. Form an equation from the condition in the problem. Solve it and check the answer in the words of the problem. For 'the sum of two consecutive numbers is 41': let the first be n, the next is n + 1, so n + (n + 1) = 41, 2n = 40 and n = 20. The numbers are 20 and 21.",
+      "te": "పద సమస్యను సాధించడానికి నాలుగు దశలు పాటించు. చదివి, తెలియనిది ఏమిటో నిర్ణయించి, దానికి ఒక అక్షరం ఇవ్వు. మిగతా రాశులను ఆ అక్షరంతో రాయి. సమస్యలోని షరతు నుండి సమీకరణం ఏర్పరచు. దాన్ని సాధించి, జవాబును సమస్య మాటలలో సరిచూడు. 'రెండు వరుస సంఖ్యల మొత్తం 41' కు: మొదటిది n అనుకుంటే తర్వాతిది n + 1, కాబట్టి n + (n + 1) = 41, 2n = 40, n = 20. సంఖ్యలు 20, 21."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.WORD_NUMBER.R.worked_example.01",
+    "conceptId": "M8.LEQ.WORD_NUMBER",
+    "type": "worked_example",
+    "body": {
+      "en": "**One number is 5 more than another, and their sum is 37. Find them.** Let the smaller be x; the larger is x + 5. Sum: x + x + 5 = 37, so 2x = 32 and x = 16. **The numbers are 16 and 21.** Check: 21 is 5 more than 16, and 16 + 21 = 37.",
+      "te": "**ఒక సంఖ్య మరో సంఖ్య కంటే 5 ఎక్కువ, వాటి మొత్తం 37. వాటిని కనుగొను.** చిన్నది x అనుకో; పెద్దది x + 5. మొత్తం: x + x + 5 = 37, కాబట్టి 2x = 32, x = 16. **సంఖ్యలు 16, 21.** సరిచూడు: 21, 16 కంటే 5 ఎక్కువ, 16 + 21 = 37."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.WORD_NUMBER.R.hint.01",
+    "conceptId": "M8.LEQ.WORD_NUMBER",
+    "type": "hint",
+    "body": {
+      "en": "Write down what the letter stands for before you form the equation.",
+      "te": "సమీకరణం ఏర్పరచే ముందు అక్షరం దేనిని సూచిస్తుందో రాసుకో."
+    },
+    "reviewStatus": "draft"
+  }
+]

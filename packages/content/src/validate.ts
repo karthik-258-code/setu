@@ -5,8 +5,8 @@
  */
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { RULE_IDS, assertDag, buildGraph } from "@setu/engine";
-import type { Chapter, Concept } from "@setu/engine";
+import { RULE_IDS, ancestors, assertDag, buildGraph } from "@setu/engine";
+import type { Chapter, Concept, Resource } from "@setu/engine";
 import type { z } from "zod";
 import {
   chaptersFileSchema,
@@ -220,6 +220,80 @@ export function misconceptionsRule(misconceptions: unknown, chapters: Chapter[])
   return errors;
 }
 
+/**
+ * Rule: resources are well placed and complete.
+ * Per file (always): each resource's `conceptId` matches its file name `resources/<conceptId>.json`
+ * and names a known concept, ids are unique, `targetsMisconception` names a known code, and no
+ * `machine_draft` item ships. Coverage (once chapters exist): every concept of a `full` chapter
+ * and every ancestor of those concepts has an explanation with English and Telugu, a worked
+ * example and a hint (ARCHITECTURE 6.3).
+ */
+export function resourcesRule(
+  concepts: Concept[],
+  chapters: Chapter[],
+  resources: Record<string, unknown>,
+  misconceptions: unknown,
+): ContentError[] {
+  const errors: ContentError[] = [];
+  const known = new Set(concepts.map((c) => c.id));
+  const parsedCodes = misconceptionsFileSchema.safeParse(misconceptions);
+  const codes = new Set(parsedCodes.success ? Object.keys(parsedCodes.data) : []);
+  const byConcept = new Map<string, Resource[]>();
+  const seen = new Set<string>();
+
+  for (const [file, data] of Object.entries(resources)) {
+    const parsed = resourcesFileSchema.safeParse(data);
+    if (!parsed.success) continue; // reported by schemaRule
+    const expected = file.replace(/^resources\//, "").replace(/\.json$/, "");
+    for (const r of parsed.data) {
+      const report = (message: string): void => {
+        errors.push({ file, message: `${r.id}: ${message}` });
+      };
+      if (r.conceptId !== expected) report(`conceptId "${r.conceptId}" does not match the file name`);
+      if (!known.has(r.conceptId)) report(`unknown concept "${r.conceptId}"`);
+      if (seen.has(r.id)) report("duplicate resource id");
+      seen.add(r.id);
+      if (r.targetsMisconception !== undefined && !codes.has(r.targetsMisconception)) {
+        report(`unknown misconception "${r.targetsMisconception}"`);
+      }
+      if (r.reviewStatus === "machine_draft") report("machine_draft items must be reviewed before build");
+      byConcept.set(r.conceptId, [...(byConcept.get(r.conceptId) ?? []), r]);
+    }
+  }
+
+  if (chapters.length === 0) return errors;
+  let graph;
+  try {
+    graph = buildGraph(concepts, chapters);
+    assertDag(graph);
+  } catch {
+    return errors; // reported by the graph rules
+  }
+  const g = graph;
+  for (const chapter of chapters) {
+    if (chapter.depth !== "full") continue;
+    const scope = new Set<string>();
+    for (const id of chapter.conceptIds) {
+      if (!known.has(id)) continue;
+      scope.add(id);
+      for (const a of ancestors(g, id)) scope.add(a);
+    }
+    for (const id of g.topoOrder.filter((c) => scope.has(c))) {
+      const list = byConcept.get(id) ?? [];
+      const file = `resources/${id}.json`;
+      const missing = (what: string): void => {
+        errors.push({ file, message: `${id}: needs ${what} (in scope of full chapter ${chapter.id})` });
+      };
+      const explanation = list.find((r) => r.type === "explanation");
+      if (!explanation) missing("an explanation");
+      else if (explanation.body.te === undefined) missing("a Telugu (te) explanation");
+      if (!list.some((r) => r.type === "worked_example")) missing("a worked example");
+      if (!list.some((r) => r.type === "hint")) missing("a hint");
+    }
+  }
+  return errors;
+}
+
 /** Validates all content. Graph rules run only when the concept file passed its schema. */
 export function validateContent(input: ContentInput): ContentError[] {
   const { errors, parsed } = schemaRule(input);
@@ -230,6 +304,14 @@ export function validateContent(input: ContentInput): ContentError[] {
   }
   errors.push(...reasonsRule(input.reasons, parsed.chapters ?? []));
   errors.push(...misconceptionsRule(input.misconceptions, parsed.chapters ?? []));
+  errors.push(
+    ...resourcesRule(
+      parsed.concepts ?? [],
+      parsed.chapters ?? [],
+      input.resources,
+      input.misconceptions,
+    ),
+  );
   return errors;
 }
 

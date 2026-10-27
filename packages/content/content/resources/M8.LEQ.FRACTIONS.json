@@ -1,0 +1,43 @@
+[
+  {
+    "id": "M8.LEQ.FRACTIONS.R.explanation.01",
+    "conceptId": "M8.LEQ.FRACTIONS",
+    "type": "explanation",
+    "body": {
+      "en": "When an equation has fractions, multiply every term on both sides by the LCM of the denominators. This clears the fractions and leaves an ordinary equation. In x/2 + x/3 = 10, the LCM of 2 and 3 is 6. Multiplying every term by 6 gives 3x + 2x = 60, so 5x = 60 and x = 12. Remember to multiply the numbers without denominators too: the 10 becomes 60.",
+      "te": "సమీకరణంలో భిన్నాలు ఉంటే, రెండు వైపులా ప్రతి పదాన్ని హారాల క.సా.గు.తో గుణించు. దీంతో భిన్నాలు పోయి మామూలు సమీకరణం మిగులుతుంది. x/2 + x/3 = 10 లో 2, 3 ల క.సా.గు. 6. ప్రతి పదాన్ని 6 తో గుణిస్తే 3x + 2x = 60, కాబట్టి 5x = 60, x = 12. హారం లేని సంఖ్యలను కూడా గుణించడం మర్చిపోకు: 10 అవుతుంది 60."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.FRACTIONS.R.worked_example.01",
+    "conceptId": "M8.LEQ.FRACTIONS",
+    "type": "worked_example",
+    "body": {
+      "en": "**Solve (x - 1)/4 = (x + 2)/6.** The LCM of 4 and 6 is 12. Multiply both sides by 12: 3(x - 1) = 2(x + 2). Open the brackets: 3x - 3 = 2x + 4. So **x = 7**. Check: 6/4 = 9/6 = 3/2.",
+      "te": "**(x - 1)/4 = (x + 2)/6 ను సాధించు.** 4, 6 ల క.సా.గు. 12. రెండు వైపులా 12 తో గుణించు: 3(x - 1) = 2(x + 2). కుండలీకరణాలు తెరువు: 3x - 3 = 2x + 4. కాబట్టి **x = 7**. సరిచూడు: 6/4 = 9/6 = 3/2."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.FRACTIONS.R.worked_example.02.E-LCM-PARTIAL",
+    "conceptId": "M8.LEQ.FRACTIONS",
+    "type": "worked_example",
+    "targetsMisconception": "E-LCM-PARTIAL",
+    "body": {
+      "en": "**A common slip:** in x/2 + x/3 = 5, multiplying the fractions by 6 but leaving the 5, which gives 3x + 2x = 5. Multiplying by 6 has to happen to **every** term on both sides, or the balance breaks. Do it fully: 3x + 2x = 30, so 5x = 30 and **x = 6**. Check: 6/2 + 6/3 = 3 + 2 = 5.",
+      "te": "**తరచూ జరిగే పొరపాటు:** x/2 + x/3 = 5 లో భిన్నాలను మాత్రమే 6 తో గుణించి 5 ను వదిలేస్తే 3x + 2x = 5 వస్తుంది. 6 తో గుణించడం రెండు వైపులా **ప్రతి** పదానికీ జరగాలి, లేకపోతే త్రాసు సమతుల్యం తప్పుతుంది. పూర్తిగా చేయి: 3x + 2x = 30, కాబట్టి 5x = 30, **x = 6**. సరిచూడు: 6/2 + 6/3 = 3 + 2 = 5."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.FRACTIONS.R.hint.01",
+    "conceptId": "M8.LEQ.FRACTIONS",
+    "type": "hint",
+    "body": {
+      "en": "Find the LCM of all the denominators and multiply every single term by it, including whole numbers.",
+      "te": "అన్ని హారాల క.సా.గు. కనుగొని, పూర్ణ సంఖ్యలతో సహా ప్రతి పదాన్నీ దానితో గుణించు."
+    },
+    "reviewStatus": "draft"
+  }
+]

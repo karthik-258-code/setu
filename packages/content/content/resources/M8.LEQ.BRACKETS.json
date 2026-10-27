@@ -1,0 +1,32 @@
+[
+  {
+    "id": "M8.LEQ.BRACKETS.R.explanation.01",
+    "conceptId": "M8.LEQ.BRACKETS",
+    "type": "explanation",
+    "body": {
+      "en": "If an equation has brackets, open them first using the distributive property, then solve as usual. In 4(x - 2) = 2(x + 3): the left becomes 4x - 8 and the right becomes 2x + 6. Then 4x - 2x = 6 + 8, so 2x = 14 and x = 7. Be careful with a minus sign in front of brackets: -(x - 3) = -x + 3, because every term inside is multiplied by -1.",
+      "te": "సమీకరణంలో కుండలీకరణాలు ఉంటే, ముందుగా విభాగ న్యాయంతో వాటిని తెరిచి, తర్వాత మామూలుగా సాధించు. 4(x - 2) = 2(x + 3) లో ఎడమ వైపు 4x - 8, కుడి వైపు 2x + 6 అవుతాయి. తర్వాత 4x - 2x = 6 + 8, కాబట్టి 2x = 14, x = 7. కుండలీకరణం ముందు రుణ గుర్తు ఉంటే జాగ్రత్త: -(x - 3) = -x + 3, ఎందుకంటే లోపలి ప్రతి పదాన్నీ -1 తో గుణిస్తాం."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.BRACKETS.R.worked_example.01",
+    "conceptId": "M8.LEQ.BRACKETS",
+    "type": "worked_example",
+    "body": {
+      "en": "**Solve 3(2x + 1) - (x - 4) = 22.** Open the brackets: 6x + 3 - x + 4 = 22. Combine: 5x + 7 = 22. So 5x = 15 and **x = 3**.",
+      "te": "**3(2x + 1) - (x - 4) = 22 ను సాధించు.** కుండలీకరణాలు తెరువు: 6x + 3 - x + 4 = 22. కలుపు: 5x + 7 = 22. కాబట్టి 5x = 15, **x = 3**."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.BRACKETS.R.hint.01",
+    "conceptId": "M8.LEQ.BRACKETS",
+    "type": "hint",
+    "body": {
+      "en": "Open every bracket first. A minus sign in front changes the sign of every term inside.",
+      "te": "ముందుగా ప్రతి కుండలీకరణాన్నీ తెరువు. ముందున్న రుణ గుర్తు లోపలి ప్రతి పదం గుర్తును మారుస్తుంది."
+    },
+    "reviewStatus": "draft"
+  }
+]

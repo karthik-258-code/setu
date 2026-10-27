@@ -13,11 +13,19 @@
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
     "lint": "pnpm -r lint",
-    "content:validate": "pnpm --filter @setu/content validate",
-    "content:pack": "pnpm --filter @setu/content pack",
-    "sim": "pnpm --filter @setu/engine sim"
+    "content:validate": "node scripts/run-if-present.mjs packages/content @setu/content validate",
+    "content:pack": "node scripts/run-if-present.mjs packages/content @setu/content pack",
+    "sim": "pnpm --filter @setu/engine sim",
+    "format": "prettier --write ."
   },
   "devDependencies": {
-    "typescript": "^5.6.3"
-  }
+    "@eslint/js": "^9.13.0",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.11.0"
+  },
+  "type": "module"
 }

@@ -23,7 +23,7 @@ Paste this, replacing `N.x`:
 
 ## Phase 0: Scaffold (26 Oct, ~2 h)
 
-- [ ] **0.1 Workspace tooling.** Add `pnpm-lock.yaml`; root ESLint flat config (typescript-eslint, react-hooks) and Prettier; `lint` scripts in every package. Choose a router for the web app and record it in DECISIONS.md.
+- [x] **0.1 Workspace tooling.** Add `pnpm-lock.yaml`; root ESLint flat config (typescript-eslint, react-hooks) and Prettier; `lint` scripts in every package. Choose a router for the web app and record it in DECISIONS.md.
   *Done when:* `pnpm install --frozen-lockfile && pnpm lint && pnpm typecheck` pass locally and CI is green on the branch.
 - [ ] **0.2 Engine package.** `packages/engine`: `src/index.ts`, `src/rng.ts` (mulberry32, pick, shuffle), vitest config, one smoke test. Add `sim` script placeholder that prints usage (filled in 6.2).
   *Done when:* `pnpm --filter @setu/engine test` runs a real test.

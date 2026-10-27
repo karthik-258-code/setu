@@ -55,7 +55,11 @@ describe("the shipped concept graph (Classes 6 to 10)", () => {
     const external = chapterExternalPrereqs(graph, "CH.M9.LINEAR_EQ_TWO_VAR");
     expect(external).toEqual(expect.arrayContaining(["M8.LEQ.BOTH_SIDES", "M8.LEQ.ONE_SIDE"]));
     expect(descendants(graph, "M6.FRAC.ADD_SUB_UNLIKE")).toEqual(
-      expect.arrayContaining(["M8.LEQ.FRACTIONS", "M10.PLE.WORD"]),
+      expect.arrayContaining(["M8.LEQ.FRACTIONS", "M8.LEQ.REDUCIBLE"]),
+    );
+    // Transposing (Class 7) underpins everything up to Class 10 word problems.
+    expect(descendants(graph, "M7.SEQ.TRANSPOSE")).toEqual(
+      expect.arrayContaining(["M8.LEQ.ONE_SIDE", "M9.LE2V.CONCEPT", "M10.PLE.WORD"]),
     );
   });
 });

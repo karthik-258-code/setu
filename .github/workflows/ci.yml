@@ -25,10 +25,6 @@ jobs:
       - run: pnpm build
       - name: Enforce student app bundle budget (1 MB gzipped JS)
         run: |
-          if [ -d apps/web/dist/assets ]; then
-            total=$(find apps/web/dist/assets -name '*.js' -exec gzip -c {} \; | wc -c)
-            echo "gzipped JS bytes: $total"
-            test "$total" -le 1048576
-          else
-            echo "apps/web not built yet, skipping budget check"
-          fi
+          total=$(find apps/web/dist/assets -name '*.js' -exec gzip -c {} \; | wc -c)
+          echo "gzipped JS bytes: $total (budget 1048576)"
+          test "$total" -le 1048576

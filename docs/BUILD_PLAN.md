@@ -30,7 +30,7 @@ Paste this, replacing `N.x`:
 - [x] **0.3 Content package.** `packages/content` with `content/` folders from ARCHITECTURE 6.2, `src/schema.ts` (zod mirroring `types.ts`), `validate` and `pack` scripts (can validate an empty graph).
   *Done when:* `pnpm content:validate` passes on an empty content set and fails on a planted cycle (unit test).
 - [x] **0.4 Shared package.** `packages/shared`: zod DTOs for every endpoint in ARCHITECTURE 8.1, `ApiClient` interface from 7.4.
-- [ ] **0.5 Web app shell.** `apps/web`: Vite + React + TS + Tailwind + `vite-plugin-pwa`; routes from 7.2 render placeholder pages with the route name; Dexie schema from 7.3; language toggle context (en/te) with a `t(LocalizedText)` helper and the "English only" marker.
+- [x] **0.5 Web app shell.** `apps/web`: Vite + React + TS + Tailwind + `vite-plugin-pwa`; routes from 7.2 render placeholder pages with the route name; Dexie schema from 7.3; language toggle context (en/te) with a `t(LocalizedText)` helper and the "English only" marker.
   *Done when:* `pnpm dev` serves it, Lighthouse reports installable, bundle check in CI passes.
 - [ ] **0.6 API shell.** `apps/api`: Fastify + Prisma schema from 8.3 + `docker-compose.yml` (postgres 16) + `/health`. `.env.example` with `DATABASE_URL`, `JWT_SECRET`.
   *Done when:* `docker compose up -d && pnpm --filter @setu/api dev` answers `/health`.

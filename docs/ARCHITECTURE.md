@@ -117,7 +117,7 @@ Dependency direction (never reversed): `engine <- content <- shared <- api | web
 | `policy.ts` | `nextRecommendation(ctx: PolicyContext): Recommendation` | |
 | `recheck.ts` | `scheduleSpaced(conceptId, masteredAt): Recheck[]`, `dueRechecks(state, now): Recheck[]` | |
 | `grouping.ts` | `buildGapMap(pack, chapterId, students): GapMap`, `buildGapGroups(pack, chapterId, students, attemptsByStudent): GapGroup[]` | |
-| `selectQuestions.ts` | `selectQuestions(pack, conceptId, difficulty, exclude, n, rng): Question[]` | prefers unseen, falls back to least-recently-seen |
+| `selectQuestions.ts` | `selectQuestions(pack, conceptId, difficulty, exclude, n, rng, opts?: { tag?: QuestionTag }): Question[]` | exact difficulty first, unseen before seen, seen least-recently-seen first (earliest in `exclude`), then nearest difficulty |
 | `index.ts` | re-exports | |
 
 ### 5.2 Bayesian Knowledge Tracing

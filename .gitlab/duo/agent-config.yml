@@ -1,0 +1,12 @@
+# Network access for GitLab Duo Agent Platform remote flows (coding agents).
+# Needed so agents can run `pnpm install` and generate pnpm-lock.yaml.
+network_policy:
+  include_recommended_allowed: true
+  allowed_domains:
+    - registry.npmjs.org
+    - registry.yarnpkg.com
+    - nodejs.org
+    - github.com
+    - codeload.github.com
+    - objects.githubusercontent.com
+    - binaries.prisma.sh

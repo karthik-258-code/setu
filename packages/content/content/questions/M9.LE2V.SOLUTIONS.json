@@ -1,0 +1,26 @@
+[
+  {"id": "M9.LE2V.SOLUTIONS.Q01", "conceptId": "M9.LE2V.SOLUTIONS", "type": "mcq", "difficulty": 1,
+   "stem": {"en": "Which pair is a solution of x + y = 7?", "te": "x + y = 7 కు ఏ జత సాధన?"},
+   "options": [
+     {"id": "a", "text": {"en": "(3, 3)", "te": "(3, 3)"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "(7, 7)", "te": "(7, 7)"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "(2, 6)", "te": "(2, 6)"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "(3, 4)", "te": "(3, 4)"}, "isCorrect": true}],
+   "solution": {"en": "3 + 4 = 7, so (3, 4) makes the equation true.", "te": "3 + 4 = 7, కాబట్టి (3, 4) సమీకరణాన్ని సత్యం చేస్తుంది."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M9.LE2V.SOLUTIONS.Q02", "conceptId": "M9.LE2V.SOLUTIONS", "type": "numeric", "difficulty": 2,
+   "stem": {"en": "In 2x + 3y = 12, find y when x = 3.", "te": "2x + 3y = 12 లో x = 3 అయినప్పుడు y కనుగొను."},
+   "answer": 2,
+   "wrongAnswers": [{"value": 6, "misconceptionCode": "E-TRANSPOSE-SIGN"}, {"value": 3, "misconceptionCode": "E-TRANSPOSE-DIVIDE"}],
+   "solution": {"en": "2 × 3 + 3y = 12, so 3y = 12 - 6 = 6 and y = 2.", "te": "2 × 3 + 3y = 12, కాబట్టి 3y = 12 - 6 = 6, y = 2."},
+   "boardTags": ["NCERT", "TS_SCERT"], "tags": ["paper_friendly"], "reviewStatus": "draft"},
+  {"id": "M9.LE2V.SOLUTIONS.Q03", "conceptId": "M9.LE2V.SOLUTIONS", "type": "mcq", "difficulty": 3,
+   "stem": {"en": "If (2, k) is a solution of 3x - 2y = 10, what is k?", "te": "(2, k), 3x - 2y = 10 కు సాధన అయితే k ఎంత?"},
+   "options": [
+     {"id": "a", "text": {"en": "2", "te": "2"}, "isCorrect": false, "misconceptionCode": "I-SIGN-MUL"},
+     {"id": "b", "text": {"en": "-2", "te": "-2"}, "isCorrect": true},
+     {"id": "c", "text": {"en": "-8", "te": "-8"}, "isCorrect": false, "misconceptionCode": "E-TRANSPOSE-SIGN"},
+     {"id": "d", "text": {"en": "4", "te": "4"}, "isCorrect": false}],
+   "solution": {"en": "3 × 2 - 2k = 10, so -2k = 10 - 6 = 4 and k = 4 ÷ (-2) = -2.", "te": "3 × 2 - 2k = 10, కాబట్టి -2k = 10 - 6 = 4, k = 4 ÷ (-2) = -2."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"}
+]

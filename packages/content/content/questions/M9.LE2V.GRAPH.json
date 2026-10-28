@@ -1,0 +1,29 @@
+[
+  {"id": "M9.LE2V.GRAPH.Q01", "conceptId": "M9.LE2V.GRAPH", "type": "mcq", "difficulty": 1,
+   "stem": {"en": "Which point lies on the graph of x + y = 5?", "te": "x + y = 5 రేఖాచిత్రంపై ఏ బిందువు ఉంటుంది?"},
+   "options": [
+     {"id": "a", "text": {"en": "(2, 2)", "te": "(2, 2)"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "(2, 3)", "te": "(2, 3)"}, "isCorrect": true},
+     {"id": "c", "text": {"en": "(5, 5)", "te": "(5, 5)"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "(3, 3)", "te": "(3, 3)"}, "isCorrect": false}],
+   "solution": {"en": "2 + 3 = 5, so (2, 3) is a solution and lies on the line.", "te": "2 + 3 = 5, కాబట్టి (2, 3) సాధన, అది రేఖపై ఉంటుంది."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M9.LE2V.GRAPH.Q02", "conceptId": "M9.LE2V.GRAPH", "type": "mcq", "difficulty": 2,
+   "stem": {"en": "Where does the graph of 2x + y = 6 cut the y-axis?", "te": "2x + y = 6 రేఖాచిత్రం y-అక్షాన్ని ఎక్కడ ఖండిస్తుంది?"},
+   "options": [
+     {"id": "a", "text": {"en": "(3, 0)", "te": "(3, 0)"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "(6, 0)", "te": "(6, 0)"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "(0, 6)", "te": "(0, 6)"}, "isCorrect": true},
+     {"id": "d", "text": {"en": "(0, 3)", "te": "(0, 3)"}, "isCorrect": false}],
+   "solution": {"en": "On the y-axis x = 0, so y = 6: the line cuts the y-axis at (0, 6).", "te": "y-అక్షంపై x = 0, కాబట్టి y = 6: రేఖ y-అక్షాన్ని (0, 6) వద్ద ఖండిస్తుంది."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M9.LE2V.GRAPH.Q03", "conceptId": "M9.LE2V.GRAPH", "type": "mcq", "difficulty": 3,
+   "stem": {"en": "What does the graph of y = 3 look like?", "te": "y = 3 రేఖాచిత్రం ఎలా ఉంటుంది?"},
+   "options": [
+     {"id": "a", "text": {"en": "A vertical line through (3, 0)", "te": "(3, 0) గుండా పోయే నిలువు రేఖ"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "A horizontal line through (0, 3)", "te": "(0, 3) గుండా పోయే అడ్డ రేఖ"}, "isCorrect": true},
+     {"id": "c", "text": {"en": "The single point (3, 3)", "te": "(3, 3) అనే ఒకే బిందువు"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "A line through the origin", "te": "మూలబిందువు గుండా పోయే రేఖ"}, "isCorrect": false}],
+   "solution": {"en": "Every point with y = 3, such as (0, 3) and (5, 3), is on it, so it is a horizontal line 3 units above the x-axis.", "te": "(0, 3), (5, 3) వంటి y = 3 ఉన్న ప్రతి బిందువూ దానిపై ఉంటుంది, కాబట్టి అది x-అక్షానికి 3 యూనిట్లు పైన ఉన్న అడ్డ రేఖ."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"}
+]

@@ -144,7 +144,7 @@ Expected `chapterExternalPrereqs(CH.M8.LINEAR_EQ_ONE_VAR)`: `M7.SEQ.TRANSPOSE`, 
 - [x] **3.6 Solve.** One question at a time, MCQ and numeric input, hint button (counts `hintsUsed`), immediate feedback with the solution, ladder visible as three dots, writes `attempt`.
 - [x] **3.7 Test, re-check, verify.** Three questions, no hints, result screen with mastery outcome and what happens next.
 - [ ] **3.8 Progress.** Concepts grouped by class with mastery bars, mastered dates, next re-check dates.
-- [ ] **3.9 Offline.** Workbox precache + pack cache; "downloaded for offline" indicator; manual test with DevTools offline passes the full loop.
+- [x] **3.9 Offline.** Workbox precache + pack cache; "downloaded for offline" indicator; manual test with DevTools offline passes the full loop.
 - [ ] **3.10 Sync queue and HttpApiClient.** Batch unsynced events on reconnect and on app open; retry with backoff; sync status chip. (Depends on 4.4.)
 
 ## Phase 4: API (28 Oct) — P1
@@ -173,7 +173,7 @@ Expected `chapterExternalPrereqs(CH.M8.LINEAR_EQ_ONE_VAR)`: `M7.SEQ.TRANSPOSE`, 
 - [ ] **6.3 Deployment plan.** `docs/DEPLOYMENT.md`: reference deployment (one small VM in an Indian region + managed Postgres or Postgres on the VM, object storage for packs), monthly cost table for 1, 5, 25 schools in INR with assumptions, school onboarding checklist (accounts, consent via school, classroom codes, pack download day), teacher training plan (90-minute session, two 30-minute follow-ups, one-page quick card), support model, backup and data retention. Honest limits section.
 - [ ] **6.4 Teacher wireframes.** `docs/wireframes/`: low-fidelity wireframes as simple HTML files (no build step) for Launch, Gap Map, Evidence drawer, Groups, Mark taught confirmation, Weekly; plus PNG screenshots of the built screens from demo mode; `README.md` in the folder with the five-minute-before-class walkthrough.
 - [ ] **6.5 Scaling walkthrough.** `docs/SCALING.md`: add a chapter (JSON diff, validator output, pack size), add a board tag, add a language, add a subject; and a demo recipe: launch Class 9 LE2V in Class 9 A and show the Readiness Check descending into Class 8 and 7.
-- [ ] **6.6 Demo script.** `docs/DEMO_SCRIPT.md`: 6-minute Prove-round walkthrough (teacher launch, Anjali vs Ravi, Gap Map, mark taught, re-check, offline toggle, Class 9 scaling moment).
+- [x] **6.6 Demo script.** `docs/DEMO_SCRIPT.md`: 6-minute Prove-round walkthrough (teacher launch, Anjali vs Ravi, Gap Map, mark taught, re-check, offline toggle, Class 9 scaling moment).
 - [ ] **6.7 README polish.** Screenshots, quick start, architecture summary, link to all docs.
 - [ ] **6.8 Release.** Verify GitHub mirror is current, tag `v0.1.0`, GitHub Actions green.
 

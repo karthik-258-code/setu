@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M10.PLE.WORD.R.explanation.01",
+    "conceptId": "M10.PLE.WORD",
+    "type": "explanation",
+    "body": {
+      "en": "For a word problem with two unknowns, give each unknown its own letter, turn each condition into one equation, and solve the pair. 'The sum of two numbers is 30 and their difference is 6' gives x + y = 30 and x - y = 6; adding them gives 2x = 36, so x = 18 and y = 12. Check the answer against the words, not just the equations. Costs, ages, digits and speeds all fit this pattern.",
+      "te": "రెండు తెలియని రాశులున్న పద సమస్యలో ప్రతి దానికీ వేరే అక్షరం ఇచ్చి, ప్రతి షరతును ఒక సమీకరణంగా మార్చి, జతను సాధించు. 'రెండు సంఖ్యల మొత్తం 30, వాటి భేదం 6' నుండి x + y = 30, x - y = 6; వాటిని కూడితే 2x = 36, కాబట్టి x = 18, y = 12. జవాబును సమీకరణాలతోనే కాక సమస్య మాటలతో కూడా సరిచూడు. ధరలు, వయస్సులు, అంకెలు, వేగాలు అన్నీ ఈ పద్ధతికి సరిపోతాయి."
+    },
+    "reviewStatus": "draft"
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M10.PLE.ELIMINATION.R.explanation.01",
+    "conceptId": "M10.PLE.ELIMINATION",
+    "type": "explanation",
+    "body": {
+      "en": "In the elimination method, make the coefficients of one variable equal (or opposite) in both equations, then subtract (or add) the equations so that variable disappears. For 3x + 2y = 11 and x - 2y = 1, the y-coefficients are already opposite: adding gives 4x = 12, so x = 3, and then 3 - 2y = 1 gives y = 1. When they are not equal, multiply first: for 2x + 3y = 8 and x + y = 3, multiply the second equation by 2 and subtract. Multiply every term, including the number on the right.",
+      "te": "చరరాశి తొలగింపు పద్ధతిలో రెండు సమీకరణాల్లో ఒక చరరాశి గుణకాలను సమానం (లేదా వ్యతిరేకం) చేసి, ఆ చరరాశి పోయేలా సమీకరణాలను తీసివేయి (లేదా కూడు). 3x + 2y = 11, x - 2y = 1 లలో y గుణకాలు ఇప్పటికే వ్యతిరేకం: కూడితే 4x = 12, కాబట్టి x = 3, తర్వాత 3 - 2y = 1 నుండి y = 1. గుణకాలు సమానం కానప్పుడు ముందు గుణించు: 2x + 3y = 8, x + y = 3 కు రెండవ సమీకరణాన్ని 2 తో గుణించి తీసివేయి. కుడివైపు సంఖ్యతో సహా ప్రతి పదాన్నీ గుణించు."
+    },
+    "reviewStatus": "draft"
+  }
+]

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiClient } from "../data/api";
@@ -22,9 +22,9 @@ export function StudentLogin() {
   const [failed, setFailed] = useState(false);
   const [hasProfiles, setHasProfiles] = useState(false);
 
-  useState(() => {
+  useEffect(() => {
     void listProfiles(db).then((profiles) => setHasProfiles(profiles.length > 0));
-  });
+  }, [db]);
 
   async function submit(event: FormEvent) {
     event.preventDefault();

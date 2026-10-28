@@ -53,10 +53,9 @@ Every edit is an event (`group_edit`, `mark_taught`); nothing is decided for the
 
 ## 5:00 to 6:00: offline and scaling
 
-These two moments depend on tasks that are not built yet in this branch:
+**Class 9 scaling moment (teacher tab).** Back to the classrooms list, **Launch a chapter**, pick Class 9 *Linear Equations in Two Variables*. The prerequisite list now shows Class 8 and Class 7 concepts; tick one off to show the teacher can trim it, and tap **Print paper check** for the 12-question sheet. Tap **Launch**: on the student tab, the next sign-in starts that chapter's Readiness Check, which descends into Classes 8 and 7 when a prerequisite fails. Relaunch the Class 8 chapter afterwards to restore the demo.
 
-- **Offline toggle** needs 3.9 (Workbox precache and the "downloaded for offline" indicator). Until then, say that packs and events are stored on the device and every screen above reads only from Dexie.
-- **Class 9 scaling moment** needs 5.5 (Launch chapter). Until then, point to the Class 9 and 10 skeleton chapters and the readiness tests that descend from Class 9 two-variable equations into Classes 8 and 7 (`packages/content/test`).
+**Offline toggle** needs 3.9 (Workbox precache and the "downloaded for offline" indicator), which is not built yet. Until then, say that packs and events are stored on the device and every student screen above reads only from Dexie.
 
 Close with: "The same engine runs on the phone, in the API and in the simulation. The teacher keeps every decision."
 

@@ -11,7 +11,8 @@ import { db as defaultDb } from "../data/db";
 import type { Profile, SetuDb } from "../data/db";
 import { appendEvent, loadState } from "../data/event-store";
 import type { NewEvent } from "../data/event-store";
-import { storedLaunch } from "../data/launch";
+import { apiClient } from "../data/api";
+import { refreshLaunch } from "../data/launch";
 import { getPack } from "../data/packs";
 import { activeProfile, setActiveProfile, setProfileLang } from "../data/profiles";
 import { currentSessionId, startNewSession } from "../data/session";
@@ -69,7 +70,8 @@ export function StudentProvider({
         setStatus({ kind: "signed-out" });
         return;
       }
-      const launch = await storedLaunch(db, profile.classroomId);
+      // The classroom's latest launch when online; the copy stored on this device when not.
+      const launch = await refreshLaunch(db, apiClient(), profile.classroomId);
       const pack = await loadPack(db, launch.chapterId);
       const state = await loadState(db, pack, profile.studentId);
       setStatus({ kind: "ready", data: { profile, launch, pack, state } });

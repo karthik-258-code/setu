@@ -76,6 +76,29 @@ Mathematical expressions (`3x + 5 = 11`, `2/7`) are written the same in both lan
 | cm / m | సెం.మీ. / మీ. | |
 | more than / less than | కంటే ఎక్కువ / కంటే తక్కువ | "5 less than x" is x కంటే 5 తక్కువ (x - 5) |
 
+## Decimals, coordinates and pairs of equations
+
+| English | Telugu | Notes |
+|---|---|---|
+| place value | స్థాన విలువ | |
+| ones / tenths / hundredths | ఒకట్లు / పదో వంతులు / వందో వంతులు | |
+| decimal point | దశాంశ బిందువు | |
+| divisor | భాజకం | |
+| standard form (of a rational number) | ప్రామాణిక రూపం | |
+| ascending order | ఆరోహణ క్రమం | |
+| power / degree (of a polynomial) | ఘాతం / పరిమాణం | |
+| quadratic polynomial | వర్గ బహుపది | |
+| ordered pair | క్రమ జత | |
+| origin | మూలబిందువు | |
+| x-axis / y-axis | x-అక్షం / y-అక్షం | |
+| quadrant | పాదం | |
+| coordinate | నిరూపకం | |
+| straight line / vertical / horizontal | సరళ రేఖ / నిలువు / అడ్డం | |
+| parallel | సమాంతర | |
+| unique solution / infinitely many solutions | ఏకైక సాధన / అనంతమైన సాధనలు | |
+| ratio | నిష్పత్తి | |
+| difference (of two numbers) | భేదం | |
+
 ## Pedagogy words used in the app
 
 | English | Telugu | Notes |

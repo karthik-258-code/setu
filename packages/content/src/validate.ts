@@ -273,7 +273,17 @@ export function resourcesRule(
   }
   const g = graph;
   for (const chapter of chapters) {
-    if (chapter.depth !== "full") continue;
+    if (chapter.depth === "skeleton") {
+      for (const id of chapter.conceptIds) {
+        if (!(byConcept.get(id) ?? []).some((r) => r.type === "explanation")) {
+          errors.push({
+            file: `resources/${id}.json`,
+            message: `${id}: needs an explanation (in skeleton chapter ${chapter.id})`,
+          });
+        }
+      }
+      continue;
+    }
     const scope = new Set<string>();
     for (const id of chapter.conceptIds) {
       if (!known.has(id)) continue;
@@ -300,6 +310,8 @@ export function resourcesRule(
 export const MIN_QUESTIONS_FULL = 6;
 /** Of those, the minimum at each of the three difficulties (BUILD_PLAN 2.4). */
 export const MIN_PER_DIFFICULTY_FULL = 2;
+/** Questions each concept of a `skeleton` chapter needs (ARCHITECTURE 6.3). */
+export const MIN_QUESTIONS_SKELETON = 3;
 
 function escapeRegExp(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -389,7 +401,18 @@ export function questionsRule(
   }
   const g = graph;
   for (const chapter of chapters) {
-    if (chapter.depth !== "full") continue;
+    if (chapter.depth === "skeleton") {
+      for (const id of chapter.conceptIds) {
+        const n = byConcept.get(id)?.length ?? 0;
+        if (n < MIN_QUESTIONS_SKELETON) {
+          errors.push({
+            file: `questions/${id}.json`,
+            message: `${id}: needs at least ${MIN_QUESTIONS_SKELETON} questions, has ${n} (in skeleton chapter ${chapter.id})`,
+          });
+        }
+      }
+      continue;
+    }
     const scope = new Set<string>();
     for (const id of chapter.conceptIds) {
       if (!known.has(id)) continue;

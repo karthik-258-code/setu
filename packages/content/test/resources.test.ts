@@ -69,7 +69,7 @@ describe("resources rule", () => {
     expect(messages).toContain(
       `M6.FRAC.ADD_SUB_UNLIKE: needs a hint (in scope of full chapter ${CHAPTER})`,
     );
-    expect(messages.some((m) => m.startsWith("M9."))).toBe(false);
+    expect(messages.some((m) => m.startsWith("M9.") && m.includes("full chapter"))).toBe(false);
   });
 
   it("reports a misplaced, duplicate, unknown-code or machine-drafted resource", () => {

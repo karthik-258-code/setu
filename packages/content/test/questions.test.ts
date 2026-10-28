@@ -173,7 +173,7 @@ describe("questions rule", () => {
     expect(messages).toContain(
       `M6.FRAC.ADD_SUB_UNLIKE: needs at least 2 questions at difficulty 3, has 0 ${WHERE}`,
     );
-    expect(messages.some((m) => m.startsWith("M9."))).toBe(false);
+    expect(messages.some((m) => m.startsWith("M9.") && m.includes("full chapter"))).toBe(false);
   });
 
   it("reports a question in scope of a full chapter without Telugu", () => {

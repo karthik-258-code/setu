@@ -55,7 +55,7 @@ Paste this, replacing `N.x`:
 - [x] **2.4 Class 8 hand-authored questions.** About 120 MCQ/numeric items across the same concept set: at least 2 per difficulty per concept; every wrong MCQ option that encodes a known error carries a `misconceptionCode`; `reviewStatus: draft`. Tag 10 word problems `word_problem` and 8 harder items `extension`.
 - [x] **2.5 Template generators.** Generators in `packages/content/src/generators/`: `add_unlike_fractions`, `integer_add_sub`, `integer_mul_div`, `combine_like_terms`, `transpose_linear`, `linear_both_sides`, `linear_brackets`, `linear_fraction_coeff`. Each computes distractors from misconceptions (for example `F-ADD-DENOM`, `E-TRANSPOSE-SIGN`, `E-TRANSPOSE-DIVIDE`, `E-DIST-PARTIAL`). Templates in `content/templates/` to reach roughly 300 total questions.
   *Done when:* generated items are deterministic for a given seed (snapshot test) and the pack's question count is reported by the builder.
-- [ ] **2.6 Skeleton chapters.** For Class 7 Simple Equations, Class 9 LE2V, Class 10 PLE concepts: `en` explanation and at least 3 questions each (te optional, marked). Goal: a teacher can launch `CH.M9.LINEAR_EQ_TWO_VAR` and the Readiness Check reaches Class 8 and 7 concepts.
+- [x] **2.6 Skeleton chapters.** For Class 7 Simple Equations, Class 9 LE2V, Class 10 PLE concepts: `en` explanation and at least 3 questions each (te optional, marked). Goal: a teacher can launch `CH.M9.LINEAR_EQ_TWO_VAR` and the Readiness Check reaches Class 8 and 7 concepts.
 - [ ] **2.7 Pack builder.** `pnpm content:pack` writes one pack per chapter to `apps/web/public/packs/` and `apps/api/packs/`, prints size per pack, fails above 5 MB.
 
 ### Concept spine for 2.1

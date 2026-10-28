@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { currentSessionId } from "../data/session";
 import { L } from "../i18n/l";
 import { useLang } from "../i18n/lang-context";
@@ -66,6 +66,9 @@ function HomeCard({ data }: { data: StudentData }) {
           </button>
         )}
       </section>
+      <Link to="/s/progress" className="block min-h-11 py-2 text-center text-brand-800 underline">
+        {ui("myProgress")}
+      </Link>
     </div>
   );
 }

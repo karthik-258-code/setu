@@ -7,7 +7,6 @@ import { routes } from "./router";
 const CASES: { path: string; name: string; params: Record<string, string> }[] = [
   { path: "/", name: "role-chooser", params: {} },
   { path: "/demo", name: "demo", params: {} },
-  { path: "/s/home", name: "student-home", params: {} },
   {
     path: "/s/readiness/CH.M8.LINEAR_EQ_ONE_VAR",
     name: "student-readiness",
@@ -44,7 +43,7 @@ const CASES: { path: string; name: string; params: Record<string, string> }[] = 
 ];
 
 /** Routes whose screen is built; each has its own tests next to the screen. */
-const BUILT_SCREENS = ["/s/login", "/s/profiles"];
+const BUILT_SCREENS = ["/s/login", "/s/profiles", "/s/home"];
 
 describe("routes", () => {
   it.each(CASES)("renders $path as $name with its params", async ({ path, name, params }) => {

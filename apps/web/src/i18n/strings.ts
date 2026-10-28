@@ -34,6 +34,16 @@ export const strings = {
   open: { en: "Open", te: "తెరువు" },
   switchStudent: { en: "Switch student", te: "విద్యార్థిని మార్చు" },
   rollShort: { en: "Roll", te: "రోల్" },
+  hello: { en: "Hello", te: "నమస్తే" },
+  start: { en: "Start", te: "మొదలుపెట్టు" },
+  modeReadiness: { en: "Getting started", te: "ప్రారంభం" },
+  modeLearn: { en: "Learn", te: "నేర్చుకో" },
+  modeSolve: { en: "Practise", te: "అభ్యాసం" },
+  modeTest: { en: "Test", te: "పరీక్ష" },
+  modeRecheck: { en: "Quick check", te: "చిన్న పరిశీలన" },
+  modeVerify: { en: "Confirm", te: "నిర్ధారణ" },
+  modeExtension: { en: "Challenge", te: "సవాలు" },
+  modeDone: { en: "All done", te: "పూర్తయింది" },
 } as const satisfies Record<string, Required<Pick<LocalizedText, "en" | "te">>>;
 
 export type StringKey = keyof typeof strings;

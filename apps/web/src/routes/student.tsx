@@ -12,7 +12,7 @@ export function StudentLayout() {
 
 export { StudentLogin } from "./student-login";
 export { StudentProfiles } from "./student-profiles";
-export const StudentHome = () => <Placeholder name="student-home" />;
+export { StudentHome } from "./student-home";
 export const StudentReadiness = () => <Placeholder name="student-readiness" />;
 export const StudentLearn = () => <Placeholder name="student-learn" />;
 export const StudentSolve = () => <Placeholder name="student-solve" />;

@@ -13,11 +13,6 @@ const CASES: { path: string; name: string; params: Record<string, string> }[] = 
     params: { conceptId: "M8.LEQ.ONE_SIDE" },
   },
   {
-    path: "/s/solve/M8.LEQ.ONE_SIDE",
-    name: "student-solve",
-    params: { conceptId: "M8.LEQ.ONE_SIDE" },
-  },
-  {
     path: "/s/test/M8.LEQ.ONE_SIDE",
     name: "student-test",
     params: { conceptId: "M8.LEQ.ONE_SIDE" },
@@ -38,7 +33,7 @@ const CASES: { path: string; name: string; params: Record<string, string> }[] = 
 ];
 
 /** Routes whose screen is built; each has its own tests next to the screen. */
-const BUILT_SCREENS = ["/s/login", "/s/profiles", "/s/home", "/s/readiness/:chapterId"];
+const BUILT_SCREENS = ["/s/login", "/s/profiles", "/s/home", "/s/readiness/:chapterId", "/s/solve/:conceptId"];
 
 describe("routes", () => {
   it.each(CASES)("renders $path as $name with its params", async ({ path, name, params }) => {

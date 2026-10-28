@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M6.FRAC.COMPARE.R.explanation.01",
+    "conceptId": "M6.FRAC.COMPARE",
+    "type": "explanation",
+    "body": {
+      "en": "To compare two fractions, first make their denominators the same. For 3/4 and 5/8, write 3/4 as 6/8; since 6/8 > 5/8, 3/4 is greater. If the numerators are the same, the fraction with the smaller denominator is greater: 2/5 > 2/7, because fifths are bigger pieces than sevenths. Comparing only the numerators can mislead you: 3/8 is smaller than 2/3, even though 3 is greater than 2. You can also cross-multiply: for a/b and c/d, compare a × d with c × b.",
+      "te": "రెండు భిన్నాలను పోల్చడానికి ముందు వాటి హారాలను సమానం చేయి. 3/4, 5/8 లకు 3/4 ను 6/8 గా రాయి; 6/8 > 5/8 కాబట్టి 3/4 పెద్దది. లవాలు సమానమైతే, చిన్న హారం ఉన్న భిన్నం పెద్దది: 2/5 > 2/7, ఎందుకంటే ఐదో వంతులు ఏడో వంతుల కంటే పెద్ద ముక్కలు. లవాలను మాత్రమే పోల్చితే తప్పు జరగవచ్చు: 3 > 2 అయినా 3/8, 2/3 కంటే చిన్నది. అడ్డ గుణకారంతో కూడా పోల్చవచ్చు: a/b, c/d లకు a × d ను c × b తో పోల్చు."
+    },
+    "reviewStatus": "draft"
+  }
+]

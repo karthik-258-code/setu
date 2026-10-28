@@ -1,0 +1,29 @@
+[
+  {"id": "M6.FRAC.COMPARE.Q01", "conceptId": "M6.FRAC.COMPARE", "type": "mcq", "difficulty": 1,
+   "stem": {"en": "Which is greater: 2/5 or 2/7?", "te": "ఏది పెద్దది: 2/5 లేదా 2/7?"},
+   "options": [
+     {"id": "a", "text": {"en": "2/5", "te": "2/5"}, "isCorrect": true},
+     {"id": "b", "text": {"en": "2/7", "te": "2/7"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "They are equal", "te": "అవి సమానం"}, "isCorrect": false, "misconceptionCode": "F-COMPARE-NUM-ONLY"},
+     {"id": "d", "text": {"en": "They cannot be compared", "te": "వాటిని పోల్చలేము"}, "isCorrect": false}],
+   "solution": {"en": "Both have 2 parts, but fifths are bigger pieces than sevenths, so 2/5 > 2/7.", "te": "రెండింటిలోనూ 2 భాగాలే, కానీ ఐదో వంతులు ఏడో వంతుల కంటే పెద్ద ముక్కలు, కాబట్టి 2/5 > 2/7."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M6.FRAC.COMPARE.Q02", "conceptId": "M6.FRAC.COMPARE", "type": "mcq", "difficulty": 2,
+   "stem": {"en": "Which is greater: 3/8 or 2/3?", "te": "ఏది పెద్దది: 3/8 లేదా 2/3?"},
+   "options": [
+     {"id": "a", "text": {"en": "3/8", "te": "3/8"}, "isCorrect": false, "misconceptionCode": "F-COMPARE-NUM-ONLY"},
+     {"id": "b", "text": {"en": "2/3", "te": "2/3"}, "isCorrect": true},
+     {"id": "c", "text": {"en": "They are equal", "te": "అవి సమానం"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "They cannot be compared", "te": "వాటిని పోల్చలేము"}, "isCorrect": false}],
+   "solution": {"en": "With denominator 24: 3/8 = 9/24 and 2/3 = 16/24, so 2/3 is greater.", "te": "హారం 24 తో: 3/8 = 9/24, 2/3 = 16/24, కాబట్టి 2/3 పెద్దది."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M6.FRAC.COMPARE.Q03", "conceptId": "M6.FRAC.COMPARE", "type": "mcq", "difficulty": 3,
+   "stem": {"en": "Arrange in ascending order: 1/2, 3/5, 2/7.", "te": "ఆరోహణ క్రమంలో అమర్చు: 1/2, 3/5, 2/7."},
+   "options": [
+     {"id": "a", "text": {"en": "1/2, 2/7, 3/5", "te": "1/2, 2/7, 3/5"}, "isCorrect": false, "misconceptionCode": "F-COMPARE-NUM-ONLY"},
+     {"id": "b", "text": {"en": "3/5, 1/2, 2/7", "te": "3/5, 1/2, 2/7"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "2/7, 1/2, 3/5", "te": "2/7, 1/2, 3/5"}, "isCorrect": true},
+     {"id": "d", "text": {"en": "1/2, 3/5, 2/7", "te": "1/2, 3/5, 2/7"}, "isCorrect": false}],
+   "solution": {"en": "With denominator 70: 1/2 = 35/70, 3/5 = 42/70 and 2/7 = 20/70, so 2/7 < 1/2 < 3/5.", "te": "హారం 70 తో: 1/2 = 35/70, 3/5 = 42/70, 2/7 = 20/70, కాబట్టి 2/7 < 1/2 < 3/5."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"}
+]

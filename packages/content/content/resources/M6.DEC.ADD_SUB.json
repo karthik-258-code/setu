@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M6.DEC.ADD_SUB.R.explanation.01",
+    "conceptId": "M6.DEC.ADD_SUB",
+    "type": "explanation",
+    "body": {
+      "en": "To add or subtract decimals, line up the decimal points so that tenths sit under tenths and hundredths under hundredths. Fill empty places with zeros if it helps: 4.5 + 2.37 becomes 4.50 + 2.37 = 6.87. Then add or subtract as with whole numbers, carrying or borrowing across the decimal point, and put the point in the answer directly below the others. For 5 - 1.25, write 5.00 - 1.25 = 3.75.",
+      "te": "దశాంశాలను కూడేటప్పుడు లేదా తీసివేసేటప్పుడు దశాంశ బిందువులను ఒకే వరుసలో ఉంచు, అప్పుడు పదో వంతుల కింద పదో వంతులు, వందో వంతుల కింద వందో వంతులు వస్తాయి. ఖాళీ స్థానాల్లో సున్నాలు రాయవచ్చు: 4.5 + 2.37 అంటే 4.50 + 2.37 = 6.87. తర్వాత పూర్ణ సంఖ్యల లాగే కూడు లేదా తీసివేయి, జవాబులో బిందువును మిగతా బిందువుల కిందే ఉంచు. 5 - 1.25 కు 5.00 - 1.25 = 3.75 అని రాయి."
+    },
+    "reviewStatus": "draft"
+  }
+]

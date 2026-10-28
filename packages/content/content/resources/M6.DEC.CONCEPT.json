@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M6.DEC.CONCEPT.R.explanation.01",
+    "conceptId": "M6.DEC.CONCEPT",
+    "type": "explanation",
+    "body": {
+      "en": "A decimal shows parts of a whole using place value. In 3.47, the 3 is in the ones place, the 4 in the tenths place and the 7 in the hundredths place, so 3.47 = 3 + 4/10 + 7/100. Each place to the right is ten times smaller. To compare decimals, line up the decimal points and compare place by place from the left: 0.5 is greater than 0.45, because 5 tenths is more than 4 tenths. Writing zeros at the end does not change a decimal: 0.5 = 0.50.",
+      "te": "దశాంశం స్థాన విలువతో పూర్ణంలోని భాగాలను చూపిస్తుంది. 3.47 లో 3 ఒకట్ల స్థానంలో, 4 పదో వంతుల స్థానంలో, 7 వందో వంతుల స్థానంలో ఉన్నాయి, కాబట్టి 3.47 = 3 + 4/10 + 7/100. కుడివైపు ప్రతి స్థానం పది రెట్లు చిన్నది. దశాంశాలను పోల్చడానికి దశాంశ బిందువులను ఒకే వరుసలో ఉంచి, ఎడమ నుండి ఒక్కో స్థానం పోల్చు: 0.5, 0.45 కంటే పెద్దది, ఎందుకంటే 5 పదో వంతులు 4 పదో వంతుల కంటే ఎక్కువ. చివర సున్నాలు రాసినా దశాంశం విలువ మారదు: 0.5 = 0.50."
+    },
+    "reviewStatus": "draft"
+  }
+]

@@ -6,7 +6,7 @@
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { RULE_IDS, ancestors, assertDag, buildGraph } from "@setu/engine";
-import type { Chapter, Concept, Resource } from "@setu/engine";
+import type { Chapter, Concept, LocalizedText, Question, Resource } from "@setu/engine";
 import type { z } from "zod";
 import {
   chaptersFileSchema,
@@ -294,6 +294,135 @@ export function resourcesRule(
   return errors;
 }
 
+/** Hand-authored questions each concept of a `full` chapter, and each ancestor, needs (ARCHITECTURE 6.3). */
+export const MIN_QUESTIONS_FULL = 6;
+/** Of those, the minimum at each of the three difficulties (BUILD_PLAN 2.4). */
+export const MIN_PER_DIFFICULTY_FULL = 2;
+
+function escapeRegExp(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/** True when the text is absent or carries a non-blank Telugu string. */
+function teluguPresent(text: LocalizedText | undefined): boolean {
+  return text === undefined || (text.te ?? "").trim().length > 0;
+}
+
+/**
+ * Rule: questions are well placed, well formed and cover full chapters.
+ * Per file (always): each question's `conceptId` matches its file name `questions/<conceptId>.json`
+ * and names a known concept, its id is `<conceptId>.Qnn` and unique, no `machine_draft` item ships,
+ * an MCQ has at least two options with unique ids and exactly one correct option (which carries no
+ * misconception code), every misconception code on an option or a numeric wrong answer is known,
+ * and a numeric wrong answer differs from the answer. Coverage (once chapters exist): every concept
+ * of a `full` chapter and every ancestor has at least 6 questions, at least 2 per difficulty, and
+ * Telugu on every stem, solution, hint and option.
+ */
+export function questionsRule(
+  concepts: Concept[],
+  chapters: Chapter[],
+  questions: Record<string, unknown>,
+  misconceptions: unknown,
+): ContentError[] {
+  const errors: ContentError[] = [];
+  const known = new Set(concepts.map((c) => c.id));
+  const parsedCodes = misconceptionsFileSchema.safeParse(misconceptions);
+  const codes = new Set(parsedCodes.success ? Object.keys(parsedCodes.data) : []);
+  const byConcept = new Map<string, Question[]>();
+  const seen = new Set<string>();
+
+  for (const [file, data] of Object.entries(questions)) {
+    const parsed = questionsFileSchema.safeParse(data);
+    if (!parsed.success) continue; // reported by schemaRule
+    const expected = file.replace(/^questions\//, "").replace(/\.json$/, "");
+    for (const q of parsed.data) {
+      const report = (message: string): void => {
+        errors.push({ file, message: `${q.id}: ${message}` });
+      };
+      const checkCode = (code: string | undefined, where: string): void => {
+        if (code !== undefined && !codes.has(code)) report(`${where}: unknown misconception "${code}"`);
+      };
+      if (q.conceptId !== expected) report(`conceptId "${q.conceptId}" does not match the file name`);
+      if (!known.has(q.conceptId)) report(`unknown concept "${q.conceptId}"`);
+      if (!new RegExp(`^${escapeRegExp(q.conceptId)}\\.Q\\d{2,}$`).test(q.id)) {
+        report(`id must be ${q.conceptId}.Qnn`);
+      }
+      if (seen.has(q.id)) report("duplicate question id");
+      seen.add(q.id);
+      if (q.reviewStatus === "machine_draft") report("machine_draft items must be reviewed before build");
+      if (q.type === "mcq") {
+        if (q.options.length < 2) report("needs at least 2 options");
+        const optionIds = new Set<string>();
+        for (const o of q.options) {
+          if (optionIds.has(o.id)) report(`duplicate option id "${o.id}"`);
+          optionIds.add(o.id);
+          checkCode(o.misconceptionCode, `option ${o.id}`);
+          if (o.isCorrect && o.misconceptionCode !== undefined) {
+            report(`correct option ${o.id} carries a misconception code`);
+          }
+        }
+        const correct = q.options.filter((o) => o.isCorrect).length;
+        if (correct !== 1) report(`needs exactly one correct option (has ${correct})`);
+      } else {
+        for (const w of q.wrongAnswers ?? []) {
+          checkCode(w.misconceptionCode, `wrong answer ${w.value}`);
+          if (Math.abs(w.value - q.answer) <= (q.tolerance ?? 0)) {
+            report(`wrong answer ${w.value} matches the answer`);
+          }
+        }
+      }
+      byConcept.set(q.conceptId, [...(byConcept.get(q.conceptId) ?? []), q]);
+    }
+  }
+
+  if (chapters.length === 0) return errors;
+  let graph;
+  try {
+    graph = buildGraph(concepts, chapters);
+    assertDag(graph);
+  } catch {
+    return errors; // reported by the graph rules
+  }
+  const g = graph;
+  for (const chapter of chapters) {
+    if (chapter.depth !== "full") continue;
+    const scope = new Set<string>();
+    for (const id of chapter.conceptIds) {
+      if (!known.has(id)) continue;
+      scope.add(id);
+      for (const a of ancestors(g, id)) scope.add(a);
+    }
+    const where = `(in scope of full chapter ${chapter.id})`;
+    for (const id of g.topoOrder.filter((c) => scope.has(c))) {
+      const list = byConcept.get(id) ?? [];
+      const file = `questions/${id}.json`;
+      const report = (message: string): void => {
+        errors.push({ file, message: `${message} ${where}` });
+      };
+      if (list.length < MIN_QUESTIONS_FULL) {
+        report(`${id}: needs at least ${MIN_QUESTIONS_FULL} questions, has ${list.length}`);
+      }
+      for (const d of [1, 2, 3] as const) {
+        const n = list.filter((q) => q.difficulty === d).length;
+        if (n < MIN_PER_DIFFICULTY_FULL) {
+          report(`${id}: needs at least ${MIN_PER_DIFFICULTY_FULL} questions at difficulty ${d}, has ${n}`);
+        }
+      }
+      for (const q of list) {
+        if (!teluguPresent(q.stem)) report(`${q.id}: stem has no Telugu (te)`);
+        if (!teluguPresent(q.solution)) report(`${q.id}: solution has no Telugu (te)`);
+        if (!teluguPresent(q.hint)) report(`${q.id}: hint has no Telugu (te)`);
+        if (q.type === "mcq") {
+          for (const o of q.options) {
+            if (!teluguPresent(o.text)) report(`${q.id}: option ${o.id} has no Telugu (te)`);
+          }
+        }
+      }
+    }
+  }
+  return errors;
+}
+
 /** Validates all content. Graph rules run only when the concept file passed its schema. */
 export function validateContent(input: ContentInput): ContentError[] {
   const { errors, parsed } = schemaRule(input);
@@ -309,6 +438,14 @@ export function validateContent(input: ContentInput): ContentError[] {
       parsed.concepts ?? [],
       parsed.chapters ?? [],
       input.resources,
+      input.misconceptions,
+    ),
+  );
+  errors.push(
+    ...questionsRule(
+      parsed.concepts ?? [],
+      parsed.chapters ?? [],
+      input.questions,
       input.misconceptions,
     ),
   );

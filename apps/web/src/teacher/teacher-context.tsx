@@ -11,10 +11,29 @@ import { useLang } from "../i18n/lang-context";
 
 const TOKEN_KEY = "teacherToken";
 
+/** The teacher id an access token names: `demo:<id>` tokens, or the `sub` claim of a JWT. */
+export function teacherIdFromToken(token: string): string {
+  if (token.startsWith("demo:")) return token.slice("demo:".length);
+  const payload = token.split(".")[1];
+  if (payload !== undefined) {
+    try {
+      const claims = JSON.parse(atob(payload.replace(/-/g, "+").replace(/_/g, "/"))) as {
+        sub?: unknown;
+      };
+      if (typeof claims.sub === "string" && claims.sub !== "") return claims.sub;
+    } catch {
+      // Not a JWT: fall through to the error below.
+    }
+  }
+  throw new Error("The access token does not name a teacher");
+}
+
 interface TeacherContextValue {
   db: SetuDb;
   /** null while the stored token is being read. */
   signedIn: boolean | null;
+  /** The signed-in teacher, stamped on teacher events; null when signed out. */
+  teacherId: string | null;
   signIn: (accessToken: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
@@ -22,12 +41,13 @@ interface TeacherContextValue {
 const TeacherContext = createContext<TeacherContextValue | null>(null);
 
 export function TeacherProvider({ children, db = defaultDb }: { children: ReactNode; db?: SetuDb }) {
-  const [signedIn, setSignedIn] = useState<boolean | null>(null);
+  // undefined while reading, null when signed out.
+  const [token, setToken] = useState<string | null | undefined>(undefined);
 
   useEffect(() => {
     let live = true;
     void db.meta.get(TOKEN_KEY).then((row) => {
-      if (live) setSignedIn(typeof row?.value === "string");
+      if (live) setToken(typeof row?.value === "string" ? row.value : null);
     });
     return () => {
       live = false;
@@ -37,17 +57,22 @@ export function TeacherProvider({ children, db = defaultDb }: { children: ReactN
   const signIn = useCallback(
     async (accessToken: string) => {
       await db.meta.put({ key: TOKEN_KEY, value: accessToken });
-      setSignedIn(true);
+      setToken(accessToken);
     },
     [db],
   );
 
   const signOut = useCallback(async () => {
     await db.meta.delete(TOKEN_KEY);
-    setSignedIn(false);
+    setToken(null);
   }, [db]);
 
-  const value = useMemo(() => ({ db, signedIn, signIn, signOut }), [db, signedIn, signIn, signOut]);
+  const signedIn = token === undefined ? null : token !== null;
+  const teacherId = typeof token === "string" ? teacherIdFromToken(token) : null;
+  const value = useMemo(
+    () => ({ db, signedIn, teacherId, signIn, signOut }),
+    [db, signedIn, teacherId, signIn, signOut],
+  );
   return <TeacherContext.Provider value={value}>{children}</TeacherContext.Provider>;
 }
 

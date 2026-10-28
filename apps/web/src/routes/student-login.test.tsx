@@ -6,7 +6,7 @@ import { SetuDb } from "../data/db";
 import { LocalDemoApiClient } from "../data/local-demo-api-client";
 import { activeProfile, saveProfile } from "../data/profiles";
 import { tinyPack } from "../test/fixtures";
-import { renderStudent } from "../test/render-student";
+import { renderStudent, teardown } from "../test/render-student";
 
 const pack = tinyPack();
 let db: SetuDb;
@@ -19,7 +19,7 @@ beforeEach(() => {
 });
 
 afterEach(async () => {
-  await db.delete();
+  await teardown(db);
 });
 
 const ravi = {

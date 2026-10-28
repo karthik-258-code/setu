@@ -1,5 +1,5 @@
 import type { ContentPack } from "@setu/engine";
-import { render } from "@testing-library/react";
+import { cleanup, render } from "@testing-library/react";
 import { Outlet, RouterProvider, createMemoryRouter } from "react-router-dom";
 import type { SetuDb } from "../data/db";
 import { LangProvider } from "../i18n/lang-context";
@@ -14,6 +14,16 @@ import {
   StudentTest,
 } from "../routes/student";
 import { StudentProvider } from "../student/student-context";
+
+/**
+ * Unmounts rendered screens, lets their pending reads settle, then deletes the test database.
+ * Call it in `afterEach` instead of `db.delete()` so no screen reads a closed database.
+ */
+export async function teardown(db: SetuDb): Promise<void> {
+  cleanup();
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  await db.delete();
+}
 
 /** Renders the student routes at `path` over a test database and a fixed pack and clock. */
 export function renderStudent(

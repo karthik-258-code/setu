@@ -23,7 +23,10 @@ export function StudentLogin() {
   const [hasProfiles, setHasProfiles] = useState(false);
 
   useEffect(() => {
-    void listProfiles(db).then((profiles) => setHasProfiles(profiles.length > 0));
+    // Only decides whether to show the "switch student" link, so a failed read just hides it.
+    listProfiles(db)
+      .then((profiles) => setHasProfiles(profiles.length > 0))
+      .catch(() => setHasProfiles(false));
   }, [db]);
 
   async function submit(event: FormEvent) {

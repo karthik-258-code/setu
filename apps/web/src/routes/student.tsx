@@ -16,5 +16,5 @@ export { StudentHome } from "./student-home";
 export { StudentReadiness } from "./student-readiness";
 export { StudentLearn } from "./student-learn";
 export { StudentSolve } from "./student-solve";
-export const StudentTest = () => <Placeholder name="student-test" />;
+export { StudentTest } from "./student-test";
 export const StudentProgress = () => <Placeholder name="student-progress" />;

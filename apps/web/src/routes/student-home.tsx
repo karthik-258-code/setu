@@ -1,24 +1,12 @@
-import type { RecommendationMode } from "@setu/engine";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { currentSessionId } from "../data/session";
 import { L } from "../i18n/l";
 import { useLang } from "../i18n/lang-context";
-import type { StringKey } from "../i18n/strings";
+import { MODE_LABEL } from "../student/mode-labels";
 import { recommend, renderReason, routeFor } from "../student/recommend";
 import { StudentGate, useStudent } from "../student/student-context";
 import type { StudentData } from "../student/student-context";
-
-const MODE_LABEL: Record<RecommendationMode, StringKey> = {
-  readiness: "modeReadiness",
-  learn: "modeLearn",
-  solve: "modeSolve",
-  test: "modeTest",
-  recheck: "modeRecheck",
-  verify: "modeVerify",
-  extension: "modeExtension",
-  done: "modeDone",
-};
 
 /** One card: what to do next and why. Due re-checks come first because the policy puts them first. */
 export function StudentHome() {

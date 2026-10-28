@@ -48,6 +48,18 @@ export const strings = {
   readInEnglish: { en: "Read in English", te: "ఇంగ్లీష్‌లో చదువు" },
   readInTelugu: { en: "Read in Telugu", te: "తెలుగులో చదువు" },
   understood: { en: "I understood, let me try", te: "నాకు అర్థమైంది, ప్రయత్నిస్తాను" },
+  questionOf: { en: "Question {n} of {total}", te: "ప్రశ్న {n} / {total}" },
+  scoreOf: { en: "{correct} of {total} correct", te: "{total} లో {correct} సరైనవి" },
+  outcomeMastered: {
+    en: "You have mastered {concept}.",
+    te: "నువ్వు {concept} లో ప్రావీణ్యం సాధించావు.",
+  },
+  outcomeNotYet: { en: "Not mastered yet: {concept}.", te: "{concept} ఇంకా పూర్తిగా రాలేదు." },
+  nextRecheckOn: { en: "Next quick check on {date}.", te: "తదుపరి చిన్న పరిశీలన {date} న." },
+  nextPractice: {
+    en: "We will practise a little more first.",
+    te: "ముందుగా ఇంకొంచెం అభ్యాసం చేద్దాం.",
+  },
   showHint: { en: "Show a hint", te: "సూచన చూపించు" },
   correct: { en: "Correct!", te: "సరైనది!" },
   notQuite: { en: "Not quite.", te: "సరిగ్గా కాదు." },

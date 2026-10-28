@@ -7,11 +7,6 @@ import { routes } from "./router";
 const CASES: { path: string; name: string; params: Record<string, string> }[] = [
   { path: "/", name: "role-chooser", params: {} },
   { path: "/demo", name: "demo", params: {} },
-  {
-    path: "/s/test/M8.LEQ.ONE_SIDE",
-    name: "student-test",
-    params: { conceptId: "M8.LEQ.ONE_SIDE" },
-  },
   { path: "/s/progress", name: "student-progress", params: {} },
   { path: "/t/login", name: "teacher-login", params: {} },
   { path: "/t/classrooms", name: "teacher-classrooms", params: {} },
@@ -30,6 +25,7 @@ const CASES: { path: string; name: string; params: Record<string, string> }[] = 
 /** Routes whose screen is built; each has its own tests next to the screen. */
 const BUILT_SCREENS = ["/s/login", "/s/profiles", "/s/home", "/s/readiness/:chapterId", "/s/solve/:conceptId",
   "/s/learn/:conceptId",
+  "/s/test/:conceptId",
 ];
 
 describe("routes", () => {

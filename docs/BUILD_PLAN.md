@@ -142,7 +142,7 @@ Expected `chapterExternalPrereqs(CH.M8.LINEAR_EQ_ONE_VAR)`: `M7.SEQ.TRANSPOSE`, 
 - [x] **3.4 Home card.** Calls `nextRecommendation`; shows mode, concept, and the rendered reason; one primary button. Shows due re-checks as the first card.
 - [x] **3.5 Learn.** Renders the chosen resource (markdown subset + SVG), bilingual toggle, "I understood, let me try" writes `learn_viewed`.
 - [x] **3.6 Solve.** One question at a time, MCQ and numeric input, hint button (counts `hintsUsed`), immediate feedback with the solution, ladder visible as three dots, writes `attempt`.
-- [ ] **3.7 Test, re-check, verify.** Three questions, no hints, result screen with mastery outcome and what happens next.
+- [x] **3.7 Test, re-check, verify.** Three questions, no hints, result screen with mastery outcome and what happens next.
 - [ ] **3.8 Progress.** Concepts grouped by class with mastery bars, mastered dates, next re-check dates.
 - [ ] **3.9 Offline.** Workbox precache + pack cache; "downloaded for offline" indicator; manual test with DevTools offline passes the full loop.
 - [ ] **3.10 Sync queue and HttpApiClient.** Batch unsynced events on reconnect and on app open; retry with backoff; sync status chip. (Depends on 4.4.)

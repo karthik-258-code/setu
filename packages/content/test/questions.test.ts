@@ -82,10 +82,12 @@ describe("shipped questions", () => {
     }
   });
 
-  it("are drafts with a Telugu stem", () => {
+  it("are drafts with a Telugu stem, in Telugu script wherever the English has words", () => {
     for (const q of inScope) {
       expect(q.reviewStatus, q.id).toBe("draft");
-      expect(q.stem.te ?? "", q.id).toMatch(TELUGU);
+      expect((q.stem.te ?? "").trim().length, q.id).toBeGreaterThan(0);
+      // A pure expression such as "2/7 + 3/7 = ?" is the same in both languages.
+      if (/[A-Za-z]{3,}/.test(q.stem.en)) expect(q.stem.te ?? "", q.id).toMatch(TELUGU);
     }
   });
 });

@@ -11,6 +11,7 @@ const LINKS: [string, StringKey][] = [
   ["gapmap", "gapMap"],
   ["groups", "groups"],
   ["launch", "launchChapter"],
+  ["paper-entry", "paperEntry"],
   ["weekly", "weekly"],
 ];
 

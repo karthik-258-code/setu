@@ -16,5 +16,5 @@ export { TeacherLaunch } from "./teacher-launch";
 export { TeacherGapMap } from "./teacher-gapmap";
 export { TeacherGroups } from "./teacher-groups";
 export { TeacherStudent } from "./teacher-student";
-export const TeacherPaperEntry = () => <Placeholder name="teacher-paper-entry" />;
+export { TeacherPaperEntry } from "./teacher-paper-entry";
 export { TeacherWeekly } from "./teacher-weekly";

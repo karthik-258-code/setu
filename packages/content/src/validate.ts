@@ -18,6 +18,8 @@ import {
   templatesFileSchema,
 } from "./schema";
 import { CONTENT_DIR, loadContent } from "./load";
+import { generateTemplate } from "./generate";
+import { GENERATORS } from "./generators/index";
 
 /** Raw (unvalidated) content, as parsed from JSON. Per-concept maps are keyed by file path. */
 export interface ContentInput {
@@ -334,7 +336,7 @@ export function questionsRule(
   for (const [file, data] of Object.entries(questions)) {
     const parsed = questionsFileSchema.safeParse(data);
     if (!parsed.success) continue; // reported by schemaRule
-    const expected = file.replace(/^questions\//, "").replace(/\.json$/, "");
+    const expected = file.replace(/^(questions|templates)\//, "").replace(/\.json$/, "");
     for (const q of parsed.data) {
       const report = (message: string): void => {
         errors.push({ file, message: `${q.id}: ${message}` });
@@ -344,9 +346,11 @@ export function questionsRule(
       };
       if (q.conceptId !== expected) report(`conceptId "${q.conceptId}" does not match the file name`);
       if (!known.has(q.conceptId)) report(`unknown concept "${q.conceptId}"`);
-      if (!new RegExp(`^${escapeRegExp(q.conceptId)}\\.Q\\d{2,}$`).test(q.id)) {
-        report(`id must be ${q.conceptId}.Qnn`);
-      }
+      const shape =
+        q.templateId === undefined
+          ? { pattern: `^${escapeRegExp(q.conceptId)}\\.Q\\d{2,}$`, label: `${q.conceptId}.Qnn` }
+          : { pattern: `^${escapeRegExp(q.templateId)}\\.\\d+$`, label: `${q.templateId}.<seed>` };
+      if (!new RegExp(shape.pattern).test(q.id)) report(`id must be ${shape.label}`);
       if (seen.has(q.id)) report("duplicate question id");
       seen.add(q.id);
       if (q.reviewStatus === "machine_draft") report("machine_draft items must be reviewed before build");
@@ -423,6 +427,70 @@ export function questionsRule(
   return errors;
 }
 
+/**
+ * Rule: templates are well placed and expand (ARCHITECTURE 6.4). Each template's `conceptId`
+ * matches its file name `templates/<conceptId>.json` and names a known concept, its id is
+ * `<conceptId>.Tnn` and unique, its generator exists, and its `paramSpace` defines exactly the
+ * generator's parameters with integer values (a two-element array is an inclusive range, so it
+ * must not be descending). Valid templates are expanded; expansion failures are errors. Returns the
+ * generated questions keyed by template file so `questionsRule` checks them like hand-authored ones.
+ */
+export function templatesRule(
+  concepts: Concept[],
+  templates: Record<string, unknown>,
+): { errors: ContentError[]; generated: Record<string, Question[]> } {
+  const errors: ContentError[] = [];
+  const generated: Record<string, Question[]> = {};
+  const known = new Set(concepts.map((c) => c.id));
+  const seen = new Set<string>();
+  for (const [file, data] of Object.entries(templates)) {
+    const parsed = templatesFileSchema.safeParse(data);
+    if (!parsed.success) continue; // reported by schemaRule
+    const expected = file.replace(/^templates\//, "").replace(/\.json$/, "");
+    const out: Question[] = [];
+    for (const t of parsed.data) {
+      const before = errors.length;
+      const report = (message: string): void => {
+        errors.push({ file, message: `${t.id}: ${message}` });
+      };
+      if (t.conceptId !== expected) report(`conceptId "${t.conceptId}" does not match the file name`);
+      if (!known.has(t.conceptId)) report(`unknown concept "${t.conceptId}"`);
+      if (!new RegExp(`^${escapeRegExp(t.conceptId)}\\.T\\d{2,}$`).test(t.id)) {
+        report(`id must be ${t.conceptId}.Tnn`);
+      }
+      if (seen.has(t.id)) report("duplicate template id");
+      seen.add(t.id);
+      const generator = GENERATORS[t.generator];
+      if (!generator) {
+        report(`unknown generator "${t.generator}"`);
+        continue;
+      }
+      const wanted = new Set<string>(generator.params);
+      for (const name of generator.params) {
+        if (!(name in t.paramSpace)) report(`paramSpace needs "${name}"`);
+      }
+      for (const [name, space] of Object.entries(t.paramSpace)) {
+        const values: readonly number[] = space;
+        if (!wanted.has(name)) report(`paramSpace has unknown parameter "${name}"`);
+        if (values.length === 0) report(`paramSpace "${name}" is empty`);
+        else if (!values.every((v) => Number.isInteger(v))) {
+          report(`paramSpace "${name}" must hold integers`);
+        } else if (values.length === 2 && (values[0] as number) > (values[1] as number)) {
+          report(`paramSpace "${name}" range [${values[0]}, ${values[1]}] is empty`);
+        }
+      }
+      if (errors.length > before) continue;
+      try {
+        out.push(...generateTemplate(t));
+      } catch (error) {
+        errors.push({ file, message: (error as Error).message });
+      }
+    }
+    generated[file] = out;
+  }
+  return { errors, generated };
+}
+
 /** Validates all content. Graph rules run only when the concept file passed its schema. */
 export function validateContent(input: ContentInput): ContentError[] {
   const { errors, parsed } = schemaRule(input);
@@ -441,11 +509,13 @@ export function validateContent(input: ContentInput): ContentError[] {
       input.misconceptions,
     ),
   );
+  const templateCheck = templatesRule(parsed.concepts ?? [], input.templates);
+  errors.push(...templateCheck.errors);
   errors.push(
     ...questionsRule(
       parsed.concepts ?? [],
       parsed.chapters ?? [],
-      input.questions,
+      { ...input.questions, ...templateCheck.generated },
       input.misconceptions,
     ),
   );

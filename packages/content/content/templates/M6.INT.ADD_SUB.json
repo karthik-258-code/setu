@@ -1,0 +1,22 @@
+[
+  {
+    "id": "M6.INT.ADD_SUB.T01",
+    "conceptId": "M6.INT.ADD_SUB",
+    "difficulty": 1,
+    "generator": "integer_add_sub",
+    "paramSpace": { "a": [-12, 12], "b": [-12, 12], "op": [0, 0] },
+    "count": 8,
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.INT.ADD_SUB.T02",
+    "conceptId": "M6.INT.ADD_SUB",
+    "difficulty": 2,
+    "generator": "integer_add_sub",
+    "paramSpace": { "a": [-20, 20], "b": [-20, 20], "op": [1, 1] },
+    "count": 8,
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "reviewStatus": "draft"
+  }
+]

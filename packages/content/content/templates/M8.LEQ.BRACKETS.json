@@ -1,0 +1,22 @@
+[
+  {
+    "id": "M8.LEQ.BRACKETS.T01",
+    "conceptId": "M8.LEQ.BRACKETS",
+    "difficulty": 1,
+    "generator": "linear_brackets",
+    "paramSpace": { "k": [2, 5], "p": [1, 9], "x": [1, 10] },
+    "count": 8,
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.BRACKETS.T02",
+    "conceptId": "M8.LEQ.BRACKETS",
+    "difficulty": 2,
+    "generator": "linear_brackets",
+    "paramSpace": { "k": [2, 6], "p": [-9, -1], "x": [-6, 10] },
+    "count": 10,
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "reviewStatus": "draft"
+  }
+]

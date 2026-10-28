@@ -1,0 +1,22 @@
+[
+  {
+    "id": "M7.INT.MUL_DIV.T01",
+    "conceptId": "M7.INT.MUL_DIV",
+    "difficulty": 1,
+    "generator": "integer_mul_div",
+    "paramSpace": { "a": [-9, 9], "b": [-9, 9], "op": [0, 0] },
+    "count": 8,
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.INT.MUL_DIV.T02",
+    "conceptId": "M7.INT.MUL_DIV",
+    "difficulty": 2,
+    "generator": "integer_mul_div",
+    "paramSpace": { "a": [-12, 12], "b": [-9, 9], "op": [1, 1] },
+    "count": 8,
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "reviewStatus": "draft"
+  }
+]

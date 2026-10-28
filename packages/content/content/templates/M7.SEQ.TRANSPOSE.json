@@ -1,0 +1,22 @@
+[
+  {
+    "id": "M7.SEQ.TRANSPOSE.T01",
+    "conceptId": "M7.SEQ.TRANSPOSE",
+    "difficulty": 1,
+    "generator": "transpose_linear",
+    "paramSpace": { "a": [2, 9], "x": [1, 10], "b": [1, 15] },
+    "count": 10,
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.SEQ.TRANSPOSE.T02",
+    "conceptId": "M7.SEQ.TRANSPOSE",
+    "difficulty": 2,
+    "generator": "transpose_linear",
+    "paramSpace": { "a": [2, 9], "x": [-8, 10], "b": [-15, -1] },
+    "count": 10,
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "reviewStatus": "draft"
+  }
+]

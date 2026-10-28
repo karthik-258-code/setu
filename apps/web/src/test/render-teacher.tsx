@@ -9,6 +9,7 @@ import {
   TeacherLaunch,
   TeacherLogin,
   TeacherStudent,
+  TeacherWeekly,
 } from "../routes/teacher";
 import { TeacherProvider } from "../teacher/teacher-context";
 
@@ -30,6 +31,7 @@ export function renderTeacher(path: string, options: { db: SetuDb }) {
           { path: "classrooms/:id/groups", element: <TeacherGroups /> },
           { path: "classrooms/:id/launch", element: <TeacherLaunch /> },
           { path: "classrooms/:id/students/:sid", element: <TeacherStudent /> },
+          { path: "classrooms/:id/weekly", element: <TeacherWeekly /> },
         ],
       },
     ],

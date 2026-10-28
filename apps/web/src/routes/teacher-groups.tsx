@@ -10,6 +10,8 @@ import type { StringKey } from "../i18n/strings";
 import { useClassView } from "../teacher/class-view";
 import type { ClassView } from "../teacher/class-view";
 import { TeacherGate, useTeacher } from "../teacher/teacher-context";
+import { postForStudents } from "../teacher/teacher-events";
+import { Toast } from "../teacher/toast";
 
 const KIND_LABEL: Record<GroupKind, StringKey> = {
   ready: "kindReady",
@@ -48,8 +50,9 @@ function GroupsScreen({ classroomId }: { classroomId: string }) {
  */
 function GroupsBoard({ view }: { view: ClassView }) {
   const { teacherId } = useTeacher();
-  const { ui } = useLang();
+  const { ui, t } = useLang();
   const { pack } = view;
+  const [toast, setToast] = useState<string | null>(null);
   const [groups, setGroups] = useState<ShownGroup[]>(() =>
     view.groups.map((g) => ({ ...g, accepted: false })),
   );
@@ -136,6 +139,40 @@ function GroupsBoard({ view }: { view: ClassView }) {
       return x;
     });
     return apply(next, "move", [studentId], from.id, targetId);
+  };
+
+  async function act(run: () => Promise<void>, message: string) {
+    try {
+      await run();
+      setToast(message);
+      setFailed(false);
+    } catch {
+      setFailed(true);
+    }
+  }
+
+  const titleOf = (conceptId: string) => {
+    const concept = pack.graph.concepts[conceptId];
+    return concept ? t(concept.title).text : conceptId;
+  };
+
+  const markTaught = (g: ShownGroup, conceptId: string) =>
+    act(
+      () => postForStudents(view.classroom.id, teacherId, g.studentIds, { type: "mark_taught", conceptId }),
+      format(ui("toastTaught"), { count: g.studentIds.length }),
+    );
+
+  const assignGroup = (g: ShownGroup, conceptId: string) => {
+    const questionIds = g.suggestedQuestionIds.slice(0, WARM_UP_QUESTIONS);
+    return act(
+      () =>
+        postForStudents(view.classroom.id, teacherId, g.studentIds, {
+          type: "assign",
+          conceptId,
+          ...(questionIds.length > 0 ? { questionIds } : {}),
+        }),
+      format(ui("toastAssigned"), { concept: titleOf(conceptId), count: g.studentIds.length }),
+    );
   };
 
   const select = "min-h-9 rounded-md border border-slate-300 bg-white px-2 text-sm";
@@ -240,6 +277,24 @@ function GroupsBoard({ view }: { view: ClassView }) {
                   {ui("accept")}
                 </button>
               )}
+              {g.conceptId !== undefined && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => g.conceptId !== undefined && void markTaught(g, g.conceptId)}
+                    className={`${button} border-slate-300`}
+                  >
+                    {ui("markTaught")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => g.conceptId !== undefined && void assignGroup(g, g.conceptId)}
+                    className={`${button} border-slate-300`}
+                  >
+                    {ui("assign")}
+                  </button>
+                </>
+              )}
               <button type="button" onClick={() => void dismiss(g)} className={`${button} border-slate-300`}>
                 {ui("dismiss")}
               </button>
@@ -269,6 +324,7 @@ function GroupsBoard({ view }: { view: ClassView }) {
           </section>
         );
       })}
+      <Toast message={toast} />
     </div>
   );
 }

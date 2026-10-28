@@ -9,11 +9,6 @@ const CASES: { path: string; name: string; params: Record<string, string> }[] = 
   { path: "/demo", name: "demo", params: {} },
   { path: "/s/progress", name: "student-progress", params: {} },
   { path: "/t/classrooms/c1/launch", name: "teacher-launch", params: { id: "c1" } },
-  {
-    path: "/t/classrooms/c1/students/s9",
-    name: "teacher-student",
-    params: { id: "c1", sid: "s9" },
-  },
   { path: "/t/classrooms/c1/paper-entry", name: "teacher-paper-entry", params: { id: "c1" } },
   { path: "/t/classrooms/c1/weekly", name: "teacher-weekly", params: { id: "c1" } },
 ];
@@ -26,6 +21,7 @@ const BUILT_SCREENS = ["/s/login", "/s/profiles", "/s/home", "/s/readiness/:chap
   "/t/classrooms",
   "/t/classrooms/:id/gapmap",
   "/t/classrooms/:id/groups",
+  "/t/classrooms/:id/students/:sid",
 ];
 
 describe("routes", () => {

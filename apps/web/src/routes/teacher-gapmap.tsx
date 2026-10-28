@@ -93,7 +93,13 @@ function GapMapTable({ view }: { view: ClassView }) {
             {gapMap.rows.map((row) => (
               <tr key={row.studentId} className="border-t border-slate-100">
                 <th scope="row" className="sticky left-0 z-10 whitespace-nowrap bg-white px-2 py-1 text-left font-medium">
-                  {row.displayName} <span className="text-xs text-slate-500">#{row.rollNo}</span>
+                  <Link
+                    to={`/t/classrooms/${encodeURIComponent(classroom.id)}/students/${encodeURIComponent(row.studentId)}`}
+                    className="text-brand-800 underline"
+                  >
+                    {row.displayName}
+                  </Link>{" "}
+                  <span className="text-xs text-slate-500">#{row.rollNo}</span>
                 </th>
                 {columns.map((conceptId, i) => {
                   const p = row.mastery[conceptId] ?? null;

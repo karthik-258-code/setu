@@ -2,7 +2,13 @@ import { render } from "@testing-library/react";
 import { Outlet, RouterProvider, createMemoryRouter } from "react-router-dom";
 import type { SetuDb } from "../data/db";
 import { LangProvider } from "../i18n/lang-context";
-import { TeacherClassrooms, TeacherGapMap, TeacherGroups, TeacherLogin } from "../routes/teacher";
+import {
+  TeacherClassrooms,
+  TeacherGapMap,
+  TeacherGroups,
+  TeacherLogin,
+  TeacherStudent,
+} from "../routes/teacher";
 import { TeacherProvider } from "../teacher/teacher-context";
 
 /** Renders the teacher routes at `path` over a test database. */
@@ -21,6 +27,7 @@ export function renderTeacher(path: string, options: { db: SetuDb }) {
           { path: "classrooms", element: <TeacherClassrooms /> },
           { path: "classrooms/:id/gapmap", element: <TeacherGapMap /> },
           { path: "classrooms/:id/groups", element: <TeacherGroups /> },
+          { path: "classrooms/:id/students/:sid", element: <TeacherStudent /> },
         ],
       },
     ],

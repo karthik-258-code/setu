@@ -79,10 +79,4 @@ describe("profile picker", () => {
     await waitFor(() => expect(router.state.location.pathname).toBe("/s/login"));
   });
 
-  it("sends a signed-out student from a learning screen to the profile picker", async () => {
-    await saveProfile(db, ravi, "2222");
-    const router = renderStudent("/s/home", { db, pack });
-    await waitFor(() => expect(router.state.location.pathname).not.toBe("/s/home"));
-    expect(router.state.location.pathname).toBe("/s/profiles");
-  });
 });

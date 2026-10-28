@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import { TeacherProvider } from "../teacher/teacher-context";
-import { Placeholder } from "./placeholder";
 
 export function TeacherLayout() {
   return (

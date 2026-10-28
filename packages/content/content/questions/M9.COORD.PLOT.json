@@ -1,0 +1,25 @@
+[
+  {"id": "M9.COORD.PLOT.Q01", "conceptId": "M9.COORD.PLOT", "type": "mcq", "difficulty": 1,
+   "stem": {"en": "In which quadrant does the point (3, -2) lie?", "te": "(3, -2) బిందువు ఏ పాదంలో ఉంటుంది?"},
+   "options": [
+     {"id": "a", "text": {"en": "First", "te": "మొదటి పాదం"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "Second", "te": "రెండవ పాదం"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "Third", "te": "మూడవ పాదం"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "Fourth", "te": "నాలుగవ పాదం"}, "isCorrect": true}],
+   "solution": {"en": "x is positive and y is negative, (+, -), which is the fourth quadrant.", "te": "x ధనం, y రుణం, అంటే (+, -), ఇది నాలుగవ పాదం."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M9.COORD.PLOT.Q02", "conceptId": "M9.COORD.PLOT", "type": "mcq", "difficulty": 2,
+   "stem": {"en": "Which point is 4 units to the left of the origin and 1 unit up?", "te": "మూలబిందువు నుండి 4 యూనిట్లు ఎడమవైపు, 1 యూనిట్ పైకి ఉన్న బిందువు ఏది?"},
+   "options": [
+     {"id": "a", "text": {"en": "(4, 1)", "te": "(4, 1)"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "(-4, 1)", "te": "(-4, 1)"}, "isCorrect": true},
+     {"id": "c", "text": {"en": "(1, -4)", "te": "(1, -4)"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "(-1, 4)", "te": "(-1, 4)"}, "isCorrect": false}],
+   "solution": {"en": "Left of the origin means x is negative, x = -4; up means y is positive, y = 1. The point is (-4, 1).", "te": "మూలబిందువుకు ఎడమవైపు అంటే x రుణం, x = -4; పైకి అంటే y ధనం, y = 1. బిందువు (-4, 1)."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M9.COORD.PLOT.Q03", "conceptId": "M9.COORD.PLOT", "type": "numeric", "difficulty": 3,
+   "stem": {"en": "A point lies on the y-axis, 5 units below the origin. What is its y-coordinate?", "te": "ఒక బిందువు y-అక్షంపై మూలబిందువుకు 5 యూనిట్లు కింద ఉంది. దాని y-నిరూపకం ఎంత?"},
+   "answer": -5,
+   "solution": {"en": "On the y-axis x = 0, and below the origin y is negative, so the point is (0, -5) and y = -5.", "te": "y-అక్షంపై x = 0, మూలబిందువుకు కింద y రుణం, కాబట్టి బిందువు (0, -5), y = -5."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"}
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M9.LE2V.CONCEPT.R.explanation.01",
+    "conceptId": "M9.LE2V.CONCEPT",
+    "type": "explanation",
+    "body": {
+      "en": "A linear equation in two variables can be written as ax + by + c = 0, where a, b and c are numbers and a and b are not both 0. For example, 2x + 3y = 12 can be written as 2x + 3y - 12 = 0, so a = 2, b = 3 and c = -12. Many situations give such equations: 'x pencils at ₹5 and y pens at ₹10 cost ₹50' is 5x + 10y = 50. An equation like x = 4 is also linear in two variables, with b = 0: 1·x + 0·y - 4 = 0.",
+      "te": "రెండు చరరాశులలో రేఖీయ సమీకరణాన్ని ax + by + c = 0 గా రాయవచ్చు, ఇక్కడ a, b, c సంఖ్యలు, a, b రెండూ సున్నా కావు. ఉదాహరణకు 2x + 3y = 12 ను 2x + 3y - 12 = 0 గా రాయవచ్చు, కాబట్టి a = 2, b = 3, c = -12. చాలా సందర్భాలు ఇలాంటి సమీకరణాలు ఇస్తాయి: '₹5 చొప్పున x పెన్సిళ్లు, ₹10 చొప్పున y పెన్నుల ధర ₹50' అంటే 5x + 10y = 50. x = 4 వంటి సమీకరణం కూడా b = 0 తో రెండు చరరాశులలో రేఖీయమే: 1·x + 0·y - 4 = 0."
+    },
+    "reviewStatus": "draft"
+  }
+]

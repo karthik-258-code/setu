@@ -1,0 +1,29 @@
+[
+  {"id": "M9.LE2V.CONCEPT.Q01", "conceptId": "M9.LE2V.CONCEPT", "type": "mcq", "difficulty": 1,
+   "stem": {"en": "Which of these is a linear equation in two variables?", "te": "వీటిలో రెండు చరరాశులలో రేఖీయ సమీకరణం ఏది?"},
+   "options": [
+     {"id": "a", "text": {"en": "2x + 3y = 12", "te": "2x + 3y = 12"}, "isCorrect": true},
+     {"id": "b", "text": {"en": "x² + y = 4", "te": "x² + y = 4"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "xy = 6", "te": "xy = 6"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "1/x + y = 2", "te": "1/x + y = 2"}, "isCorrect": false}],
+   "solution": {"en": "2x + 3y = 12 has x and y only to the first power. x², xy and 1/x make the others non-linear.", "te": "2x + 3y = 12 లో x, y మొదటి ఘాతంలోనే ఉన్నాయి. x², xy, 1/x వల్ల మిగతావి రేఖీయం కావు."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M9.LE2V.CONCEPT.Q02", "conceptId": "M9.LE2V.CONCEPT", "type": "mcq", "difficulty": 2,
+   "stem": {"en": "Write 2x + 3y = 12 in the form ax + by + c = 0. What is c?", "te": "2x + 3y = 12 ను ax + by + c = 0 రూపంలో రాయి. c ఎంత?"},
+   "options": [
+     {"id": "a", "text": {"en": "12", "te": "12"}, "isCorrect": false, "misconceptionCode": "E-TRANSPOSE-SIGN"},
+     {"id": "b", "text": {"en": "-12", "te": "-12"}, "isCorrect": true},
+     {"id": "c", "text": {"en": "0", "te": "0"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "3", "te": "3"}, "isCorrect": false}],
+   "solution": {"en": "Move 12 to the left side as -12: 2x + 3y - 12 = 0, so c = -12.", "te": "12 ను ఎడమ వైపుకు -12 గా పంపు: 2x + 3y - 12 = 0, కాబట్టి c = -12."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M9.LE2V.CONCEPT.Q03", "conceptId": "M9.LE2V.CONCEPT", "type": "mcq", "difficulty": 3,
+   "stem": {"en": "A pencil costs ₹5 and a pen costs ₹10. Which equation says that x pencils and y pens cost ₹50 in all?", "te": "ఒక పెన్సిల్ ధర ₹5, ఒక పెన్ను ధర ₹10. x పెన్సిళ్లు, y పెన్నులు కలిపి ₹50 అని చెప్పే సమీకరణం ఏది?"},
+   "options": [
+     {"id": "a", "text": {"en": "10x + 5y = 50", "te": "10x + 5y = 50"}, "isCorrect": false, "misconceptionCode": "W-SETUP-REVERSE"},
+     {"id": "b", "text": {"en": "x + y = 50", "te": "x + y = 50"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "5x + 10y = 50", "te": "5x + 10y = 50"}, "isCorrect": true},
+     {"id": "d", "text": {"en": "15(x + y) = 50", "te": "15(x + y) = 50"}, "isCorrect": false}],
+   "solution": {"en": "x pencils cost 5x and y pens cost 10y, so 5x + 10y = 50.", "te": "x పెన్సిళ్ల ధర 5x, y పెన్నుల ధర 10y, కాబట్టి 5x + 10y = 50."},
+   "boardTags": ["NCERT", "TS_SCERT"], "tags": ["word_problem"], "reviewStatus": "draft"}
+]

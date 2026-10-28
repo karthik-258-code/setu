@@ -30,10 +30,23 @@ export default defineConfig({
         navigateFallbackDenylist: [/^\/packs\//, /^\/api\//],
         runtimeCaching: [
           {
-            // Content packs are immutable per packVersion; the data layer (3.1) requests
+            // The pack index changes whenever a pack does, so the network is tried first; the
+            // cached copy is only for offline starts.
+            urlPattern: ({ url }) => url.pathname === "/packs/index.json",
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "setu-pack-index",
+              networkTimeoutSeconds: 3,
+              cacheableResponse: { statuses: [200] },
+            },
+          },
+          {
+            // Content packs are immutable per packVersion; the data layer requests
             // /packs/<chapterId>.json?v=<packVersion>, so each version is its own cache entry.
             urlPattern: ({ url }) =>
-              url.pathname.startsWith("/packs/") && url.pathname.endsWith(".json"),
+              url.pathname.startsWith("/packs/") &&
+              url.pathname.endsWith(".json") &&
+              url.pathname !== "/packs/index.json",
             handler: "CacheFirst",
             options: {
               cacheName: "setu-packs",

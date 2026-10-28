@@ -6,6 +6,7 @@ import {
   TeacherClassrooms,
   TeacherGapMap,
   TeacherGroups,
+  TeacherLaunch,
   TeacherLogin,
   TeacherStudent,
 } from "../routes/teacher";
@@ -27,6 +28,7 @@ export function renderTeacher(path: string, options: { db: SetuDb }) {
           { path: "classrooms", element: <TeacherClassrooms /> },
           { path: "classrooms/:id/gapmap", element: <TeacherGapMap /> },
           { path: "classrooms/:id/groups", element: <TeacherGroups /> },
+          { path: "classrooms/:id/launch", element: <TeacherLaunch /> },
           { path: "classrooms/:id/students/:sid", element: <TeacherStudent /> },
         ],
       },

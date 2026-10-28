@@ -12,7 +12,7 @@ export function TeacherLayout() {
 
 export { TeacherLogin } from "./teacher-login";
 export { TeacherClassrooms } from "./teacher-classrooms";
-export const TeacherLaunch = () => <Placeholder name="teacher-launch" />;
+export { TeacherLaunch } from "./teacher-launch";
 export { TeacherGapMap } from "./teacher-gapmap";
 export { TeacherGroups } from "./teacher-groups";
 export { TeacherStudent } from "./teacher-student";

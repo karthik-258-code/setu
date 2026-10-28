@@ -158,7 +158,7 @@ Expected `chapterExternalPrereqs(CH.M8.LINEAR_EQ_ONE_VAR)`: `M7.SEQ.TRANSPOSE`, 
 
 ## Phase 5: Teacher app (28 to 29 Oct)
 
-- [ ] **5.1 Login and classrooms list.** Works with both ApiClients.
+- [x] **5.1 Login and classrooms list.** Works with both ApiClients.
 - [ ] **5.2 Gap Map.** Heatmap for up to 60 rows: prerequisite columns left, chapter columns right, colour scale on `pKnown`, null as grey, sticky student column, tap cell opens the evidence drawer (attempts, chosen answers, misconception labels).
 - [ ] **5.3 Groups.** Cards per `GapGroup` with student chips, dominant misconception, three most-missed questions shown inline for the warm-up; accept / dismiss / move student / merge / split, each writing a `group_edit` event.
 - [ ] **5.4 Actions.** Mark taught (group), assign (group or student), override with note (student page), lock/unlock extension. Confirmation toasts state the consequence ("re-check scheduled for 15 students").

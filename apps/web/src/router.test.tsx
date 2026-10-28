@@ -8,8 +8,6 @@ const CASES: { path: string; name: string; params: Record<string, string> }[] = 
   { path: "/", name: "role-chooser", params: {} },
   { path: "/demo", name: "demo", params: {} },
   { path: "/s/progress", name: "student-progress", params: {} },
-  { path: "/t/login", name: "teacher-login", params: {} },
-  { path: "/t/classrooms", name: "teacher-classrooms", params: {} },
   { path: "/t/classrooms/c1/launch", name: "teacher-launch", params: { id: "c1" } },
   { path: "/t/classrooms/c1/gapmap", name: "teacher-gapmap", params: { id: "c1" } },
   { path: "/t/classrooms/c1/groups", name: "teacher-groups", params: { id: "c1" } },
@@ -26,6 +24,8 @@ const CASES: { path: string; name: string; params: Record<string, string> }[] = 
 const BUILT_SCREENS = ["/s/login", "/s/profiles", "/s/home", "/s/readiness/:chapterId", "/s/solve/:conceptId",
   "/s/learn/:conceptId",
   "/s/test/:conceptId",
+  "/t/login",
+  "/t/classrooms",
 ];
 
 describe("routes", () => {

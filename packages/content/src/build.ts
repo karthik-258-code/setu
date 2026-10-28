@@ -1,15 +1,28 @@
 /**
- * Pack builder (`pnpm content:pack`). It validates the content, expands the templates and reports
- * each chapter's question count (hand-authored plus generated); writing packs to
- * apps/web/public/packs/ and apps/api/packs/ arrives with task 2.7. Output directories are
- * created only when there is something to write, so nothing is created here.
+ * Pack builder (`pnpm content:pack`, ARCHITECTURE 6.3). Validates the content, expands the
+ * templates and writes one minified pack per chapter, plus an `index.json` listing each pack's
+ * version and size, to apps/web/public/packs/ and apps/api/packs/. Both folders are build output
+ * (gitignored) and are rebuilt from scratch on every run. Prints each pack's size and question
+ * count, and fails without writing anything if a pack is over 5 MB.
  */
-import { resolve } from "node:path";
+import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { chaptersFileSchema, conceptsFileSchema, questionsFileSchema } from "./schema";
-import { loadContent } from "./load";
-import { questionCounts } from "./pack";
-import { templatesRule, validateContent } from "./validate";
+import { CONTENT_DIR, loadContent } from "./load";
+import { MAX_PACK_BYTES, buildPack, packSources, questionCounts } from "./pack";
+import { validateContent } from "./validate";
+
+const REPO_ROOT = resolve(CONTENT_DIR, "..", "..", "..");
+
+/** Where packs are written: the web app serves them, the API reads them (task 4.3). */
+export const PACK_DIRS = [
+  join(REPO_ROOT, "apps", "web", "public", "packs"),
+  join(REPO_ROOT, "apps", "api", "packs"),
+];
+
+function kb(bytes: number): string {
+  return `${(bytes / 1024).toFixed(1)} KB`;
+}
 
 function main(): void {
   const { input, errors: loadErrors } = loadContent();
@@ -19,22 +32,54 @@ function main(): void {
     console.error("\nrefusing to build packs from invalid content");
     process.exit(1);
   }
-  const chapters = chaptersFileSchema.parse(input.chapters);
-  if (chapters.length > 0) {
-    const concepts = conceptsFileSchema.parse(input.concepts);
-    const handAuthored = Object.values(input.questions).flatMap((data) =>
-      questionsFileSchema.parse(data),
+  const sources = packSources(input);
+  if (sources.chapters.length === 0) {
+    console.log("0 packs built");
+    return;
+  }
+
+  const builtAt = new Date().toISOString();
+  const counts = new Map(
+    questionCounts(sources.concepts, sources.chapters, sources.questions).map((c) => [
+      c.chapterId,
+      c,
+    ]),
+  );
+  const files = sources.chapters.map((chapter) => {
+    const pack = buildPack(sources, chapter.id, builtAt);
+    const json = JSON.stringify(pack);
+    return { pack, json, bytes: Buffer.byteLength(json) };
+  });
+
+  let oversized = 0;
+  for (const { pack, bytes } of files) {
+    const c = counts.get(pack.chapterId);
+    console.log(
+      `${pack.chapterId}: ${kb(bytes)}, ${c?.total ?? 0} questions (${c?.handAuthored ?? 0} hand-authored, ${c?.generated ?? 0} generated), ${pack.resources.length} resources, version ${pack.packVersion}`,
     );
-    const generated = Object.values(templatesRule(concepts, input.templates).generated).flat();
-    for (const c of questionCounts(concepts, chapters, [...handAuthored, ...generated])) {
-      console.log(
-        `${c.chapterId}: ${c.total} questions (${c.handAuthored} hand-authored, ${c.generated} generated)`,
-      );
+    if (bytes > MAX_PACK_BYTES) {
+      console.error(`${pack.chapterId}: ${kb(bytes)} is over the ${kb(MAX_PACK_BYTES)} limit`);
+      oversized += 1;
     }
-    console.error(`${chapters.length} chapter(s) found, but pack writing is task 2.7.`);
+  }
+  if (oversized > 0) {
+    console.error(`\n${oversized} pack(s) over the size limit; nothing written`);
     process.exit(1);
   }
-  console.log("0 packs built");
+
+  const index = files.map(({ pack, bytes }) => ({
+    chapterId: pack.chapterId,
+    packVersion: pack.packVersion,
+    bytes,
+  }));
+  for (const dir of PACK_DIRS) {
+    rmSync(dir, { recursive: true, force: true });
+    mkdirSync(dir, { recursive: true });
+    for (const { pack, json } of files) writeFileSync(join(dir, `${pack.chapterId}.json`), json);
+    writeFileSync(join(dir, "index.json"), `${JSON.stringify(index, null, 2)}\n`);
+  }
+  const where = PACK_DIRS.map((dir) => relative(REPO_ROOT, dir)).join(" and ");
+  console.log(`\n${files.length} packs built into ${where}`);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();

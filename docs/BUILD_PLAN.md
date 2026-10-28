@@ -56,7 +56,7 @@ Paste this, replacing `N.x`:
 - [x] **2.5 Template generators.** Generators in `packages/content/src/generators/`: `add_unlike_fractions`, `integer_add_sub`, `integer_mul_div`, `combine_like_terms`, `transpose_linear`, `linear_both_sides`, `linear_brackets`, `linear_fraction_coeff`. Each computes distractors from misconceptions (for example `F-ADD-DENOM`, `E-TRANSPOSE-SIGN`, `E-TRANSPOSE-DIVIDE`, `E-DIST-PARTIAL`). Templates in `content/templates/` to reach roughly 300 total questions.
   *Done when:* generated items are deterministic for a given seed (snapshot test) and the pack's question count is reported by the builder.
 - [x] **2.6 Skeleton chapters.** For Class 7 Simple Equations, Class 9 LE2V, Class 10 PLE concepts: `en` explanation and at least 3 questions each (te optional, marked). Goal: a teacher can launch `CH.M9.LINEAR_EQ_TWO_VAR` and the Readiness Check reaches Class 8 and 7 concepts.
-- [ ] **2.7 Pack builder.** `pnpm content:pack` writes one pack per chapter to `apps/web/public/packs/` and `apps/api/packs/`, prints size per pack, fails above 5 MB.
+- [x] **2.7 Pack builder.** `pnpm content:pack` writes one pack per chapter to `apps/web/public/packs/` and `apps/api/packs/`, prints size per pack, fails above 5 MB.
 
 ### Concept spine for 2.1
 

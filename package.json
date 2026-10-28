@@ -15,7 +15,7 @@
     "lint": "pnpm -r lint",
     "content:validate": "pnpm --filter @setu/content run validate",
     "content:pack": "pnpm --filter @setu/content run pack",
-    "sim": "pnpm --filter @setu/engine sim",
+    "sim": "pnpm --filter @setu/content sim",
     "format": "prettier --write ."
   },
   "devDependencies": {

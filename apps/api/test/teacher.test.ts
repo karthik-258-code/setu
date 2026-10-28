@@ -8,8 +8,12 @@ import { MemoryStore } from "../src/memory-store";
 
 const pack = goldenPack();
 const NOW = new Date("2026-11-01T00:00:00.000Z");
-const vector = goldenVectors[0];
-if (!vector) throw new Error("no golden vector");
+function firstVector() {
+  const v = goldenVectors[0];
+  if (!v) throw new Error("no golden vector");
+  return v;
+}
+const vector = firstVector();
 const launch = { chapterId: pack.chapterId, trimmed: [], launchedAt: "2026-10-27T00:00:00.000Z" };
 
 async function setup() {

@@ -55,7 +55,7 @@ Every edit is an event (`group_edit`, `mark_taught`); nothing is decided for the
 
 **Class 9 scaling moment (teacher tab).** Back to the classrooms list, **Launch a chapter**, pick Class 9 *Linear Equations in Two Variables*. The prerequisite list now shows Class 8 and Class 7 concepts; tick one off to show the teacher can trim it, and tap **Print paper check** for the 12-question sheet. Tap **Launch**: on the student tab, the next sign-in starts that chapter's Readiness Check, which descends into Classes 8 and 7 when a prerequisite fails. Relaunch the Class 8 chapter afterwards to restore the demo.
 
-**Offline toggle** needs 3.9 (Workbox precache and the "downloaded for offline" indicator), which is not built yet. Until then, say that packs and events are stored on the device and every student screen above reads only from Dexie.
+**Offline toggle (student tab).** Use a production build (`pnpm build`, then `pnpm --filter @setu/web preview`) so the service worker is active; the home card shows **Downloaded for offline**. In DevTools, Network, choose **Offline**. A notice says the work is saved on the phone. Reload the page, sign in from the profile picker, and run Learn, Solve and a test: everything works, and the events wait on the device for sync.
 
 Close with: "The same engine runs on the phone, in the API and in the simulation. The teacher keeps every decision."
 

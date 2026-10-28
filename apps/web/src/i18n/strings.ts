@@ -167,6 +167,12 @@ export const strings = {
   print: { en: "Print", te: "ముద్రించు" },
   paperCheckTitle: { en: "Readiness Check: {chapter}", te: "సన్నద్ధత పరీక్ష: {chapter}" },
   nameRollLine: { en: "Name: ________  Roll: ____", te: "పేరు: ________  రోల్: ____" },
+  offlineReady: { en: "Downloaded for offline", te: "ఆఫ్‌లైన్ కోసం డౌన్‌లోడ్ అయింది" },
+  lessonsSaved: { en: "Lessons saved on this phone", te: "పాఠాలు ఈ ఫోన్‌లో సేవ్ అయ్యాయి" },
+  offlineNow: {
+    en: "Offline: your work is saved on this phone.",
+    te: "ఆఫ్‌లైన్: నీ పని ఈ ఫోన్‌లో సేవ్ అవుతోంది.",
+  },
   showHint: { en: "Show a hint", te: "సూచన చూపించు" },
   correct: { en: "Correct!", te: "సరైనది!" },
   notQuite: { en: "Not quite.", te: "సరిగ్గా కాదు." },

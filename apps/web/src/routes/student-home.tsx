@@ -4,6 +4,7 @@ import { currentSessionId } from "../data/session";
 import { L } from "../i18n/l";
 import { useLang } from "../i18n/lang-context";
 import { MODE_LABEL } from "../student/mode-labels";
+import { OfflineStatus } from "../student/offline-status";
 import { recommend, renderReason, routeFor } from "../student/recommend";
 import { StudentGate, useStudent } from "../student/student-context";
 import type { StudentData } from "../student/student-context";
@@ -39,6 +40,7 @@ function HomeCard({ data }: { data: StudentData }) {
           {ui("switchStudent")}
         </button>
       </header>
+      <OfflineStatus />
       <section className="space-y-3 rounded-lg bg-white p-4 shadow-sm">
         <p
           data-testid="home-mode"

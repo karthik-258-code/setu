@@ -6,7 +6,6 @@ import { routes } from "./router";
 
 const CASES: { path: string; name: string; params: Record<string, string> }[] = [
   { path: "/", name: "role-chooser", params: {} },
-  { path: "/demo", name: "demo", params: {} },
   { path: "/s/progress", name: "student-progress", params: {} },
   { path: "/t/classrooms/c1/launch", name: "teacher-launch", params: { id: "c1" } },
   { path: "/t/classrooms/c1/paper-entry", name: "teacher-paper-entry", params: { id: "c1" } },
@@ -22,6 +21,7 @@ const BUILT_SCREENS = ["/s/login", "/s/profiles", "/s/home", "/s/readiness/:chap
   "/t/classrooms/:id/gapmap",
   "/t/classrooms/:id/groups",
   "/t/classrooms/:id/students/:sid",
+  "/demo",
 ];
 
 describe("routes", () => {

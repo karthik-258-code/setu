@@ -1,5 +1,12 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { db as defaultDb } from "../data/db";
+import type { SetuDb } from "../data/db";
+import { loadDemoClassroom } from "../data/demo-load";
+import type { FetchJson } from "../data/demo-load";
+import { DEMO_CLASSROOM, DEMO_TEACHER } from "../data/demo-seed";
 import { useLang } from "../i18n/lang-context";
+import { TEACHER_TOKEN_KEY } from "../teacher/teacher-context";
 import type { StringKey } from "../i18n/strings";
 import { Placeholder } from "./placeholder";
 
@@ -29,6 +36,29 @@ export function RoleChooser() {
   );
 }
 
-export function Demo() {
-  return <Placeholder name="demo" />;
+/** Loads the seeded classroom, signs the demo teacher in and lands on the Gap Map (6.1). */
+export function Demo({ db = defaultDb, load }: { db?: SetuDb; load?: FetchJson }) {
+  const { ui } = useLang();
+  const navigate = useNavigate();
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    let live = true;
+    const run = async () => {
+      try {
+        await loadDemoClassroom(db, load);
+        await db.meta.put({ key: TEACHER_TOKEN_KEY, value: `demo:${DEMO_TEACHER.teacherId}` });
+        if (live) navigate(`/t/classrooms/${DEMO_CLASSROOM.id}/gapmap`, { replace: true });
+      } catch {
+        if (live) setFailed(true);
+      }
+    };
+    void run();
+    return () => {
+      live = false;
+    };
+  }, [db, load, navigate]);
+
+  if (failed) return <p role="alert">{ui("demoFailed")}</p>;
+  return <p role="status">{ui("demoLoading")}</p>;
 }

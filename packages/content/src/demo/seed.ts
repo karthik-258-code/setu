@@ -56,6 +56,9 @@ export interface Learner {
 
 const SOLID: Learner = { gaps: {}, shaky: {}, slip: 0 };
 
+/** A careless error: a wrong answer that shows no particular misconception. */
+const CARELESS = "careless";
+
 /** Ravi: integers fine, adds denominators, unsure on like terms (submission 2.4). */
 const RAVI: Learner = {
   gaps: { "M6.FRAC.ADD_SUB_UNLIKE": "F-ADD-DENOM" },
@@ -119,7 +122,9 @@ function respond(question: Question, outcome: MisconceptionCode | "right"): Answ
     const option =
       outcome === "right"
         ? question.options.find((o) => o.isCorrect)
-        : (wrong.find((o) => o.misconceptionCode === outcome) ??
+        : outcome === CARELESS
+          ? (wrong.find((o) => o.misconceptionCode === undefined) ?? wrong[0])
+          : (wrong.find((o) => o.misconceptionCode === outcome) ??
           wrong.find((o) => o.misconceptionCode !== undefined) ??
           wrong[0]);
     if (!option) throw new Error(`Question ${question.id} has no option to choose`);
@@ -130,6 +135,7 @@ function respond(question: Question, outcome: MisconceptionCode | "right"): Answ
     };
   }
   if (outcome === "right") return { correct: true, value: question.answer };
+  if (outcome === CARELESS) return { correct: false, value: question.answer + 1 };
   const known =
     question.wrongAnswers?.find((w) => w.misconceptionCode === outcome) ?? question.wrongAnswers?.[0];
   return known
@@ -162,7 +168,7 @@ export function simulateReadiness(
     const before = asked[question.conceptId] ?? 0;
     asked[question.conceptId] = before + 1;
     let outcome = expected(pack, learner, question.conceptId, before);
-    if (outcome === "right" && rng() < learner.slip) outcome = "careless";
+    if (outcome === "right" && rng() < learner.slip) outcome = CARELESS;
     const time = 20_000 + Math.floor(rng() * 40_000);
     const attempt: AttemptEvent = {
       type: "attempt",

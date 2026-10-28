@@ -9,7 +9,9 @@ import { db as defaultDb } from "../data/db";
 import type { SetuDb } from "../data/db";
 import { useLang } from "../i18n/lang-context";
 
-const TOKEN_KEY = "teacherToken";
+/** Dexie `meta` key of the signed-in teacher's access token. */
+export const TEACHER_TOKEN_KEY = "teacherToken";
+const TOKEN_KEY = TEACHER_TOKEN_KEY;
 
 /** The teacher id an access token names: `demo:<id>` tokens, or the `sub` claim of a JWT. */
 export function teacherIdFromToken(token: string): string {

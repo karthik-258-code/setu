@@ -21,6 +21,9 @@ export const DEMO_TEACHER = {
   password: "setu-demo",
 } as const;
 
+/** Dexie `meta` key of the seeded roster stored by `/demo` (6.1). */
+export const DEMO_ROSTER_KEY = "demo:roster";
+
 export interface DemoStudent {
   studentId: string;
   firstName: string;

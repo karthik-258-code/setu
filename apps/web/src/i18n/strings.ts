@@ -143,6 +143,11 @@ export const strings = {
     en: "Extension problems unlocked for {name}.",
     te: "{name} కు అదనపు సమస్యలు అన్‌లాక్ చేయబడ్డాయి.",
   },
+  demoLoading: { en: "Setting up the demo classroom…", te: "డెమో తరగతి సిద్ధం అవుతోంది…" },
+  demoFailed: {
+    en: "The demo classroom could not be loaded. Build it with pnpm content:pack and reload.",
+    te: "డెమో తరగతి లోడ్ కాలేదు. pnpm content:pack తో తయారు చేసి మళ్ళీ లోడ్ చేయండి.",
+  },
   showHint: { en: "Show a hint", te: "సూచన చూపించు" },
   correct: { en: "Correct!", te: "సరైనది!" },
   notQuite: { en: "Not quite.", te: "సరిగ్గా కాదు." },

@@ -2,7 +2,6 @@ import { buildGapGroups, buildGapMap, buildWeeklyView } from "@setu/engine";
 import type {
   AttemptEvent,
   ClassroomStudent,
-  ContentPack,
   GapGroup,
   GapMap,
   StudentEvent,
@@ -24,7 +23,7 @@ import { nowOf } from "../deps";
 import type { ApiDeps } from "../deps";
 import { ApiError, parseOr400 } from "../errors";
 import { packFor, replayStudent } from "../replay";
-import type { StoredClassroom, StoredStudent } from "../store";
+import type { StoredClassroom } from "../store";
 
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
@@ -39,19 +38,6 @@ const isAttempt = (e: StudentEvent): e is AttemptEvent => e.type === "attempt";
  * POST /classrooms/:id/events (ARCHITECTURE 8.1). Every view is built by the engine from events.
  */
 export const teacherRoutes: FastifyPluginAsync<{ deps: ApiDeps }> = async (app, { deps }) => {
-  async function classroomStudents(classroom: StoredClassroom, pack: ContentPack) {
-    const students = await deps.store.studentsInClassroom(classroom.id);
-    return Promise.all(
-      students.map(async (s) => ({ student: s, events: await deps.store.eventsForStudent(s.id) })),
-    ).then((rows) =>
-      rows.map(({ student, events }) => ({ student, events, state: replayOf(pack, student, events) })),
-    );
-  }
-
-  function replayOf(pack: ContentPack, student: StoredStudent, events: StudentEvent[]) {
-    return { pack, student, events };
-  }
-
   async function chapterView(request: Parameters<typeof teacherClassroom>[1], chapterId: string, classroomId: string) {
     const { classroom, teacherId } = await teacherClassroom(deps, request, classroomId);
     const pack = await packFor(deps, chapterId);
@@ -65,7 +51,6 @@ export const teacherRoutes: FastifyPluginAsync<{ deps: ApiDeps }> = async (app, 
     );
     return { classroom, teacherId, pack, rows };
   }
-  void classroomStudents;
 
   app.get("/classrooms", async (request): Promise<ClassroomSummary[]> => {
     const { sub } = claimsOf(deps, request, "teacher");

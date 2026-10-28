@@ -150,11 +150,11 @@ Expected `chapterExternalPrereqs(CH.M8.LINEAR_EQ_ONE_VAR)`: `M7.SEQ.TRANSPOSE`, 
 ## Phase 4: API (28 Oct) — P1
 
 - [ ] **4.1 Prisma schema and seed.** Models from 8.3; migration; seed script creating one school, two classrooms (Class 8 B with 46 students, Class 9 A with 40), one teacher, one coordinator.
-- [ ] **4.2 Auth.** Teacher login (Argon2id), student login, refresh, `authz` plugin with tests for cross-classroom denial.
-- [ ] **4.3 Packs.** `GET /packs/:chapterId` from `apps/api/packs/` with ETag.
-- [ ] **4.4 Sync.** Per 8.2: zod validation, idempotent insert, replay with `@setu/engine`, materialise `MasteryState` and `Recheck`. Test: golden vectors from 1.8 replayed through the API produce identical state.
-- [ ] **4.5 Teacher reads.** gapmap, groups, evidence, weekly, built from events via the engine.
-- [ ] **4.6 Teacher writes.** `POST /classrooms/:id/events` for override, mark taught, assign, extension lock, group edit, paper attempts; `POST /classrooms/:id/launch`.
+- [x] **4.2 Auth.** Teacher login (Argon2id), student login, refresh, `authz` plugin with tests for cross-classroom denial.
+- [x] **4.3 Packs.** `GET /packs/:chapterId` from `apps/api/packs/` with ETag.
+- [x] **4.4 Sync.** Per 8.2: zod validation, idempotent insert, replay with `@setu/engine`, materialise `MasteryState` and `Recheck`. Test: golden vectors from 1.8 replayed through the API produce identical state.
+- [x] **4.5 Teacher reads.** gapmap, groups, evidence, weekly, built from events via the engine.
+- [x] **4.6 Teacher writes.** `POST /classrooms/:id/events` for override, mark taught, assign, extension lock, group edit, paper attempts; `POST /classrooms/:id/launch`.
 
 ## Phase 5: Teacher app (28 to 29 Oct)
 

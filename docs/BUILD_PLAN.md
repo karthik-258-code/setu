@@ -163,7 +163,7 @@ Expected `chapterExternalPrereqs(CH.M8.LINEAR_EQ_ONE_VAR)`: `M7.SEQ.TRANSPOSE`, 
 - [x] **5.3 Groups.** Cards per `GapGroup` with student chips, dominant misconception, three most-missed questions shown inline for the warm-up; accept / dismiss / move student / merge / split, each writing a `group_edit` event.
 - [x] **5.4 Actions.** Mark taught (group), assign (group or student), override with note (student page), lock/unlock extension. Confirmation toasts state the consequence ("re-check scheduled for 15 students").
 - [x] **5.5 Launch chapter.** Chapter picker (shows Class 7, 8, 9, 10 chapters), prerequisite list with remove toggles, "Print paper check" generating a printable page of 12 difficulty-2 questions covering the external prerequisites.
-- [ ] **5.6 Paper entry.** Grid student x question; tap cycles correct / wrong option (a, b, c, d) / blank; submits `attempt` events with `source: paper`.
+- [x] **5.6 Paper entry.** Grid student x question; tap cycles correct / wrong option (a, b, c, d) / blank; submits `attempt` events with `source: paper`.
 - [x] **5.7 Weekly view.** Movement between groups, blocking concepts, re-check pass rates after mark taught.
 
 ## Phase 6: Demo, evaluation and evaluator deliverables (29 Oct)

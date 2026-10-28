@@ -8,6 +8,7 @@ import {
   TeacherGroups,
   TeacherLaunch,
   TeacherLogin,
+  TeacherPaperEntry,
   TeacherStudent,
   TeacherWeekly,
 } from "../routes/teacher";
@@ -32,6 +33,7 @@ export function renderTeacher(path: string, options: { db: SetuDb }) {
           { path: "classrooms/:id/launch", element: <TeacherLaunch /> },
           { path: "classrooms/:id/students/:sid", element: <TeacherStudent /> },
           { path: "classrooms/:id/weekly", element: <TeacherWeekly /> },
+          { path: "classrooms/:id/paper-entry", element: <TeacherPaperEntry /> },
         ],
       },
     ],

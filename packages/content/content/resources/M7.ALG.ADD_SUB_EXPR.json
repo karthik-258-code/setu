@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M7.ALG.ADD_SUB_EXPR.R.explanation.01",
+    "conceptId": "M7.ALG.ADD_SUB_EXPR",
+    "type": "explanation",
+    "body": {
+      "en": "To add algebraic expressions, write them together and combine like terms: (3x + 2) + (5x - 7) = 8x - 5. To subtract an expression, change the sign of every term inside its bracket and then add: (6y + 4) - (2y - 3) = 6y + 4 - 2y + 3 = 4y + 7. A common slip is to change only the first sign, which gives 4y + 1. Unlike terms, such as a number and x, stay separate.",
+      "te": "బీజీయ సమాసాలను కూడడానికి వాటిని కలిపి రాసి సజాతి పదాలను కలుపు: (3x + 2) + (5x - 7) = 8x - 5. ఒక సమాసాన్ని తీసివేయడానికి దాని కుండలీకరణంలోని ప్రతి పదం గుర్తును మార్చి కూడు: (6y + 4) - (2y - 3) = 6y + 4 - 2y + 3 = 4y + 7. మొదటి గుర్తును మాత్రమే మార్చడం సాధారణ పొరపాటు, అప్పుడు 4y + 1 వస్తుంది. సంఖ్య, x వంటి విజాతి పదాలు విడిగానే ఉంటాయి."
+    },
+    "reviewStatus": "draft"
+  }
+]

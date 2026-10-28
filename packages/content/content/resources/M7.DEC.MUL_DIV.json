@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M7.DEC.MUL_DIV.R.explanation.01",
+    "conceptId": "M7.DEC.MUL_DIV",
+    "type": "explanation",
+    "body": {
+      "en": "To multiply decimals, multiply as if there were no decimal points, then count the decimal places in both numbers together and give the answer that many places: 0.3 × 0.2 = 0.06 (3 × 2 = 6, two places). Multiplying by 10, 100 or 1000 moves the decimal point 1, 2 or 3 places to the right. To divide by a whole number, divide as usual and keep the point in line: 4.8 ÷ 4 = 1.2. To divide by a decimal, multiply both numbers by 10 or 100 until the divisor is whole: 1.5 ÷ 0.5 = 15 ÷ 5 = 3.",
+      "te": "దశాంశాలను గుణించేటప్పుడు బిందువులు లేనట్టుగా గుణించి, రెండు సంఖ్యల్లోని దశాంశ స్థానాలను కలిపి లెక్కించు, జవాబులో అన్ని స్థానాలు ఇవ్వు: 0.3 × 0.2 = 0.06 (3 × 2 = 6, రెండు స్థానాలు). 10, 100, 1000 తో గుణిస్తే బిందువు 1, 2, 3 స్థానాలు కుడివైపుకు జరుగుతుంది. పూర్ణ సంఖ్యతో భాగించేటప్పుడు మామూలుగా భాగించి బిందువును అదే వరుసలో ఉంచు: 4.8 ÷ 4 = 1.2. దశాంశంతో భాగించేటప్పుడు భాజకం పూర్ణ సంఖ్య అయ్యే వరకు రెండు సంఖ్యలను 10 లేదా 100 తో గుణించు: 1.5 ÷ 0.5 = 15 ÷ 5 = 3."
+    },
+    "reviewStatus": "draft"
+  }
+]

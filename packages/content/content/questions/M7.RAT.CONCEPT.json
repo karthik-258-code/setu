@@ -1,0 +1,29 @@
+[
+  {"id": "M7.RAT.CONCEPT.Q01", "conceptId": "M7.RAT.CONCEPT", "type": "mcq", "difficulty": 1,
+   "stem": {"en": "Which of these is NOT a rational number?", "te": "వీటిలో ఏది అకరణీయ సంఖ్య కాదు?"},
+   "options": [
+     {"id": "a", "text": {"en": "5", "te": "5"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "-2/3", "te": "-2/3"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "7/0", "te": "7/0"}, "isCorrect": true},
+     {"id": "d", "text": {"en": "0", "te": "0"}, "isCorrect": false}],
+   "solution": {"en": "p/q needs q ≠ 0, so 7/0 is not a rational number. 5 = 5/1 and 0 = 0/1 are rational.", "te": "p/q లో q ≠ 0 కావాలి, కాబట్టి 7/0 అకరణీయ సంఖ్య కాదు. 5 = 5/1, 0 = 0/1 అకరణీయాలే."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M7.RAT.CONCEPT.Q02", "conceptId": "M7.RAT.CONCEPT", "type": "mcq", "difficulty": 2,
+   "stem": {"en": "Write -6/8 in standard form.", "te": "-6/8 ను ప్రామాణిక రూపంలో రాయి."},
+   "options": [
+     {"id": "a", "text": {"en": "-3/4", "te": "-3/4"}, "isCorrect": true},
+     {"id": "b", "text": {"en": "3/4", "te": "3/4"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "-6/8", "te": "-6/8"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "3/-4", "te": "3/-4"}, "isCorrect": false}],
+   "solution": {"en": "Divide 6 and 8 by their HCF 2 and keep the denominator positive: -6/8 = -3/4.", "te": "6, 8 లను వాటి గ.సా.భా. 2 తో భాగించి హారాన్ని ధనాత్మకంగా ఉంచు: -6/8 = -3/4."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M7.RAT.CONCEPT.Q03", "conceptId": "M7.RAT.CONCEPT", "type": "mcq", "difficulty": 3,
+   "stem": {"en": "Which is greater: -3/4 or -2/3?", "te": "ఏది పెద్దది: -3/4 లేదా -2/3?"},
+   "options": [
+     {"id": "a", "text": {"en": "-3/4", "te": "-3/4"}, "isCorrect": false, "misconceptionCode": "F-COMPARE-NUM-ONLY"},
+     {"id": "b", "text": {"en": "-2/3", "te": "-2/3"}, "isCorrect": true},
+     {"id": "c", "text": {"en": "They are equal", "te": "అవి సమానం"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "They cannot be compared", "te": "వాటిని పోల్చలేము"}, "isCorrect": false}],
+   "solution": {"en": "With denominator 12: -3/4 = -9/12 and -2/3 = -8/12. -8 is greater than -9, so -2/3 is greater.", "te": "హారం 12 తో: -3/4 = -9/12, -2/3 = -8/12. -8, -9 కంటే పెద్దది, కాబట్టి -2/3 పెద్దది."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"}
+]

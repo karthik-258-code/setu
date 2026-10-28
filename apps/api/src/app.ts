@@ -9,6 +9,7 @@ import { ApiError } from "./errors";
 import { authRoutes } from "./routes/auth";
 import { healthRoutes } from "./routes/health";
 import { studentRoutes } from "./routes/student";
+import { teacherRoutes } from "./routes/teacher";
 
 const STATUS_CODES: Record<number, string> = {
   400: "BAD_REQUEST",
@@ -56,6 +57,7 @@ export function buildApp(options: FastifyServerOptions = {}, deps?: ApiDeps): Fa
   if (deps) {
     app.register(authRoutes, { deps });
     app.register(studentRoutes, { deps });
+    app.register(teacherRoutes, { deps });
   }
 
   return app;

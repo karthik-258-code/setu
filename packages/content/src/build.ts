@@ -8,6 +8,7 @@
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { DEMO_CHAPTER_ID, buildDemoSeed } from "./demo/seed";
 import { CONTENT_DIR, loadContent } from "./load";
 import { MAX_PACK_BYTES, buildPack, packSources, questionCounts } from "./pack";
 import { validateContent } from "./validate";
@@ -19,6 +20,9 @@ export const PACK_DIRS = [
   join(REPO_ROOT, "apps", "web", "public", "packs"),
   join(REPO_ROOT, "apps", "api", "packs"),
 ];
+
+/** Where the demo classroom (6.1) is written; the web app's /demo route loads it. */
+export const DEMO_DIR = join(REPO_ROOT, "apps", "web", "public", "demo");
 
 function kb(bytes: number): string {
   return `${(bytes / 1024).toFixed(1)} KB`;
@@ -80,6 +84,22 @@ function main(): void {
   }
   const where = PACK_DIRS.map((dir) => relative(REPO_ROOT, dir)).join(" and ");
   console.log(`\n${files.length} packs built into ${where}`);
+
+  const demoPack = files.find(({ pack }) => pack.chapterId === DEMO_CHAPTER_ID)?.pack;
+  if (!demoPack) {
+    console.error(`no ${DEMO_CHAPTER_ID} pack: cannot build the demo classroom`);
+    process.exit(1);
+  }
+  const demo = buildDemoSeed(demoPack);
+  rmSync(DEMO_DIR, { recursive: true, force: true });
+  mkdirSync(DEMO_DIR, { recursive: true });
+  writeFileSync(
+    join(DEMO_DIR, "seed.json"),
+    JSON.stringify({ packVersion: demoPack.packVersion, ...demo }),
+  );
+  console.log(
+    `demo classroom: ${demo.students.length} students, ${demo.events.length} events in ${relative(REPO_ROOT, DEMO_DIR)}`,
+  );
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();

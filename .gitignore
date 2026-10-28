@@ -11,6 +11,7 @@ coverage/
 .vite/
 apps/web/dev-dist/
 apps/web/public/packs/
+apps/web/public/demo/
 apps/api/packs/
 apps/api/prisma/*.db
 sim/.venv/

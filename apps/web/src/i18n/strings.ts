@@ -11,6 +11,29 @@ export const strings = {
   roleTeacher: { en: "I am a teacher", te: "నేను ఉపాధ్యాయుడిని" },
   roleDemo: { en: "Try the demo", te: "డెమో చూడండి" },
   noParameters: { en: "None", te: "ఏవీ లేవు" },
+  loading: { en: "Loading…", te: "లోడ్ అవుతోంది…" },
+  loadFailed: {
+    en: "Your lessons could not be loaded. Connect to the internet once, then try again.",
+    te: "మీ పాఠాలు లోడ్ కాలేదు. ఒకసారి ఇంటర్నెట్‌కు కనెక్ట్ అయి మళ్ళీ ప్రయత్నించండి.",
+  },
+  tryAgain: { en: "Try again", te: "మళ్ళీ ప్రయత్నించు" },
+  back: { en: "Back", te: "వెనుకకు" },
+  classroomCode: { en: "Classroom code", te: "తరగతి కోడ్" },
+  rollNo: { en: "Roll number", te: "రోల్ నంబర్" },
+  pin: { en: "4-digit PIN", te: "4 అంకెల పిన్" },
+  signIn: { en: "Sign in", te: "లోపలికి వెళ్ళు" },
+  signingIn: { en: "Signing in…", te: "లోపలికి వెళ్తోంది…" },
+  loginFailed: {
+    en: "The classroom code, roll number or PIN is not right. Ask your teacher.",
+    te: "తరగతి కోడ్, రోల్ నంబర్ లేదా పిన్ సరిగ్గా లేదు. మీ ఉపాధ్యాయుడిని అడగండి.",
+  },
+  whoIsLearning: { en: "Who is learning now?", te: "ఇప్పుడు ఎవరు నేర్చుకుంటున్నారు?" },
+  addStudent: { en: "Add a student on this phone", te: "ఈ ఫోన్‌లో విద్యార్థిని చేర్చు" },
+  enterPin: { en: "Enter your PIN", te: "మీ పిన్ ఇవ్వండి" },
+  wrongPin: { en: "That PIN is not right. Try again.", te: "ఆ పిన్ సరైనది కాదు. మళ్ళీ ప్రయత్నించండి." },
+  open: { en: "Open", te: "తెరువు" },
+  switchStudent: { en: "Switch student", te: "విద్యార్థిని మార్చు" },
+  rollShort: { en: "Roll", te: "రోల్" },
 } as const satisfies Record<string, Required<Pick<LocalizedText, "en" | "te">>>;
 
 export type StringKey = keyof typeof strings;

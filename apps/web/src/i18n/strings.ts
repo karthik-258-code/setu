@@ -44,6 +44,24 @@ export const strings = {
   modeVerify: { en: "Confirm", te: "నిర్ధారణ" },
   modeExtension: { en: "Challenge", te: "సవాలు" },
   modeDone: { en: "All done", te: "పూర్తయింది" },
+  yourAnswer: { en: "Your answer", te: "నీ జవాబు" },
+  submit: { en: "Submit", te: "సమర్పించు" },
+  continue: { en: "Continue", te: "కొనసాగించు" },
+  readinessTitle: { en: "Readiness check", te: "సన్నద్ధత పరీక్ష" },
+  questionOfUpTo: { en: "Question {n} of up to {max}", te: "ప్రశ్న {n} (గరిష్టంగా {max})" },
+  readinessCleared: {
+    en: "You showed {cleared} of the {total} skills we checked.",
+    te: "మేము పరిశీలించిన {total} నైపుణ్యాలలో {cleared} నీకు వచ్చు.",
+  },
+  readinessNoChecks: {
+    en: "Nothing needed checking before this chapter.",
+    te: "ఈ అధ్యాయం ముందు పరిశీలించాల్సింది ఏమీ లేదు.",
+  },
+  readinessStartWith: { en: "We will begin with {concept}.", te: "మనం {concept} తో మొదలుపెడదాం." },
+  readinessReady: {
+    en: "You are ready to start {chapter}.",
+    te: "నువ్వు {chapter} మొదలుపెట్టడానికి సిద్ధంగా ఉన్నావు.",
+  },
 } as const satisfies Record<string, Required<Pick<LocalizedText, "en" | "te">>>;
 
 export type StringKey = keyof typeof strings;

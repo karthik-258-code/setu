@@ -145,7 +145,7 @@ Expected `chapterExternalPrereqs(CH.M8.LINEAR_EQ_ONE_VAR)`: `M7.SEQ.TRANSPOSE`, 
 - [x] **3.7 Test, re-check, verify.** Three questions, no hints, result screen with mastery outcome and what happens next.
 - [x] **3.8 Progress.** Concepts grouped by class with mastery bars, mastered dates, next re-check dates.
 - [x] **3.9 Offline.** Workbox precache + pack cache; "downloaded for offline" indicator; manual test with DevTools offline passes the full loop.
-- [ ] **3.10 Sync queue and HttpApiClient.** Batch unsynced events on reconnect and on app open; retry with backoff; sync status chip. (Depends on 4.4.)
+- [x] **3.10 Sync queue and HttpApiClient.** Batch unsynced events on reconnect and on app open; retry with backoff; sync status chip. (Depends on 4.4.)
 
 ## Phase 4: API (28 Oct) — P1
 

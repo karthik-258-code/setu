@@ -1,0 +1,22 @@
+[
+  {"id": "M7.ALG.VALUE_OF_EXPR.Q01", "conceptId": "M7.ALG.VALUE_OF_EXPR", "type": "numeric", "difficulty": 1,
+   "stem": {"en": "Find the value of 3x + 5 when x = 4.", "te": "x = 4 అయినప్పుడు 3x + 5 విలువ కనుగొను."},
+   "answer": 17,
+   "solution": {"en": "3 × 4 + 5 = 12 + 5 = 17.", "te": "3 × 4 + 5 = 12 + 5 = 17."},
+   "boardTags": ["NCERT", "TS_SCERT"], "tags": ["paper_friendly"], "reviewStatus": "draft"},
+  {"id": "M7.ALG.VALUE_OF_EXPR.Q02", "conceptId": "M7.ALG.VALUE_OF_EXPR", "type": "numeric", "difficulty": 2,
+   "stem": {"en": "Find the value of 5 - 2y when y = -3.", "te": "y = -3 అయినప్పుడు 5 - 2y విలువ కనుగొను."},
+   "answer": 11,
+   "wrongAnswers": [{"value": -1, "misconceptionCode": "I-SIGN-MUL"}],
+   "solution": {"en": "5 - 2 × (-3) = 5 - (-6) = 5 + 6 = 11.", "te": "5 - 2 × (-3) = 5 - (-6) = 5 + 6 = 11."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M7.ALG.VALUE_OF_EXPR.Q03", "conceptId": "M7.ALG.VALUE_OF_EXPR", "type": "mcq", "difficulty": 3,
+   "stem": {"en": "Find the value of 2a² - a when a = -3.", "te": "a = -3 అయినప్పుడు 2a² - a విలువ కనుగొను."},
+   "options": [
+     {"id": "a", "text": {"en": "15", "te": "15"}, "isCorrect": false, "misconceptionCode": "I-SIGN-ADD"},
+     {"id": "b", "text": {"en": "-15", "te": "-15"}, "isCorrect": false, "misconceptionCode": "I-SIGN-MUL"},
+     {"id": "c", "text": {"en": "21", "te": "21"}, "isCorrect": true},
+     {"id": "d", "text": {"en": "-21", "te": "-21"}, "isCorrect": false}],
+   "solution": {"en": "(-3)² = 9, so 2 × 9 - (-3) = 18 + 3 = 21.", "te": "(-3)² = 9, కాబట్టి 2 × 9 - (-3) = 18 + 3 = 21."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"}
+]

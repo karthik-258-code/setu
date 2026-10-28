@@ -1,0 +1,26 @@
+[
+  {"id": "M7.SEQ.APPLY.Q01", "conceptId": "M7.SEQ.APPLY", "type": "numeric", "difficulty": 1,
+   "stem": {"en": "Ravi thinks of a number and adds 9. He gets 25. What is the number?", "te": "రవి ఒక సంఖ్యను అనుకుని దానికి 9 కలిపాడు. అతనికి 25 వచ్చింది. ఆ సంఖ్య ఏది?"},
+   "answer": 16,
+   "wrongAnswers": [{"value": 34, "misconceptionCode": "E-TRANSPOSE-SIGN"}],
+   "solution": {"en": "n + 9 = 25, so n = 25 - 9 = 16.", "te": "n + 9 = 25, కాబట్టి n = 25 - 9 = 16."},
+   "boardTags": ["NCERT", "TS_SCERT"], "tags": ["word_problem"], "reviewStatus": "draft"},
+  {"id": "M7.SEQ.APPLY.Q02", "conceptId": "M7.SEQ.APPLY", "type": "mcq", "difficulty": 2,
+   "stem": {"en": "4 notebooks cost ₹96. What does one notebook cost?", "te": "4 నోటు పుస్తకాల ధర ₹96. ఒక నోటు పుస్తకం ధర ఎంత?"},
+   "options": [
+     {"id": "a", "text": {"en": "₹92", "te": "₹92"}, "isCorrect": false, "misconceptionCode": "E-TRANSPOSE-DIVIDE"},
+     {"id": "b", "text": {"en": "₹24", "te": "₹24"}, "isCorrect": true},
+     {"id": "c", "text": {"en": "₹384", "te": "₹384"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "₹100", "te": "₹100"}, "isCorrect": false, "misconceptionCode": "E-TRANSPOSE-SIGN"}],
+   "solution": {"en": "4n = 96, so n = 96 ÷ 4 = 24: one notebook costs ₹24.", "te": "4n = 96, కాబట్టి n = 96 ÷ 4 = 24: ఒక నోటు పుస్తకం ధర ₹24."},
+   "boardTags": ["NCERT", "TS_SCERT"], "tags": ["word_problem"], "reviewStatus": "draft"},
+  {"id": "M7.SEQ.APPLY.Q03", "conceptId": "M7.SEQ.APPLY", "type": "mcq", "difficulty": 3,
+   "stem": {"en": "A pen costs ₹15 more than a pencil. Together they cost ₹35. What does the pencil cost?", "te": "ఒక పెన్ను ధర పెన్సిల్ కంటే ₹15 ఎక్కువ. రెండూ కలిసి ₹35. పెన్సిల్ ధర ఎంత?"},
+   "options": [
+     {"id": "a", "text": {"en": "₹10", "te": "₹10"}, "isCorrect": true},
+     {"id": "b", "text": {"en": "₹25", "te": "₹25"}, "isCorrect": false, "misconceptionCode": "E-TRANSPOSE-SIGN"},
+     {"id": "c", "text": {"en": "₹20", "te": "₹20"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "₹17.50", "te": "₹17.50"}, "isCorrect": false}],
+   "solution": {"en": "Let the pencil cost p; the pen costs p + 15. p + (p + 15) = 35, so 2p = 20 and p = 10: the pencil costs ₹10.", "te": "పెన్సిల్ ధర p అనుకో; పెన్ను ధర p + 15. p + (p + 15) = 35, కాబట్టి 2p = 20, p = 10: పెన్సిల్ ధర ₹10."},
+   "boardTags": ["NCERT", "TS_SCERT"], "tags": ["word_problem"], "reviewStatus": "draft"}
+]

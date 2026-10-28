@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M7.ALG.VALUE_OF_EXPR.R.explanation.01",
+    "conceptId": "M7.ALG.VALUE_OF_EXPR",
+    "type": "explanation",
+    "body": {
+      "en": "To find the value of an expression, replace each letter with its given value and then work out the arithmetic, multiplying before adding. For 3x + 5 when x = 4: 3 × 4 + 5 = 17. Put a negative value in brackets so that its sign is not lost: for 2a² - a when a = -3, 2 × (-3)² - (-3) = 2 × 9 + 3 = 21. Remember that 3x means 3 × x, not the digits 3 and x side by side.",
+      "te": "సమాసం విలువ కనుగొనడానికి ప్రతి అక్షరం స్థానంలో ఇచ్చిన విలువను ఉంచి, ముందు గుణకారం తర్వాత కూడిక చేయి. x = 4 అయినప్పుడు 3x + 5 కు: 3 × 4 + 5 = 17. రుణ విలువను కుండలీకరణంలో ఉంచు, అప్పుడు గుర్తు పోదు: a = -3 అయినప్పుడు 2a² - a కు, 2 × (-3)² - (-3) = 2 × 9 + 3 = 21. 3x అంటే 3 × x, 3 పక్కన x అని కాదు."
+    },
+    "reviewStatus": "draft"
+  }
+]

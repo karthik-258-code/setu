@@ -111,13 +111,13 @@ Dependency direction (never reversed): `engine <- content <- shared <- api | web
 | `rng.ts` | `mulberry32(seed): () => number`, `pick(rng, arr)`, `shuffle(rng, arr)` | |
 | `graph.ts` | `buildGraph(concepts, chapters): ConceptGraph`, `assertDag(graph)`, `directPrereqs(graph, id)`, `ancestors(graph, id)`, `descendants(graph, id)`, `chapterExternalPrereqs(graph, chapterId): ConceptId[]`, `frontier(graph, mastery, scope, threshold)`, `rootCauseGap(graph, mastery, chapterId): ConceptId \| null` | `topoOrder` computed once by Kahn's algorithm, tie-break by `classLevel` then id |
 | `bkt.ts` | `bktUpdate(pKnown, correct, params): number`, `priorFromPrerequisites(graph, conceptId, mastery, params): number`, `paramsFor(concept): BktParams` | |
-| `replay.ts` | `initialState(studentId): StudentState`, `applyEvent(pack, state, event): StudentState`, `replay(pack, events, studentId): StudentState` | reducer; events sorted by `ts` then `id` before folding |
-| `readiness.ts` | `startReadiness(pack, state, chapterId, trimmed): ReadinessSession`, `nextReadinessQuestion(pack, session, rng): Question \| null`, `recordReadinessAnswer(pack, session, attempt): ReadinessSession`, `readinessSummary(session, now): ReadinessSummary` | |
-| `ladder.ts` | `nextDifficulty(progress, lastAttempt): Difficulty` | |
+| `replay.ts` | `initialState(studentId): StudentState`, `applyEvent(pack, state, event): StudentState`, `replay(pack, events, studentId): StudentState` | reducer; events sorted by `ts` (as instants) then `id` before folding; events of other students are ignored by `replay` |
+| `readiness.ts` | `startReadiness(pack, state, chapterId, trimmed): ReadinessSession`, `nextReadinessQuestion(pack, session, rng): { session, question: Question \| null }`, `recordReadinessAnswer(pack, session, attempt): ReadinessSession`, `readinessSummary(session, now): ReadinessSummary` | functions only manage the diagnostic; the caller writes the `attempt` events (mode `readiness`) and the final `readiness_completed` event |
+| `ladder.ts` | `nextDifficulty(progress, lastAttempt): Difficulty`, `ladderMove(progress, lastAttempt): "up" \| "down" \| "hold"`, `startingDifficulty(state, pack, chapterId, conceptId): Difficulty` | `progress` already includes `lastAttempt` in its streaks; used by `replay.ts` |
 | `policy.ts` | `nextRecommendation(ctx: PolicyContext): Recommendation` | |
 | `recheck.ts` | `scheduleSpaced(conceptId, masteredAt): Recheck[]`, `dueRechecks(state, now): Recheck[]` | |
 | `grouping.ts` | `buildGapMap(pack, chapterId, students): GapMap`, `buildGapGroups(pack, chapterId, students, attemptsByStudent): GapGroup[]` | |
-| `selectQuestions.ts` | `selectQuestions(pack, conceptId, difficulty, exclude, n, rng): Question[]` | prefers unseen, falls back to least-recently-seen |
+| `selectQuestions.ts` | `selectQuestions(pack, conceptId, difficulty, exclude, n, rng, opts?: { tag?: QuestionTag }): Question[]` | exact difficulty first, unseen before seen, seen least-recently-seen first (earliest in `exclude`), then nearest difficulty |
 | `index.ts` | re-exports | |
 
 ### 5.2 Bayesian Knowledge Tracing
@@ -140,9 +140,12 @@ Budget `READINESS_MAX_ITEMS = 12`, depth `READINESS_MAX_DEPTH = 3`. Questions ar
 
 1. **Direct phase.** `targets = chapterExternalPrereqs(graph, chapterId) minus trimmed` (teacher-removed), ordered by impact = number of chapter concepts that transitively depend on the prerequisite (desc), then topo order. Ask **one** question per target.
 2. **Descend phase.** For each target answered wrong: status `failed`; push its direct prerequisites (depth+1, if `<= 3` and not already asked/cleared) to the **front** of the queue, ordered by impact. Ask one question each; recurse on wrong answers.
-3. **Confirm phase.** With remaining budget, ask a second question to each concept answered correctly once (closest to the chapter first). Two correct: `cleared`. One correct then wrong: `uncertain`, and descend if depth allows.
-4. **Chapter phase.** If every target is `cleared` and budget `>= 2`: ask two chapter questions (difficulty 2, from the first two chapter concepts in topo order). Both correct: `advancedEntry = true`.
+   A concept answered correctly once (and never wrong) has status **`cleared`** immediately. One correct answer is enough evidence to stop descending that branch; BKT already records the lower confidence of a single answer.
+3. **Chapter phase.** Runs **before** confirm. If no target is `failed` or `uncertain` and budget `>= 2`: ask two chapter questions (difficulty 2, from the first two chapter concepts in topo order). Both correct: `advancedEntry = true`. Students with any failure skip this phase.
+4. **Confirm phase.** With whatever budget remains, ask a second question to each concept answered correctly exactly once (closest to the chapter first, that is lowest depth, then impact). Correct again: stays `cleared`. Wrong: becomes `uncertain`, and descend into its prerequisites if depth and budget allow.
 5. Stop when budget is exhausted or nothing is left. Concepts never reached stay `pending` and are treated as unknown (prior only).
+
+Budget check for `CH.M8.LINEAR_EQ_ONE_VAR` (7 external prerequisites): an all-correct student uses 7 direct + 2 chapter + 3 confirm = 12 and can reach `advancedEntry`; a student like Ravi spends the budget on descents and confirmations and never sees chapter questions.
 
 Output `ReadinessSummary` is stored as a `readiness_completed` event, so replay reproduces it.
 
@@ -163,15 +166,17 @@ Output `ReadinessSummary` is stored as a `readiness_completed` event, so replay 
 | `R8_EXTENSION` | frontier empty, all chapter concepts mastered, `extensionLocked == false` | `mode: extension`, difficulty 3 questions tagged `extension` |
 | `R9_DONE` | nothing else | `mode: done` |
 
-**Difficulty ladder** (`ladder.ts`): start at 1, or 2 if Learn was skipped or `advancedEntry`. Up one (max 3) after two consecutive correct with `hintsUsed == 0`. Down one (min 1) after two consecutive wrong **or** any attempt carrying a `misconceptionCode`; a down-move also sets `progress.learnViewed = false` so R5 shows a targeted worked example next.
+**Difficulty ladder** (`ladder.ts`): start at 1, or 2 if Learn was skipped or `advancedEntry`. Up one (max 3) after two consecutive correct with `hintsUsed == 0`. Down one (min 1) after two consecutive wrong **or** any attempt carrying a `misconceptionCode`; a down-move also sets `progress.learnViewed = false` so R5 shows a targeted worked example next. `progress.difficulty` is derived state: replay applies the ladder after every `solve` or `extension` attempt (and a down-move also resets both streaks), and creates a concept's progress at `startingDifficulty(state, pack, chapterId, conceptId)`; the policy reads `progress.difficulty` and never recomputes it.
 
-**Test outcome:** after the 3 test attempts, if `pKnown >= 0.9` the concept is mastered (`masteredAt = now`, spaced re-checks scheduled). Otherwise back to Solve at difficulty `max(1, current - 1)`.
+**Test outcome:** after the 3 test attempts, if `pKnown >= 0.9` the concept is mastered (`masteredAt = now`, spaced re-checks scheduled). Otherwise back to Solve at difficulty `max(1, current - 1)`. Replay applies this when `testAttempts` reaches `TEST_QUESTIONS`: if not mastered it sets the difficulty and resets `solveAttempts` and `testAttempts` to 0; if mastered it resets `testAttempts` only. Spaced re-check scheduling is task 1.6.
 
 **Re-check outcome:** `pKnown < 0.9` after a re-check reopens the concept (`masteredAt` cleared, difficulty 1, `learnViewed = false`).
 
-**Teacher override** (`teacher_override` event): sets `pKnown = 0.9`, `source = teacher_override`, `pendingVerification = true` and schedules a `verify_override` re-check for the next session. Failing verification restores the model estimate and clears the flag. **Mark taught** schedules an `after_taught` re-check (`dueAt = now`) for every student in the group.
+**Teacher override** (`teacher_override` event): sets `pKnown = 0.9`, `source = teacher_override`, `pendingVerification = true` and schedules a `verify_override` re-check for the next session. The model's estimate just before the override is kept in `MasteryState.modelPKnown` (present only while `pendingVerification` is true); failing verification restores it and clears the flag. `teacher_override` with `mastered = false` sets `source = teacher_override`, `pKnown = min(current, 0.3)` and clears `masteredAt`. **Mark taught** schedules an `after_taught` re-check (`dueAt = now`) for every student in the group.
 
 ### 5.5 Spaced re-checks
+
+Applied in replay, with helpers in `recheck.ts`. When `masteredAt` is first set, a `spaced` re-check is scheduled at `masteredAt + 2` days. A round ends after `RECHECK_QUESTIONS` (3) attempts on the concept since the re-check's `dueAt`, in mode `recheck` (for `spaced` and `after_taught`) or `verify` (for `verify_override`). **Pass** (`pKnown >= 0.9`): the re-check is removed; a `spaced` one is replaced by the next interval counted from `masteredAt` (none after 21 days); a `verify_override` one clears `pendingVerification` and `modelPKnown`. **Fail:** the concept reopens (`masteredAt` cleared, difficulty 1, `learnViewed = false`, streaks and solve/test counters reset, spaced re-checks removed); a failed verification also restores `pKnown` to `modelPKnown` with `source = model`.
 
 `RECHECK_INTERVALS_DAYS = [2, 7, 21]` from `masteredAt`. Passing a re-check advances to the next interval; failing reopens the concept and restarts the schedule after it is re-mastered.
 
@@ -179,7 +184,7 @@ Output `ReadinessSummary` is stored as a `readiness_completed` event, so replay 
 
 - **Gap Map:** columns = `chapterExternalPrereqs ∪ their ancestors (topo order)` then chapter concepts; rows = students; cell = `pKnown` or `null` if never touched.
 - **Root cause gap** per student: among unmastered concepts in the chapter's ancestor set, choose the one whose own direct prerequisites are all mastered or untouched (the most upstream blocker); tie-break lowest `classLevel`, then topo order.
-- **Groups:** `ready` (root cause null and readiness done), `not_attempted` (no readiness summary), one `gap` group per root-cause concept. Keep `ready`, `not_attempted` and the three largest `gap` groups; merge the rest into one `other` group. Never more than `MAX_GROUPS = 5`.
+- **Groups:** `ready` (root cause null and readiness done), `not_attempted` (no readiness summary), one `gap` group per root-cause concept. Empty groups are left out. `ready` and `not_attempted` always get their own group; gap groups fill the remaining slots largest first (ties: lowest `classLevel`, then topo order), and if they do not fit, the largest `room - 1` are kept and the rest merge into one `other` group, so there are never more than `MAX_GROUPS = 5`. Display order: ready, gap groups, other, not attempted. Root causes are computed on `effectiveMastery` (`mastery.ts`), the same readiness-adjusted view the policy's frontier uses.
 - Each `gap` group carries `dominantMisconception` (most frequent code over the group's attempts on that concept) and `suggestedQuestionIds` (the three most-missed questions on that concept), and a `suggestedAction`: `warm_up` if the group is `>= 25%` of the class, else `small_group`; `paper_check` for `not_attempted`; `extension` for `ready`.
 
 ### 5.7 Testing the engine

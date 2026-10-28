@@ -1,0 +1,38 @@
+{
+  "name": "override-verify-fail",
+  "description": "Teacher marks an untouched root concept mastered (pKnown 0.9, model estimate 0.3 kept), the student then gets all three verification questions wrong. The verification fails, so the model estimate 0.3 is restored, the override flags are cleared and the concept reopens at difficulty 1.",
+  "studentId": "golden-student",
+  "events": [
+    { "id": "o1", "type": "teacher_override", "studentId": "golden-student", "ts": "2026-10-27T10:00:00.000Z", "teacherId": "golden-teacher", "conceptId": "M6.G.A", "mastered": true, "note": "Observed in class" },
+    { "id": "v1", "type": "attempt", "studentId": "golden-student", "ts": "2026-10-27T10:01:00.000Z", "questionId": "M6.G.A.Q2", "conceptId": "M6.G.A", "mode": "verify", "difficulty": 2, "correct": false, "hintsUsed": 0, "timeMs": 5000 },
+    { "id": "v2", "type": "attempt", "studentId": "golden-student", "ts": "2026-10-27T10:02:00.000Z", "questionId": "M6.G.A.Q1", "conceptId": "M6.G.A", "mode": "verify", "difficulty": 2, "correct": false, "hintsUsed": 0, "timeMs": 5000 },
+    { "id": "v3", "type": "attempt", "studentId": "golden-student", "ts": "2026-10-27T10:03:00.000Z", "questionId": "M6.G.A.Q3", "conceptId": "M6.G.A", "mode": "verify", "difficulty": 2, "correct": false, "hintsUsed": 0, "timeMs": 5000 }
+  ],
+  "expected": {
+    "eventCount": 4,
+    "lastEventTs": "2026-10-27T10:03:00.000Z",
+    "mastery": {
+      "M6.G.A": {
+        "pKnown": 0.3,
+        "attempts": 3,
+        "correct": 0,
+        "source": "model",
+        "masteredAt": null,
+        "pendingVerification": null,
+        "modelPKnown": null
+      }
+    },
+    "progress": {
+      "M6.G.A": {
+        "difficulty": 1,
+        "streakCorrect": 0,
+        "streakWrong": 0,
+        "solveAttempts": 0,
+        "testAttempts": 0,
+        "learnViewed": false
+      }
+    },
+    "rechecks": [],
+    "readiness": {}
+  }
+}

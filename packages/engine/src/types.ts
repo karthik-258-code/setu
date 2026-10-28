@@ -308,6 +308,11 @@ export interface MasteryState {
   masteredAt?: IsoTimestamp;
   source: "model" | "teacher_override";
   pendingVerification?: boolean;
+  /**
+   * The model's pKnown just before an unverified `teacher_override` (mastered = true).
+   * Present only while `pendingVerification` is true; failed verification restores it.
+   */
+  modelPKnown?: number;
 }
 
 export interface ConceptProgress {

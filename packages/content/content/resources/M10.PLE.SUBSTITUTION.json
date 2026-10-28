@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M10.PLE.SUBSTITUTION.R.explanation.01",
+    "conceptId": "M10.PLE.SUBSTITUTION",
+    "type": "explanation",
+    "body": {
+      "en": "In the substitution method, solve one equation for one variable and put that expression into the other equation. For x + y = 7 and 2x - y = 2: from the first, y = 7 - x. Substitute: 2x - (7 - x) = 2, so 2x - 7 + x = 2, 3x = 9 and x = 3. Then y = 7 - 3 = 4. Keep the substituted expression in brackets: dropping them turns -(7 - x) into -7 - x, a common slip. Check (3, 4) in both equations.",
+      "te": "ప్రతిక్షేపణ పద్ధతిలో ఒక సమీకరణం నుండి ఒక చరరాశిని సాధించి, ఆ సమాసాన్ని రెండవ సమీకరణంలో ఉంచు. x + y = 7, 2x - y = 2 కు: మొదటి దాని నుండి y = 7 - x. ప్రతిక్షేపించు: 2x - (7 - x) = 2, కాబట్టి 2x - 7 + x = 2, 3x = 9, x = 3. అప్పుడు y = 7 - 3 = 4. ప్రతిక్షేపించిన సమాసాన్ని కుండలీకరణంలో ఉంచు: అవి తీసేస్తే -(7 - x) అనేది -7 - x అవుతుంది, ఇది సాధారణ పొరపాటు. (3, 4) ను రెండు సమీకరణాలలో సరిచూడు."
+    },
+    "reviewStatus": "draft"
+  }
+]

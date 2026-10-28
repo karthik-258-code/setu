@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M10.PLE.GRAPHICAL.R.explanation.01",
+    "conceptId": "M10.PLE.GRAPHICAL",
+    "type": "explanation",
+    "body": {
+      "en": "A pair of linear equations in two variables can be solved by drawing both lines on the same graph. If the lines meet at one point, that point is the unique solution: x + y = 5 and x - y = 1 meet at (3, 2). If the lines are parallel, there is no solution; if they lie on top of each other, every point on the line is a solution. To tell which case you have without drawing, compare the ratios a₁/a₂, b₁/b₂ and c₁/c₂: when a₁/a₂ ≠ b₁/b₂ the lines cross.",
+      "te": "రెండు చరరాశులలో రేఖీయ సమీకరణాల జతను రెండు రేఖలను ఒకే గ్రాఫ్‌పై గీసి సాధించవచ్చు. రేఖలు ఒక బిందువు వద్ద ఖండించుకుంటే ఆ బిందువే ఏకైక సాధన: x + y = 5, x - y = 1 లు (3, 2) వద్ద ఖండించుకుంటాయి. రేఖలు సమాంతరంగా ఉంటే సాధన లేదు; ఒకదానిపై ఒకటి ఉంటే రేఖపై ప్రతి బిందువూ సాధనే. గీయకుండానే ఏ సందర్భమో తెలుసుకోవడానికి a₁/a₂, b₁/b₂, c₁/c₂ నిష్పత్తులను పోల్చు: a₁/a₂ ≠ b₁/b₂ అయితే రేఖలు ఖండించుకుంటాయి."
+    },
+    "reviewStatus": "draft"
+  }
+]

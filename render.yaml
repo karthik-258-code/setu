@@ -1,0 +1,16 @@
+# Render Blueprint: the PWA as a free static site in demo mode (no backend needed).
+# Render dashboard: New > Blueprint > pick this repository.
+services:
+  - type: web
+    name: setu
+    runtime: static
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm content:pack && pnpm --filter @setu/web build
+    staticPublishPath: apps/web/dist
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+    routes:
+      # Single-page app: unknown paths serve index.html; real files (packs, demo seed) are served as they are.
+      - type: rewrite
+        source: /*
+        destination: /index.html

@@ -46,10 +46,10 @@ function HomeCard({ data }: { data: StudentData }) {
         <OfflineStatus />
         <SyncChip status={sync} />
       </div>
-      <section className="space-y-3 rounded-lg bg-white p-4 shadow-sm">
+      <section className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <p
           data-testid="home-mode"
-          className="inline-block rounded bg-slate-100 px-2 py-0.5 text-sm font-medium text-slate-800"
+          className="inline-block rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-800 ring-1 ring-brand-100"
         >
           {ui(MODE_LABEL[rec.mode])}
         </p>
@@ -65,7 +65,7 @@ function HomeCard({ data }: { data: StudentData }) {
           <button
             type="button"
             onClick={() => navigate(target, { state: { recommendation: rec } })}
-            className="min-h-12 w-full rounded-md bg-brand-700 text-lg font-semibold text-white"
+            className="min-h-12 w-full rounded-xl bg-brand-700 text-lg font-semibold text-white shadow-sm transition hover:bg-brand-800 active:scale-[0.99]"
           >
             {ui("start")}
           </button>

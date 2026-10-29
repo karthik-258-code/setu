@@ -1,4 +1,4 @@
-import { chapterExternalPrereqs, descendants, directPrereqs } from "./graph";
+import { ancestors, chapterExternalPrereqs, descendants, directPrereqs } from "./graph";
 import { pick } from "./rng";
 import { READINESS_MAX_DEPTH, READINESS_MAX_ITEMS } from "./types";
 import type {
@@ -113,9 +113,14 @@ function descend(
   if (depth > READINESS_MAX_DEPTH) return session;
 
   const results = { ...session.results };
+  // A cleared concept implies its prerequisites, so no item is spent on them.
+  const implied = new Set<ConceptId>();
+  for (const [id, result] of Object.entries(results)) {
+    if (result.status === "cleared") for (const a of ancestors(pack.graph, id)) implied.add(a);
+  }
   const front: ReadinessQueueItem[] = [];
   const candidates = directPrereqs(pack.graph, from.conceptId).filter(
-    (id) => !session.trimmed.includes(id),
+    (id) => !session.trimmed.includes(id) && !implied.has(id),
   );
   for (const id of orderByImpact(pack, session.chapterId, candidates)) {
     if (id in results) continue;
@@ -124,7 +129,23 @@ function descend(
       front.push({ conceptId: id, depth });
     }
   }
-  return { ...session, results, queue: [...front, ...session.queue] };
+  return { ...session, results, queue: bySupport(pack, results, [...front, ...session.queue]) };
+}
+
+/** Stable reorder: concepts more failed or uncertain concepts depend on come first (likeliest root gap). */
+function bySupport(
+  pack: ContentPack,
+  results: ReadinessSession["results"],
+  queue: readonly ReadinessQueueItem[],
+): ReadinessQueueItem[] {
+  const weak = Object.entries(results)
+    .filter(([, r]) => r.status === "failed" || r.status === "uncertain")
+    .map(([id]) => new Set([id, ...ancestors(pack.graph, id)]));
+  const support = (id: ConceptId) => weak.filter((s) => s.has(id)).length;
+  return queue
+    .map((item, index) => ({ item, index, score: support(item.conceptId) }))
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .map((x) => x.item);
 }
 
 /** Cleared concepts answered exactly once, closest to the chapter (lowest depth) first, then by impact. */

@@ -39,7 +39,7 @@ export function QuestionCard({
                 type="button"
                 disabled={disabled}
                 onClick={() => onAnswer({ optionId: option.id })}
-                className="min-h-12 w-full rounded-md border border-slate-300 bg-white px-4 text-left text-lg disabled:opacity-50"
+                className="min-h-14 w-full rounded-xl border border-slate-200 bg-white px-4 text-left text-lg shadow-sm transition hover:border-brand-600 hover:bg-brand-50 active:scale-[0.99] disabled:opacity-50"
               >
                 <L text={option.text} />
               </button>

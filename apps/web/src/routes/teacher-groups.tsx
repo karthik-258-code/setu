@@ -206,7 +206,7 @@ function GroupsBoard({ view }: { view: ClassView }) {
             key={g.id}
             data-testid="group-card"
             data-group-id={g.id}
-            className="space-y-3 rounded-lg bg-white p-4 shadow-sm"
+            className="space-y-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
           >
             <header className="flex flex-wrap items-baseline justify-between gap-2">
               <h2 className="text-lg font-semibold">

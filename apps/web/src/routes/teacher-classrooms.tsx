@@ -61,7 +61,7 @@ function ClassroomList() {
       {classrooms?.length === 0 && <p>{ui("noClassrooms")}</p>}
       <ul className="space-y-3">
         {classrooms?.map((c) => (
-          <li key={c.id} className="space-y-2 rounded-lg bg-white p-4 shadow-sm">
+          <li key={c.id} className="space-y-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
             <div className="flex items-baseline justify-between gap-2">
               <h2 className="text-lg font-semibold">
                 {format(ui("classLabel"), { level: c.classLevel, section: c.section })}

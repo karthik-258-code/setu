@@ -58,7 +58,7 @@ function GapMapTable({ view }: { view: ClassView }) {
           </li>
         ))}
       </ul>
-      <div className="overflow-x-auto rounded-lg bg-white shadow-sm">
+      <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
         <table className="border-collapse text-sm" data-testid="gapmap" data-classroom={classroom.id}>
           <thead>
             <tr>

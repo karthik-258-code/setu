@@ -27,7 +27,6 @@ services:
   - type: web
     name: setu
     runtime: static
-    plan: free
     buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm content:validate && pnpm content:pack && pnpm --filter @setu/web build
     staticPublishPath: apps/web/dist
     envVars:

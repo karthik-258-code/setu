@@ -78,10 +78,10 @@ function SolveRunner({ data, conceptId }: { data: StudentData; conceptId: string
   }
 
   return (
-    <div className="mx-auto max-w-sm space-y-4">
+    <div className="mx-auto w-full max-w-md space-y-4">
       <div className="flex items-center justify-between gap-2">
         {concept && (
-          <h1 className="text-xl font-semibold">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
             <L text={concept.title} />
           </h1>
         )}
@@ -99,17 +99,17 @@ function SolveRunner({ data, conceptId }: { data: StudentData; conceptId: string
           <button
             type="button"
             onClick={() => setHintsUsed(1)}
-            className="min-h-11 w-full rounded-md border border-brand-700 text-brand-800"
+            className="min-h-11 w-full rounded-xl border border-brand-700 text-brand-800"
           >
             {ui("showHint")}
           </button>
         ) : (
-          <p data-testid="hint" className="rounded-md bg-amber-50 p-3">
+          <p data-testid="hint" className="rounded-xl bg-amber-50 p-3">
             <L text={question.hint} />
           </p>
         ))}
       {result !== null && (
-        <div data-testid="feedback" role="status" className="space-y-2 rounded-md bg-white p-4 shadow-sm">
+        <div data-testid="feedback" role="status" className="space-y-2 rounded-xl bg-white p-4 shadow-soft">
           <p className={`font-semibold ${result.correct ? "text-green-800" : "text-red-800"}`}>
             {ui(result.correct ? "correct" : "notQuite")}
           </p>
@@ -126,7 +126,7 @@ function SolveRunner({ data, conceptId }: { data: StudentData; conceptId: string
           <button
             type="button"
             onClick={next}
-            className="min-h-12 w-full rounded-md bg-brand-700 text-lg font-semibold text-white"
+            className="min-h-12 w-full rounded-xl bg-brand-700 text-lg font-semibold text-white"
           >
             {ui("next")}
           </button>

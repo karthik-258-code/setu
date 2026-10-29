@@ -19,7 +19,7 @@ const ROLES: { to: string; label: StringKey; hint: StringKey; primary: boolean }
 export function RoleChooser() {
   const { ui } = useLang();
   return (
-    <div className="mx-auto max-w-sm space-y-6 pt-6">
+    <div className="mx-auto w-full max-w-md space-y-6 pt-6">
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold text-brand-800">{ui("appName")}</h1>
         <p className="text-slate-600">{ui("tagline")}</p>
@@ -29,7 +29,7 @@ export function RoleChooser() {
           <Link
             key={r.to}
             to={r.to}
-            className={`block rounded-2xl border px-5 py-4 shadow-sm transition active:scale-[0.99] ${
+            className={`block rounded-2xl border px-5 py-4 shadow-soft transition active:scale-[0.99] ${
               r.primary
                 ? "border-brand-700 bg-brand-700 text-white hover:bg-brand-800"
                 : "border-slate-200 bg-white text-slate-900 hover:border-brand-600"

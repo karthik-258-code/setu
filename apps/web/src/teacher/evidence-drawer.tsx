@@ -84,7 +84,7 @@ export function EvidenceDrawer({
           const misconception =
             a.misconceptionCode === undefined ? undefined : pack.misconceptions[a.misconceptionCode];
           return (
-            <li key={a.id} data-testid="evidence-attempt" className="space-y-1 rounded-md border border-slate-200 p-3">
+            <li key={a.id} data-testid="evidence-attempt" className="space-y-1 rounded-xl border border-slate-200 p-3">
               <p className="text-sm text-slate-600">
                 {a.mode} · {a.ts.slice(0, 10)}
               </p>

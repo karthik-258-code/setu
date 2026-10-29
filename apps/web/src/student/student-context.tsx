@@ -159,7 +159,7 @@ export function StudentGate({ children }: { children: (data: StudentData) => Rea
         <button
           type="button"
           onClick={() => void reload()}
-          className="min-h-11 rounded-md bg-brand-700 px-4 font-medium text-white"
+          className="min-h-11 rounded-xl bg-brand-700 px-4 font-medium text-white"
         >
           {ui("tryAgain")}
         </button>

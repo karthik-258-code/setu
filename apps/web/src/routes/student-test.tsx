@@ -85,7 +85,7 @@ function TestRunner({ data, conceptId }: { data: StudentData; conceptId: string 
     }
   }
 
-  const heading = <h1 className="text-xl font-semibold">{ui(MODE_LABEL[test.mode])}</h1>;
+  const heading = <h1 className="text-2xl font-bold tracking-tight text-slate-900">{ui(MODE_LABEL[test.mode])}</h1>;
 
   if (!question) {
     const concept = data.pack.graph.concepts[conceptId];
@@ -104,13 +104,14 @@ function TestRunner({ data, conceptId }: { data: StudentData; conceptId: string 
       month: "long",
     });
     return (
-      <div data-testid="test-result" className="mx-auto max-w-sm space-y-4">
+      <div data-testid="test-result" className="mx-auto w-full max-w-md space-y-4">
         {heading}
-        <p className="text-lg font-semibold">
-          {format(ui("scoreOf"), { correct, total: test.questions.length })}
-        </p>
-        {test.mode !== "extension" && (
-          <>
+        <section className={`space-y-3 rounded-2xl border p-5 shadow-soft ${mastered ? "border-green-200 bg-green-50" : "border-accent-100 bg-accent-50"}`}>
+          <p className="text-xl font-bold text-slate-900">
+            {format(ui("scoreOf"), { correct, total: test.questions.length })}
+          </p>
+          {test.mode !== "extension" && (
+            <>
             <p data-testid="test-outcome">
               {format(ui(mastered ? "outcomeMastered" : "outcomeNotYet"), { concept: title })}
             </p>
@@ -119,12 +120,13 @@ function TestRunner({ data, conceptId }: { data: StudentData; conceptId: string 
                 ? format(ui("nextRecheckOn"), { date: dateFormat.format(new Date(recheck.dueAt)) })
                 : ui("nextPractice")}
             </p>
-          </>
-        )}
+            </>
+          )}
+        </section>
         <button
           type="button"
           onClick={() => navigate("/s/home")}
-          className="min-h-12 w-full rounded-md bg-brand-700 text-lg font-semibold text-white"
+          className="min-h-12 w-full rounded-xl bg-brand-700 text-lg font-semibold text-white"
         >
           {ui("continue")}
         </button>
@@ -134,7 +136,7 @@ function TestRunner({ data, conceptId }: { data: StudentData; conceptId: string 
 
   const concept = data.pack.graph.concepts[question.conceptId];
   return (
-    <div className="mx-auto max-w-sm space-y-4">
+    <div className="mx-auto w-full max-w-md space-y-4">
       {heading}
       {concept && (
         <p className="font-medium">

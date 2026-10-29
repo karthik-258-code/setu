@@ -32,9 +32,9 @@ function ProgressView({ data }: { data: StudentData }) {
   });
 
   return (
-    <div className="mx-auto max-w-sm space-y-4">
+    <div className="mx-auto w-full max-w-md space-y-4">
       <header className="flex items-baseline justify-between gap-2">
-        <h1 className="text-xl font-semibold">{ui("myProgress")}</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">{ui("myProgress")}</h1>
         <Link to="/s/home" className="min-h-11 py-2 text-brand-800 underline">
           {ui("back")}
         </Link>
@@ -52,7 +52,7 @@ function ProgressView({ data }: { data: StudentData }) {
                   .filter((r) => r.conceptId === c.id)
                   .sort((a, b) => a.dueAt.localeCompare(b.dueAt))[0];
                 return (
-                  <li key={c.id} data-testid="progress-concept" className="space-y-1 rounded-md bg-white p-3 shadow-sm">
+                  <li key={c.id} data-testid="progress-concept" className="space-y-1 rounded-xl bg-white p-3 shadow-soft">
                     <div className="flex items-baseline justify-between gap-2">
                       <span id={`concept-${c.id}`} className="font-medium">
                         <L text={c.title} />

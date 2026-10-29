@@ -53,11 +53,15 @@ export function EvidenceDrawer({
   }, [classroomId, studentId, conceptId]);
 
   return (
+    <>
+    {/* Dims the Gap Map and sits above its sticky column; tapping it closes the drawer. */}
+    <div aria-hidden="true" onClick={onClose} className="fixed inset-0 z-30 bg-slate-900/40" />
     <aside
       role="dialog"
       aria-label={ui("evidence")}
-      className="fixed inset-x-0 bottom-0 max-h-[70vh] space-y-3 overflow-y-auto rounded-t-xl bg-white p-4 shadow-2xl"
+      className="fixed inset-x-0 bottom-0 z-40 mx-auto max-h-[75vh] max-w-2xl space-y-3 overflow-y-auto rounded-t-2xl border-t border-slate-200 bg-white p-4 shadow-2xl"
     >
+      <div aria-hidden="true" className="mx-auto h-1.5 w-12 rounded-full bg-slate-300" />
       <header className="flex items-start justify-between gap-2">
         <div>
           <h2 className="text-lg font-semibold">{studentName}</h2>
@@ -105,5 +109,6 @@ export function EvidenceDrawer({
         })}
       </ol>
     </aside>
+    </>
   );
 }

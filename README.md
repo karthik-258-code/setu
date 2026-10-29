@@ -30,12 +30,30 @@ docs/              architecture, build plan, decisions, deployment, evaluation, 
 
 ```bash
 pnpm install
-pnpm content:pack        # build chapter packs
+pnpm build               # content packs, the demo classroom (apps/web/public/demo/seed.json) and the apps
 pnpm dev                 # web on :5173, api on :3000 (needs `docker compose up -d` for Postgres)
 pnpm test                # engine, content, api, web tests
 ```
 
-Open `http://localhost:5173/demo` for the seeded classroom (Anjali, Ravi and 44 synthetic students) without any backend.
+Open `http://localhost:5173/demo` for the seeded classroom (Anjali, Ravi and 44 synthetic students) without any backend: it signs the demo teacher in and opens the Gap Map. For the offline demo use the production build: `pnpm build` then `pnpm --filter @setu/web preview`.
+
+| Demo sign-in | |
+|---|---|
+| Teacher | `teacher@demo.setu.app` / `setu-demo` |
+| Anjali | classroom `DEMO8B`, roll `1`, PIN `1111` |
+| Ravi | classroom `DEMO8B`, roll `2`, PIN `2222` |
+| Roll 3 to 46 | classroom `DEMO8B`, roll `n`, PIN `3000 + n` |
+
+The six-minute walkthrough is [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md).
+
+## What works today
+
+- **Student (phone, offline):** sign-in and shared-phone profiles with hashed PINs, Readiness Check (up to 12 questions, walking back into Classes 6 and 7), home card with the reason for the next step, Learn with a Telugu/English toggle, Solve with hints and the three-level ladder, Test, re-check and verification.
+- **Teacher:** sign-in, classrooms, Gap Map with evidence drawer, groups with warm-up questions (accept, dismiss, move, merge, split), mark taught, assign, override with note, extension lock, launch a chapter with prerequisite trimming and a printable paper check.
+- **Demo mode:** every screen runs on `LocalDemoApiClient`, the same engine functions the API uses.
+- **Not yet:** progress screen, sync and the API, paper entry, weekly view, simulation report. See [docs/BUILD_PLAN.md](docs/BUILD_PLAN.md).
+
+Telugu content is a first draft and needs review by a Telugu-medium maths teacher.
 
 ## How it works in one diagram
 

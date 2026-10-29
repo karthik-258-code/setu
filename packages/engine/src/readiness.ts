@@ -373,3 +373,41 @@ export function readinessSummary(session: ReadinessSession, now: string): Readin
     completedAt: now,
   };
 }
+
+const byPaperRank = (a: Question, b: Question): number => {
+  const rank = (q: Question) => (q.tags?.includes("paper_friendly") ? 0 : 1);
+  return rank(a) - rank(b) || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+};
+
+/**
+ * The printable Readiness Check (BUILD_PLAN 5.5): up to `count` questions at the target
+ * difficulty, dealt round-robin over the chapter's external prerequisites (topo order) minus
+ * `trimmed`, paper-friendly questions first, then by id. Deterministic; no rng.
+ */
+export function paperCheckQuestions(
+  pack: ContentPack,
+  chapterId: string,
+  trimmed: readonly ConceptId[],
+  count: number = READINESS_MAX_ITEMS,
+): Question[] {
+  const lists = chapterExternalPrereqs(pack.graph, chapterId)
+    .filter((id) => !trimmed.includes(id))
+    .map((id) =>
+      pack.questions
+        .filter((q) => q.conceptId === id && q.difficulty === TARGET_DIFFICULTY)
+        .sort(byPaperRank),
+    );
+  const out: Question[] = [];
+  for (let round = 0; out.length < count; round++) {
+    let added = false;
+    for (const list of lists) {
+      const question = list[round];
+      if (question && out.length < count) {
+        out.push(question);
+        added = true;
+      }
+    }
+    if (!added) break;
+  }
+  return out;
+}

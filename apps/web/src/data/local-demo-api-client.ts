@@ -30,7 +30,8 @@ import type {
   TeacherLoginResponse,
 } from "@setu/shared";
 import type { SetuDb } from "./db";
-import { DEMO_CLASSROOM, DEMO_STUDENTS, DEMO_TEACHER } from "./demo-seed";
+import { DEMO_CLASSROOM, DEMO_ROSTER_KEY, DEMO_STUDENTS, DEMO_TEACHER } from "./demo-seed";
+import type { DemoStudent } from "./demo-seed";
 import { loadState, studentEvents } from "./event-store";
 
 const LAUNCHES_KEY = "demo:launches";
@@ -75,7 +76,7 @@ export class LocalDemoApiClient implements ApiClient {
   }
 
   async studentLogin(request: StudentLoginRequest): Promise<StudentLoginResponse> {
-    const student = DEMO_STUDENTS.find((s) => s.rollNo === request.rollNo);
+    const student = (await this.roster()).find((s) => s.rollNo === request.rollNo);
     if (request.classroomCode !== DEMO_CLASSROOM.code || !student || student.pin !== request.pin) {
       throw new DemoApiError("INVALID_CREDENTIALS", "Unknown classroom, roll number or PIN");
     }
@@ -106,7 +107,7 @@ export class LocalDemoApiClient implements ApiClient {
 
   /** The demo "server" is this device: valid events of demo students are accepted and marked synced. */
   async sync(events: StudentEvent[]): Promise<SyncResponse> {
-    const known = new Set(DEMO_STUDENTS.map((s) => s.studentId));
+    const known = new Set((await this.roster()).map((s) => s.studentId));
     const accepted: StudentEvent[] = [];
     const rejected: SyncResponse["rejected"] = [];
     for (const raw of events) {
@@ -166,7 +167,7 @@ export class LocalDemoApiClient implements ApiClient {
     this.requireClassroom(classroomId);
     const pack = await this.loadPack(chapterId);
     const attempts: Record<string, AttemptEvent[]> = {};
-    for (const s of DEMO_STUDENTS) {
+    for (const s of await this.roster()) {
       attempts[s.studentId] = (await studentEvents(this.db, s.studentId)).filter(isAttempt);
     }
     const byStudent: AttemptsByStudent = attempts;
@@ -179,7 +180,7 @@ export class LocalDemoApiClient implements ApiClient {
     conceptId: string,
   ): Promise<AttemptEvent[]> {
     this.requireClassroom(classroomId);
-    this.requireStudent(studentId);
+    await this.requireStudent(studentId);
     return (await studentEvents(this.db, studentId))
       .filter(isAttempt)
       .filter((a) => a.conceptId === conceptId)
@@ -191,7 +192,7 @@ export class LocalDemoApiClient implements ApiClient {
     if (!teacherEventSchema.safeParse(event).success) {
       throw new DemoApiError("BAD_REQUEST", "Invalid teacher event");
     }
-    this.requireStudent(event.studentId);
+    await this.requireStudent(event.studentId);
     await this.db.events.put({ ...event, synced: 1 });
   }
 
@@ -201,7 +202,7 @@ export class LocalDemoApiClient implements ApiClient {
     const to = this.now();
     const from = new Date(to.getTime() - WEEK_MS);
     const students: WeeklyStudent[] = [];
-    for (const s of DEMO_STUDENTS) {
+    for (const s of await this.roster()) {
       students.push({
         studentId: s.studentId,
         displayName: s.firstName,
@@ -210,6 +211,12 @@ export class LocalDemoApiClient implements ApiClient {
       });
     }
     return buildWeeklyView(pack, chapterId, students, from.toISOString(), to.toISOString());
+  }
+
+  /** The seeded roster once `/demo` has stored it (6.1), otherwise the two-student stub. */
+  private async roster(): Promise<readonly DemoStudent[]> {
+    const stored = (await this.db.meta.get(DEMO_ROSTER_KEY))?.value as DemoStudent[] | undefined;
+    return stored ?? DEMO_STUDENTS;
   }
 
   private async storedLaunches(): Promise<LaunchResponse[]> {
@@ -222,15 +229,15 @@ export class LocalDemoApiClient implements ApiClient {
     }
   }
 
-  private requireStudent(studentId: string): void {
-    if (!DEMO_STUDENTS.some((s) => s.studentId === studentId)) {
+  private async requireStudent(studentId: string): Promise<void> {
+    if (!(await this.roster()).some((s) => s.studentId === studentId)) {
       throw new DemoApiError("NOT_FOUND", `Student ${studentId} is not in the demo classroom`);
     }
   }
 
   private async classroomStudents(pack: ContentPack): Promise<ClassroomStudent[]> {
     const students: ClassroomStudent[] = [];
-    for (const s of DEMO_STUDENTS) {
+    for (const s of await this.roster()) {
       students.push({
         studentId: s.studentId,
         displayName: s.firstName,

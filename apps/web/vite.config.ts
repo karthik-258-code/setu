@@ -27,8 +27,18 @@ export default defineConfig({
       workbox: {
         globPatterns: ["**/*.{js,css,html,png,svg,webmanifest}"],
         navigateFallback: "/index.html",
-        navigateFallbackDenylist: [/^\/packs\//, /^\/api\//],
+        navigateFallbackDenylist: [/^\/packs\//, /^\/api\//, /^\/demo\/seed\.json$/],
         runtimeCaching: [
+          {
+            // The seeded demo classroom (6.1): fresh when online, cached for an offline demo.
+            urlPattern: ({ url }) => url.pathname === "/demo/seed.json",
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "setu-demo",
+              networkTimeoutSeconds: 3,
+              cacheableResponse: { statuses: [200] },
+            },
+          },
           {
             // The pack index changes whenever a pack does, so the network is tried first; the
             // cached copy is only for offline starts.

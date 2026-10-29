@@ -1,0 +1,70 @@
+import { useState } from "react";
+import type { FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { apiClient } from "../data/api";
+import { useLang } from "../i18n/lang-context";
+import { useTeacher } from "../teacher/teacher-context";
+
+export function TeacherLogin() {
+  const { signIn } = useTeacher();
+  const { ui } = useLang();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [failed, setFailed] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  async function submit(event: FormEvent) {
+    event.preventDefault();
+    setBusy(true);
+    setFailed(false);
+    try {
+      const { accessToken } = await apiClient().login({ email: email.trim(), password });
+      await signIn(accessToken);
+      navigate("/t/classrooms");
+    } catch {
+      setFailed(true);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const field = "min-h-12 w-full rounded-md border border-slate-300 px-3 text-lg";
+  return (
+    <form onSubmit={(e) => void submit(e)} className="mx-auto max-w-sm space-y-4">
+      <h1 className="text-xl font-semibold">{ui("teacherSignIn")}</h1>
+      <label className="block space-y-1">
+        <span className="font-medium">{ui("email")}</span>
+        <input
+          className={field}
+          type="email"
+          autoComplete="username"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </label>
+      <label className="block space-y-1">
+        <span className="font-medium">{ui("password")}</span>
+        <input
+          className={field}
+          type="password"
+          autoComplete="current-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </label>
+      {failed && (
+        <p role="alert" className="text-red-700">
+          {ui("teacherLoginFailed")}
+        </p>
+      )}
+      <button
+        type="submit"
+        disabled={busy || email.trim() === "" || password === ""}
+        className="min-h-12 w-full rounded-md bg-brand-700 text-lg font-semibold text-white disabled:opacity-50"
+      >
+        {ui(busy ? "signingIn" : "signIn")}
+      </button>
+    </form>
+  );
+}

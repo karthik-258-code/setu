@@ -1,9 +1,11 @@
 import { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { currentSessionId } from "../data/session";
 import { L } from "../i18n/l";
 import { useLang } from "../i18n/lang-context";
 import { MODE_LABEL } from "../student/mode-labels";
+import { OfflineStatus } from "../student/offline-status";
+import { SyncChip, useAutoSync } from "../student/sync-status";
 import { recommend, renderReason, routeFor } from "../student/recommend";
 import { StudentGate, useStudent } from "../student/student-context";
 import type { StudentData } from "../student/student-context";
@@ -14,7 +16,7 @@ export function StudentHome() {
 }
 
 function HomeCard({ data }: { data: StudentData }) {
-  const { now, signOut } = useStudent();
+  const { db, now, signOut } = useStudent();
   const { ui } = useLang();
   const navigate = useNavigate();
   const { pack, state, launch, profile } = data;
@@ -24,6 +26,7 @@ function HomeCard({ data }: { data: StudentData }) {
   );
   const concept = rec.conceptId === undefined ? undefined : pack.graph.concepts[rec.conceptId];
   const target = routeFor(rec);
+  const sync = useAutoSync(db, profile.studentId, state.eventCount);
 
   return (
     <div className="mx-auto max-w-sm space-y-4">
@@ -39,6 +42,10 @@ function HomeCard({ data }: { data: StudentData }) {
           {ui("switchStudent")}
         </button>
       </header>
+      <div className="flex flex-wrap items-center gap-2">
+        <OfflineStatus />
+        <SyncChip status={sync} />
+      </div>
       <section className="space-y-3 rounded-lg bg-white p-4 shadow-sm">
         <p
           data-testid="home-mode"
@@ -64,6 +71,9 @@ function HomeCard({ data }: { data: StudentData }) {
           </button>
         )}
       </section>
+      <Link to="/s/progress" className="block min-h-11 py-2 text-center text-brand-800 underline">
+        {ui("myProgress")}
+      </Link>
     </div>
   );
 }

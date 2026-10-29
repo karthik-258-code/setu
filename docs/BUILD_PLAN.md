@@ -143,37 +143,37 @@ Expected `chapterExternalPrereqs(CH.M8.LINEAR_EQ_ONE_VAR)`: `M7.SEQ.TRANSPOSE`, 
 - [x] **3.5 Learn.** Renders the chosen resource (markdown subset + SVG), bilingual toggle, "I understood, let me try" writes `learn_viewed`.
 - [x] **3.6 Solve.** One question at a time, MCQ and numeric input, hint button (counts `hintsUsed`), immediate feedback with the solution, ladder visible as three dots, writes `attempt`.
 - [x] **3.7 Test, re-check, verify.** Three questions, no hints, result screen with mastery outcome and what happens next.
-- [ ] **3.8 Progress.** Concepts grouped by class with mastery bars, mastered dates, next re-check dates.
-- [ ] **3.9 Offline.** Workbox precache + pack cache; "downloaded for offline" indicator; manual test with DevTools offline passes the full loop.
-- [ ] **3.10 Sync queue and HttpApiClient.** Batch unsynced events on reconnect and on app open; retry with backoff; sync status chip. (Depends on 4.4.)
+- [x] **3.8 Progress.** Concepts grouped by class with mastery bars, mastered dates, next re-check dates.
+- [x] **3.9 Offline.** Workbox precache + pack cache; "downloaded for offline" indicator; manual test with DevTools offline passes the full loop.
+- [x] **3.10 Sync queue and HttpApiClient.** Batch unsynced events on reconnect and on app open; retry with backoff; sync status chip. (Depends on 4.4.)
 
 ## Phase 4: API (28 Oct) — P1
 
-- [ ] **4.1 Prisma schema and seed.** Models from 8.3; migration; seed script creating one school, two classrooms (Class 8 B with 46 students, Class 9 A with 40), one teacher, one coordinator.
-- [ ] **4.2 Auth.** Teacher login (Argon2id), student login, refresh, `authz` plugin with tests for cross-classroom denial.
-- [ ] **4.3 Packs.** `GET /packs/:chapterId` from `apps/api/packs/` with ETag.
-- [ ] **4.4 Sync.** Per 8.2: zod validation, idempotent insert, replay with `@setu/engine`, materialise `MasteryState` and `Recheck`. Test: golden vectors from 1.8 replayed through the API produce identical state.
-- [ ] **4.5 Teacher reads.** gapmap, groups, evidence, weekly, built from events via the engine.
-- [ ] **4.6 Teacher writes.** `POST /classrooms/:id/events` for override, mark taught, assign, extension lock, group edit, paper attempts; `POST /classrooms/:id/launch`.
+- [x] **4.1 Prisma schema and seed.** Models from 8.3; migration; seed script creating one school, two classrooms (Class 8 B with 46 students, Class 9 A with 40), one teacher, one coordinator.
+- [x] **4.2 Auth.** Teacher login (Argon2id), student login, refresh, `authz` plugin with tests for cross-classroom denial.
+- [x] **4.3 Packs.** `GET /packs/:chapterId` from `apps/api/packs/` with ETag.
+- [x] **4.4 Sync.** Per 8.2: zod validation, idempotent insert, replay with `@setu/engine`, materialise `MasteryState` and `Recheck`. Test: golden vectors from 1.8 replayed through the API produce identical state.
+- [x] **4.5 Teacher reads.** gapmap, groups, evidence, weekly, built from events via the engine.
+- [x] **4.6 Teacher writes.** `POST /classrooms/:id/events` for override, mark taught, assign, extension lock, group edit, paper attempts; `POST /classrooms/:id/launch`.
 
 ## Phase 5: Teacher app (28 to 29 Oct)
 
-- [ ] **5.1 Login and classrooms list.** Works with both ApiClients.
-- [ ] **5.2 Gap Map.** Heatmap for up to 60 rows: prerequisite columns left, chapter columns right, colour scale on `pKnown`, null as grey, sticky student column, tap cell opens the evidence drawer (attempts, chosen answers, misconception labels).
-- [ ] **5.3 Groups.** Cards per `GapGroup` with student chips, dominant misconception, three most-missed questions shown inline for the warm-up; accept / dismiss / move student / merge / split, each writing a `group_edit` event.
-- [ ] **5.4 Actions.** Mark taught (group), assign (group or student), override with note (student page), lock/unlock extension. Confirmation toasts state the consequence ("re-check scheduled for 15 students").
-- [ ] **5.5 Launch chapter.** Chapter picker (shows Class 7, 8, 9, 10 chapters), prerequisite list with remove toggles, "Print paper check" generating a printable page of 12 difficulty-2 questions covering the external prerequisites.
-- [ ] **5.6 Paper entry.** Grid student x question; tap cycles correct / wrong option (a, b, c, d) / blank; submits `attempt` events with `source: paper`.
-- [ ] **5.7 Weekly view.** Movement between groups, blocking concepts, re-check pass rates after mark taught.
+- [x] **5.1 Login and classrooms list.** Works with both ApiClients.
+- [x] **5.2 Gap Map.** Heatmap for up to 60 rows: prerequisite columns left, chapter columns right, colour scale on `pKnown`, null as grey, sticky student column, tap cell opens the evidence drawer (attempts, chosen answers, misconception labels).
+- [x] **5.3 Groups.** Cards per `GapGroup` with student chips, dominant misconception, three most-missed questions shown inline for the warm-up; accept / dismiss / move student / merge / split, each writing a `group_edit` event.
+- [x] **5.4 Actions.** Mark taught (group), assign (group or student), override with note (student page), lock/unlock extension. Confirmation toasts state the consequence ("re-check scheduled for 15 students").
+- [x] **5.5 Launch chapter.** Chapter picker (shows Class 7, 8, 9, 10 chapters), prerequisite list with remove toggles, "Print paper check" generating a printable page of 12 difficulty-2 questions covering the external prerequisites.
+- [x] **5.6 Paper entry.** Grid student x question; tap cycles correct / wrong option (a, b, c, d) / blank; submits `attempt` events with `source: paper`.
+- [x] **5.7 Weekly view.** Movement between groups, blocking concepts, re-check pass rates after mark taught.
 
 ## Phase 6: Demo, evaluation and evaluator deliverables (29 Oct)
 
-- [ ] **6.1 Demo seed.** `packages/content/src/demo/seed.ts`: Anjali and Ravi exactly as in the submission section 2.4, plus 44 synthetic students generated by simulating learners with planted gaps through the engine (seeded). Produces the event log that `LocalDemoApiClient` loads. `/demo` route loads it and lands on the teacher Gap Map.
-- [ ] **6.2 Simulation report.** `pnpm sim`: 1,000 synthetic students, planted single and double gaps, learners with three learning rates; reports root-cause recall and precision within 12 items, median items used, items-to-mastery and share of attempts in the 60 to 80 percent accuracy band for ladder vs fixed difficulty. Writes `docs/EVALUATION.md` with tables. Target recall at least 0.85 for single gaps.
-- [ ] **6.3 Deployment plan.** `docs/DEPLOYMENT.md`: reference deployment (one small VM in an Indian region + managed Postgres or Postgres on the VM, object storage for packs), monthly cost table for 1, 5, 25 schools in INR with assumptions, school onboarding checklist (accounts, consent via school, classroom codes, pack download day), teacher training plan (90-minute session, two 30-minute follow-ups, one-page quick card), support model, backup and data retention. Honest limits section.
+- [x] **6.1 Demo seed.** `packages/content/src/demo/seed.ts`: Anjali and Ravi exactly as in the submission section 2.4, plus 44 synthetic students generated by simulating learners with planted gaps through the engine (seeded). Produces the event log that `LocalDemoApiClient` loads. `/demo` route loads it and lands on the teacher Gap Map.
+- [x] **6.2 Simulation report.** `pnpm sim`: 1,000 synthetic students, planted single and double gaps, learners with three learning rates; reports root-cause recall and precision within 12 items, median items used, items-to-mastery and share of attempts in the 60 to 80 percent accuracy band for ladder vs fixed difficulty. Writes `docs/EVALUATION.md` with tables. Target recall at least 0.85 for single gaps.
+- [x] **6.3 Deployment plan.** `docs/DEPLOYMENT.md`: reference deployment (one small VM in an Indian region + managed Postgres or Postgres on the VM, object storage for packs), monthly cost table for 1, 5, 25 schools in INR with assumptions, school onboarding checklist (accounts, consent via school, classroom codes, pack download day), teacher training plan (90-minute session, two 30-minute follow-ups, one-page quick card), support model, backup and data retention. Honest limits section.
 - [ ] **6.4 Teacher wireframes.** `docs/wireframes/`: low-fidelity wireframes as simple HTML files (no build step) for Launch, Gap Map, Evidence drawer, Groups, Mark taught confirmation, Weekly; plus PNG screenshots of the built screens from demo mode; `README.md` in the folder with the five-minute-before-class walkthrough.
-- [ ] **6.5 Scaling walkthrough.** `docs/SCALING.md`: add a chapter (JSON diff, validator output, pack size), add a board tag, add a language, add a subject; and a demo recipe: launch Class 9 LE2V in Class 9 A and show the Readiness Check descending into Class 8 and 7.
-- [ ] **6.6 Demo script.** `docs/DEMO_SCRIPT.md`: 6-minute Prove-round walkthrough (teacher launch, Anjali vs Ravi, Gap Map, mark taught, re-check, offline toggle, Class 9 scaling moment).
+- [x] **6.5 Scaling walkthrough.** `docs/SCALING.md`: add a chapter (JSON diff, validator output, pack size), add a board tag, add a language, add a subject; and a demo recipe: launch Class 9 LE2V in Class 9 A and show the Readiness Check descending into Class 8 and 7.
+- [x] **6.6 Demo script.** `docs/DEMO_SCRIPT.md`: 6-minute Prove-round walkthrough (teacher launch, Anjali vs Ravi, Gap Map, mark taught, re-check, offline toggle, Class 9 scaling moment).
 - [ ] **6.7 README polish.** Screenshots, quick start, architecture summary, link to all docs.
 - [ ] **6.8 Release.** Verify GitHub mirror is current, tag `v0.1.0`, GitHub Actions green.
 

@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import { StudentProvider } from "../student/student-context";
-import { Placeholder } from "./placeholder";
 
 export function StudentLayout() {
   return (
@@ -17,4 +16,4 @@ export { StudentReadiness } from "./student-readiness";
 export { StudentLearn } from "./student-learn";
 export { StudentSolve } from "./student-solve";
 export { StudentTest } from "./student-test";
-export const StudentProgress = () => <Placeholder name="student-progress" />;
+export { StudentProgress } from "./student-progress";

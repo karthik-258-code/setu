@@ -6,26 +6,22 @@ import { routes } from "./router";
 
 const CASES: { path: string; name: string; params: Record<string, string> }[] = [
   { path: "/", name: "role-chooser", params: {} },
-  { path: "/demo", name: "demo", params: {} },
-  { path: "/s/progress", name: "student-progress", params: {} },
-  { path: "/t/login", name: "teacher-login", params: {} },
-  { path: "/t/classrooms", name: "teacher-classrooms", params: {} },
-  { path: "/t/classrooms/c1/launch", name: "teacher-launch", params: { id: "c1" } },
-  { path: "/t/classrooms/c1/gapmap", name: "teacher-gapmap", params: { id: "c1" } },
-  { path: "/t/classrooms/c1/groups", name: "teacher-groups", params: { id: "c1" } },
-  {
-    path: "/t/classrooms/c1/students/s9",
-    name: "teacher-student",
-    params: { id: "c1", sid: "s9" },
-  },
-  { path: "/t/classrooms/c1/paper-entry", name: "teacher-paper-entry", params: { id: "c1" } },
-  { path: "/t/classrooms/c1/weekly", name: "teacher-weekly", params: { id: "c1" } },
 ];
 
 /** Routes whose screen is built; each has its own tests next to the screen. */
 const BUILT_SCREENS = ["/s/login", "/s/profiles", "/s/home", "/s/readiness/:chapterId", "/s/solve/:conceptId",
   "/s/learn/:conceptId",
   "/s/test/:conceptId",
+  "/t/login",
+  "/t/classrooms",
+  "/t/classrooms/:id/gapmap",
+  "/t/classrooms/:id/groups",
+  "/t/classrooms/:id/students/:sid",
+  "/demo",
+  "/t/classrooms/:id/launch",
+  "/s/progress",
+  "/t/classrooms/:id/weekly",
+  "/t/classrooms/:id/paper-entry",
 ];
 
 describe("routes", () => {

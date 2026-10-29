@@ -1,5 +1,5 @@
 import type { Recommendation } from "@setu/engine";
-import { screen, waitFor } from "@testing-library/react";
+import { act, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { SetuDb } from "../data/db";
@@ -57,6 +57,24 @@ describe("home card", () => {
     const router = renderStudent("/s/home", { db, pack });
     await user.click(await screen.findByRole("button", { name: "Switch student" }));
     await waitFor(() => expect(router.state.location.pathname).toBe("/s/profiles"));
+  });
+});
+
+describe("offline indicator", () => {
+  it("shows the lessons are saved and says so while the phone is offline", async () => {
+    await saveProfile(db, anjali, "1111");
+    await setActiveProfile(db, anjali.studentId);
+    renderStudent("/s/home", { db, pack });
+    expect(await screen.findByTestId("offline-ready")).toHaveTextContent("Lessons saved on this phone");
+    expect(screen.queryByTestId("offline-now")).toBeNull();
+    act(() => {
+      window.dispatchEvent(new Event("offline"));
+    });
+    expect(screen.getByTestId("offline-now")).toHaveTextContent("your work is saved");
+    act(() => {
+      window.dispatchEvent(new Event("online"));
+    });
+    expect(screen.queryByTestId("offline-now")).toBeNull();
   });
 });
 

@@ -12,6 +12,7 @@
   "scripts": {
     "validate": "node --import tsx src/validate.ts",
     "pack": "node --import tsx src/build.ts",
+    "sim": "node --import tsx src/sim/run.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "lint": "eslint ."

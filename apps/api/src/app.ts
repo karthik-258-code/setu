@@ -4,7 +4,12 @@ import Fastify, {
   type FastifyServerOptions,
 } from "fastify";
 import { errorResponseSchema, type ErrorResponse } from "@setu/shared";
+import type { ApiDeps } from "./deps";
+import { ApiError } from "./errors";
+import { authRoutes } from "./routes/auth";
 import { healthRoutes } from "./routes/health";
+import { studentRoutes } from "./routes/student";
+import { teacherRoutes } from "./routes/teacher";
 
 const STATUS_CODES: Record<number, string> = {
   400: "BAD_REQUEST",
@@ -21,8 +26,11 @@ function errorBody(code: string, message: string): ErrorResponse {
   return errorResponseSchema.parse({ error: { code, message } });
 }
 
-/** Builds the Fastify instance without listening, so tests can use `app.inject`. */
-export function buildApp(options: FastifyServerOptions = {}): FastifyInstance {
+/**
+ * Builds the Fastify instance without listening, so tests can use `app.inject`. Without `deps`
+ * only `/health` is served; with them, every route of ARCHITECTURE 8.1.
+ */
+export function buildApp(options: FastifyServerOptions = {}, deps?: ApiDeps): FastifyInstance {
   const app = Fastify(options);
 
   app.setNotFoundHandler((request, reply) =>
@@ -32,6 +40,10 @@ export function buildApp(options: FastifyServerOptions = {}): FastifyInstance {
   );
 
   app.setErrorHandler((error: FastifyError, request, reply) => {
+    if ((error as unknown) instanceof ApiError) {
+      const apiError = error as unknown as ApiError;
+      return reply.code(apiError.statusCode).send(errorBody(apiError.code, apiError.message));
+    }
     const status =
       error.statusCode !== undefined && error.statusCode >= 400 ? error.statusCode : 500;
     if (status >= 500) {
@@ -42,6 +54,11 @@ export function buildApp(options: FastifyServerOptions = {}): FastifyInstance {
   });
 
   app.register(healthRoutes);
+  if (deps) {
+    app.register(authRoutes, { deps });
+    app.register(studentRoutes, { deps });
+    app.register(teacherRoutes, { deps });
+  }
 
   return app;
 }

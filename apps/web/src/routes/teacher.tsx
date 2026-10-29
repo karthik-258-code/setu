@@ -1,15 +1,19 @@
 import { Outlet } from "react-router-dom";
-import { Placeholder } from "./placeholder";
+import { TeacherProvider } from "../teacher/teacher-context";
 
 export function TeacherLayout() {
-  return <Outlet />;
+  return (
+    <TeacherProvider>
+      <Outlet />
+    </TeacherProvider>
+  );
 }
 
-export const TeacherLogin = () => <Placeholder name="teacher-login" />;
-export const TeacherClassrooms = () => <Placeholder name="teacher-classrooms" />;
-export const TeacherLaunch = () => <Placeholder name="teacher-launch" />;
-export const TeacherGapMap = () => <Placeholder name="teacher-gapmap" />;
-export const TeacherGroups = () => <Placeholder name="teacher-groups" />;
-export const TeacherStudent = () => <Placeholder name="teacher-student" />;
-export const TeacherPaperEntry = () => <Placeholder name="teacher-paper-entry" />;
-export const TeacherWeekly = () => <Placeholder name="teacher-weekly" />;
+export { TeacherLogin } from "./teacher-login";
+export { TeacherClassrooms } from "./teacher-classrooms";
+export { TeacherLaunch } from "./teacher-launch";
+export { TeacherGapMap } from "./teacher-gapmap";
+export { TeacherGroups } from "./teacher-groups";
+export { TeacherStudent } from "./teacher-student";
+export { TeacherPaperEntry } from "./teacher-paper-entry";
+export { TeacherWeekly } from "./teacher-weekly";

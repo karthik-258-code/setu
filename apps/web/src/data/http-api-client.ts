@@ -44,6 +44,8 @@ export type FetchLike = (url: string, init: RequestInit) => Promise<Response>;
 
 const TEACHER_TOKENS = "api:teacher";
 const DEVICE_ID = "deviceId";
+/** Same key as `data/profiles.ts`: the profile using the device now. */
+const ACTIVE_STUDENT = "activeStudentId";
 const studentTokenKey = (studentId: string) => `api:student:${studentId}`;
 const enc = encodeURIComponent;
 
@@ -148,7 +150,18 @@ export class HttpApiClient implements ApiClient {
     return syncResponseSchema.parse(raw);
   }
 
-  getClassrooms(): Promise<ClassroomSummary[]> {
+  /**
+   * A teacher's classrooms; on a student device (no teacher signed in) the active student's own
+   * classroom, so `refreshLaunch` picks up the latest launched chapter.
+   */
+  async getClassrooms(): Promise<ClassroomSummary[]> {
+    if ((await this.db.meta.get(TEACHER_TOKENS)) === undefined) {
+      const active = (await this.db.meta.get(ACTIVE_STUDENT))?.value;
+      if (typeof active === "string") {
+        const token = await this.studentToken(active);
+        return [await this.request<ClassroomSummary>("GET", "/me/classroom", undefined, token)];
+      }
+    }
     return this.teacher<ClassroomSummary[]>("GET", "/classrooms");
   }
 

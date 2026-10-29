@@ -4,41 +4,43 @@ import { describe, expect, it } from "vitest";
 import { LangProvider } from "./i18n/lang-context";
 import { routes } from "./router";
 
-const CASES: { path: string; name: string; params: Record<string, string> }[] = [
-  { path: "/", name: "role-chooser", params: {} },
-];
-
-/** Routes whose screen is built; each has its own tests next to the screen. */
-const BUILT_SCREENS = ["/s/login", "/s/profiles", "/s/home", "/s/readiness/:chapterId", "/s/solve/:conceptId",
+/** Every route of ARCHITECTURE 7.2; each screen has its own tests next to it. */
+const ROUTES = [
+  "/",
+  "/demo",
+  "/s/login",
+  "/s/profiles",
+  "/s/home",
+  "/s/readiness/:chapterId",
   "/s/learn/:conceptId",
+  "/s/solve/:conceptId",
   "/s/test/:conceptId",
+  "/s/progress",
   "/t/login",
   "/t/classrooms",
+  "/t/classrooms/:id/launch",
   "/t/classrooms/:id/gapmap",
   "/t/classrooms/:id/groups",
   "/t/classrooms/:id/students/:sid",
-  "/demo",
-  "/t/classrooms/:id/launch",
-  "/s/progress",
-  "/t/classrooms/:id/weekly",
   "/t/classrooms/:id/paper-entry",
+  "/t/classrooms/:id/weekly",
 ];
 
 describe("routes", () => {
-  it.each(CASES)("renders $path as $name with its params", async ({ path, name, params }) => {
-    const router = createMemoryRouter(routes, { initialEntries: [path] });
+  it("opens on a landing page with student login, teacher login and the demo", async () => {
+    const router = createMemoryRouter(routes, { initialEntries: ["/"] });
     render(
       <LangProvider>
         <RouterProvider router={router} />
       </LangProvider>,
     );
-    expect(await screen.findByTestId("route-name")).toHaveTextContent(name);
-    for (const [key, value] of Object.entries(params)) {
-      expect(screen.getByTestId(`param-${key}`)).toHaveTextContent(`${key}=${value}`);
-    }
+    expect(await screen.findByRole("link", { name: /Student login/ })).toHaveAttribute("href", "/s/login");
+    expect(screen.getByRole("link", { name: /Teacher login/ })).toHaveAttribute("href", "/t/login");
+    expect(screen.getByRole("link", { name: /Try the demo/ })).toHaveAttribute("href", "/demo");
+    expect(screen.queryByTestId("route-name")).toBeNull();
   });
 
   it("covers every route of ARCHITECTURE 7.2", () => {
-    expect(CASES.length + BUILT_SCREENS.length).toBe(18);
+    expect(new Set(ROUTES).size).toBe(18);
   });
 });

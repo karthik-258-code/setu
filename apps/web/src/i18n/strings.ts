@@ -7,9 +7,25 @@ export const strings = {
   englishOnly: { en: "English only", te: "ఇంగ్లీష్ మాత్రమే" },
   screen: { en: "Screen", te: "స్క్రీన్" },
   parameters: { en: "Parameters", te: "పారామితులు" },
-  roleStudent: { en: "I am a student", te: "నేను విద్యార్థిని" },
-  roleTeacher: { en: "I am a teacher", te: "నేను ఉపాధ్యాయుడిని" },
+  roleStudent: { en: "Student login", te: "విద్యార్థి లాగిన్" },
+  roleTeacher: { en: "Teacher login", te: "ఉపాధ్యాయుల లాగిన్" },
   roleDemo: { en: "Try the demo", te: "డెమో చూడండి" },
+  tagline: {
+    en: "Find the gap before the chapter begins.",
+    te: "అధ్యాయం మొదలయ్యే ముందే లోటును కనుగొనండి.",
+  },
+  roleStudentHint: {
+    en: "Classroom code, roll number and PIN",
+    te: "తరగతి కోడ్, రోల్ నంబర్ మరియు పిన్",
+  },
+  roleTeacherHint: {
+    en: "Gap Map, groups and actions for your class",
+    te: "మీ తరగతి లోటుల పటం, సమూహాలు, చర్యలు",
+  },
+  roleDemoHint: {
+    en: "A Class 8 classroom with 46 students, no internet needed",
+    te: "46 మంది విద్యార్థులున్న 8వ తరగతి, ఇంటర్నెట్ అవసరం లేదు",
+  },
   noParameters: { en: "None", te: "ఏవీ లేవు" },
   loading: { en: "Loading…", te: "లోడ్ అవుతోంది…" },
   loadFailed: {

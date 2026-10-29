@@ -211,8 +211,8 @@ export function buildDemoSeed(
 ): DemoSeed {
   const rng = mulberry32(seed);
   const students: DemoSeedStudent[] = [
-    { studentId: "demo-anjali", firstName: "Anjali", rollNo: "1", lang: "te", pin: "1111" },
-    { studentId: "demo-ravi", firstName: "Ravi", rollNo: "2", lang: "te", pin: "2222" },
+    { studentId: "demo-anjali", firstName: "Anjali", rollNo: "1", lang: "en", pin: "1111" },
+    { studentId: "demo-ravi", firstName: "Ravi", rollNo: "2", lang: "en", pin: "2222" },
   ];
   const learners: (Learner | null)[] = [SOLID, RAVI];
   SYNTHETIC.forEach((learner, i) => {
@@ -221,7 +221,8 @@ export function buildDemoSeed(
       studentId: `demo-s${String(roll).padStart(2, "0")}`,
       firstName: NAMES[i] ?? `Student ${roll}`,
       rollNo: String(roll),
-      lang: i % 3 === 0 ? "en" : "te",
+      // Everyone starts in English; the toggle switches to Telugu and is remembered per student.
+      lang: "en",
       pin: String(3000 + roll),
     });
     learners.push(learner);

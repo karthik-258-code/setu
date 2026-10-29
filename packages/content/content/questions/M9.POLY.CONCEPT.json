@@ -1,0 +1,29 @@
+[
+  {"id": "M9.POLY.CONCEPT.Q01", "conceptId": "M9.POLY.CONCEPT", "type": "mcq", "difficulty": 1,
+   "stem": {"en": "What is the degree of 3x² - 5x + 2?", "te": "3x² - 5x + 2 పరిమాణం ఎంత?"},
+   "options": [
+     {"id": "a", "text": {"en": "1", "te": "1"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "2", "te": "2"}, "isCorrect": true},
+     {"id": "c", "text": {"en": "3", "te": "3"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "0", "te": "0"}, "isCorrect": false}],
+   "solution": {"en": "The highest power of x is x², so the degree is 2.", "te": "x యొక్క అత్యధిక ఘాతం x², కాబట్టి పరిమాణం 2."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M9.POLY.CONCEPT.Q02", "conceptId": "M9.POLY.CONCEPT", "type": "mcq", "difficulty": 2,
+   "stem": {"en": "Which of these is a polynomial?", "te": "వీటిలో ఏది బహుపది?"},
+   "options": [
+     {"id": "a", "text": {"en": "x² + 1/x", "te": "x² + 1/x"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "√x + 2", "te": "√x + 2"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "4x³ - x + 7", "te": "4x³ - x + 7"}, "isCorrect": true},
+     {"id": "d", "text": {"en": "5/x", "te": "5/x"}, "isCorrect": false}],
+   "solution": {"en": "4x³ - x + 7 has only whole-number powers of x (3, 1 and 0). The others contain 1/x or √x.", "te": "4x³ - x + 7 లో x ఘాతాలు పూర్ణాంకాలే (3, 1, 0). మిగతా వాటిలో 1/x లేదా √x ఉన్నాయి."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M9.POLY.CONCEPT.Q03", "conceptId": "M9.POLY.CONCEPT", "type": "mcq", "difficulty": 3,
+   "stem": {"en": "In 3x² - 5x + 2, what is the coefficient of x?", "te": "3x² - 5x + 2 లో x గుణకం ఎంత?"},
+   "options": [
+     {"id": "a", "text": {"en": "5", "te": "5"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "-5", "te": "-5"}, "isCorrect": true},
+     {"id": "c", "text": {"en": "3", "te": "3"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "2", "te": "2"}, "isCorrect": false}],
+   "solution": {"en": "The term in x is -5x, and the sign belongs to the coefficient, so the coefficient is -5.", "te": "x ఉన్న పదం -5x, గుర్తు గుణకానికే చెందుతుంది, కాబట్టి గుణకం -5."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"}
+]

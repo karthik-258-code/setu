@@ -32,6 +32,24 @@ const RECHECK_QUESTIONS = 3;
 const EXTENSION_DIFFICULTY: Difficulty = 3;
 const EXTENSION_QUESTIONS = 3;
 
+/**
+ * Every rule of ARCHITECTURE 5.4. `nextRecommendation` returns R0-R2 and R5-R9 as `ruleId`;
+ * R3 and R4 only pick the concept, but content still ships their templates so the UI can say
+ * why a concept was chosen (assigned by the teacher, or next on the path).
+ */
+export const RULE_IDS = [
+  "R0_READINESS",
+  "R1_VERIFY_OVERRIDE",
+  "R2_RECHECK_DUE",
+  "R3_ASSIGNED",
+  "R4_FRONTIER",
+  "R5_LEARN",
+  "R6_TEST",
+  "R7_SOLVE",
+  "R8_EXTENSION",
+  "R9_DONE",
+] as const;
+
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------

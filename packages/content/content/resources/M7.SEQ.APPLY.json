@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M7.SEQ.APPLY.R.explanation.01",
+    "conceptId": "M7.SEQ.APPLY",
+    "type": "explanation",
+    "body": {
+      "en": "Simple equations solve everyday problems. Read the problem, let a letter stand for the unknown, write the equation the words describe, solve it, and check the answer in the story. 'A pen costs ₹12 more than a pencil, and together they cost ₹20': let the pencil cost p, then p + (p + 12) = 20, 2p = 8 and p = 4. The pencil costs ₹4 and the pen ₹16, which together make ₹20.",
+      "te": "సామాన్య సమీకరణాలు నిత్య జీవిత సమస్యలను సాధిస్తాయి. సమస్యను చదివి, తెలియని దానికి ఒక అక్షరం ఇచ్చి, మాటలు చెప్పే సమీకరణం రాసి, సాధించి, జవాబును కథలో సరిచూడు. 'ఒక పెన్ను ధర పెన్సిల్ కంటే ₹12 ఎక్కువ, రెండూ కలిసి ₹20': పెన్సిల్ ధర p అనుకో, అప్పుడు p + (p + 12) = 20, 2p = 8, p = 4. పెన్సిల్ ₹4, పెన్ను ₹16, కలిసి ₹20."
+    },
+    "reviewStatus": "draft"
+  }
+]

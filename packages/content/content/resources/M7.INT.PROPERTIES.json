@@ -1,0 +1,43 @@
+[
+  {
+    "id": "M7.INT.PROPERTIES.R.explanation.01",
+    "conceptId": "M7.INT.PROPERTIES",
+    "type": "explanation",
+    "body": {
+      "en": "Operations on integers follow properties that make calculation easier. Addition and multiplication are commutative (order does not matter: -3 + 5 = 5 + (-3)) and associative (grouping does not matter). 0 is the additive identity (a + 0 = a) and 1 is the multiplicative identity (a × 1 = a). The distributive property links them: a × (b + c) = a × b + a × c. For example, -4 × (10 + 3) = -40 + (-12) = -52. In algebra this is how we open brackets: every term inside is multiplied.",
+      "te": "పూర్ణ సంఖ్యలపై పరిక్రియలు లెక్కను సులభం చేసే ధర్మాలను పాటిస్తాయి. సంకలనం, గుణకారం స్థిత్యంతర ధర్మాన్ని (క్రమం మారినా ఫలితం మారదు: -3 + 5 = 5 + (-3)), సహచర ధర్మాన్ని (సమూహం మారినా ఫలితం మారదు) పాటిస్తాయి. 0 సంకలన తత్సమాంశం (a + 0 = a), 1 గుణకార తత్సమాంశం (a × 1 = a). విభాగ న్యాయం వీటిని కలుపుతుంది: a × (b + c) = a × b + a × c. ఉదాహరణకు -4 × (10 + 3) = -40 + (-12) = -52. బీజగణితంలో కుండలీకరణాలు తెరిచేది ఇలాగే: లోపలి ప్రతి పదాన్నీ గుణించాలి."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.INT.PROPERTIES.R.worked_example.01",
+    "conceptId": "M7.INT.PROPERTIES",
+    "type": "worked_example",
+    "body": {
+      "en": "**Work out 25 × (-7) × 4 the easy way.** Multiplication is commutative and associative, so regroup: (25 × 4) × (-7) = 100 × (-7) = **-700**.",
+      "te": "**25 × (-7) × 4 ను సులభంగా సాధించు.** గుణకారం స్థిత్యంతర, సహచర ధర్మాలను పాటిస్తుంది, కాబట్టి తిరిగి సమూహపరచు: (25 × 4) × (-7) = 100 × (-7) = **-700**."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.INT.PROPERTIES.R.worked_example.02.E-DIST-PARTIAL",
+    "conceptId": "M7.INT.PROPERTIES",
+    "type": "worked_example",
+    "targetsMisconception": "E-DIST-PARTIAL",
+    "body": {
+      "en": "**A common slip:** writing 3 × (x + 4) = 3x + 4. The 3 multiplies **everything** inside the brackets. Check with x = 1: 3 × (1 + 4) = 15, but 3 × 1 + 4 = 7. Draw an arrow from the 3 to each term: 3 × x and 3 × 4, so 3(x + 4) = **3x + 12**. With negatives: -2(x - 5) = -2x + 10.",
+      "te": "**తరచూ జరిగే పొరపాటు:** 3 × (x + 4) = 3x + 4 అని రాయడం. 3 కుండలీకరణంలోని **ప్రతి** పదాన్నీ గుణిస్తుంది. x = 1 తో సరిచూడు: 3 × (1 + 4) = 15, కానీ 3 × 1 + 4 = 7. 3 నుండి ప్రతి పదానికీ బాణం గీయి: 3 × x, 3 × 4, కాబట్టి 3(x + 4) = **3x + 12**. రుణ సంఖ్యలతో: -2(x - 5) = -2x + 10."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.INT.PROPERTIES.R.hint.01",
+    "conceptId": "M7.INT.PROPERTIES",
+    "type": "hint",
+    "body": {
+      "en": "Multiply the number outside the brackets with every term inside, keeping track of the signs.",
+      "te": "కుండలీకరణం బయట ఉన్న సంఖ్యతో లోపలి ప్రతి పదాన్నీ గుర్తులు గమనిస్తూ గుణించు."
+    },
+    "reviewStatus": "draft"
+  }
+]

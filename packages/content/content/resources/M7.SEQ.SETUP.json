@@ -1,0 +1,43 @@
+[
+  {
+    "id": "M7.SEQ.SETUP.R.explanation.01",
+    "conceptId": "M7.SEQ.SETUP",
+    "type": "explanation",
+    "body": {
+      "en": "To write an equation from a statement, choose a letter for the unknown number and translate the words step by step. 'A number' becomes x. 'Increased by 5' or '5 more than' means + 5. '5 less than x' means x - 5 (start with x and take 5 away). 'Twice' means 2 ×, and 'is' or 'gives' becomes =. So 'twice a number increased by 5 is 17' becomes 2x + 5 = 17. Check by putting a value back into the sentence.",
+      "te": "వాక్యం నుండి సమీకరణం రాయడానికి తెలియని సంఖ్యకు ఒక అక్షరాన్ని ఎంచుకుని, మాటలను దశలవారీగా అనువదించు. 'ఒక సంఖ్య' అంటే x. '5 పెంచితే' లేదా 'కంటే 5 ఎక్కువ' అంటే + 5. 'x కంటే 5 తక్కువ' అంటే x - 5 (x తో మొదలుపెట్టి 5 తీసివేయి). 'రెట్టింపు' అంటే 2 ×, 'అవుతుంది' లేదా 'వస్తుంది' అంటే =. కాబట్టి 'ఒక సంఖ్య రెట్టింపుకు 5 కలిపితే 17 అవుతుంది' అనేది 2x + 5 = 17. ఒక విలువను తిరిగి వాక్యంలో పెట్టి సరిచూడు."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.SEQ.SETUP.R.worked_example.01",
+    "conceptId": "M7.SEQ.SETUP",
+    "type": "worked_example",
+    "body": {
+      "en": "**Write an equation: 'Seven less than three times a number is 20.'** Let the number be n. Three times the number: 3n. Seven less than that: 3n - 7. 'Is 20': **3n - 7 = 20**.",
+      "te": "**సమీకరణం రాయి: 'ఒక సంఖ్య యొక్క మూడు రెట్ల కంటే ఏడు తక్కువ 20.'** సంఖ్య n అనుకో. సంఖ్య యొక్క మూడు రెట్లు: 3n. దాని కంటే ఏడు తక్కువ: 3n - 7. '20 అవుతుంది': **3n - 7 = 20**."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.SEQ.SETUP.R.worked_example.02.W-SETUP-REVERSE",
+    "conceptId": "M7.SEQ.SETUP",
+    "type": "worked_example",
+    "targetsMisconception": "W-SETUP-REVERSE",
+    "body": {
+      "en": "**A common slip:** writing '5 less than x' as 5 - x. Try it with a real number: 5 less than 12 is 7. And 12 - 5 = 7, but 5 - 12 = -7. So '5 less than x' is **x - 5**. 'Less than' and 'more than' reverse the order of the words: you start from x, then take 5 away.",
+      "te": "**తరచూ జరిగే పొరపాటు:** 'x కంటే 5 తక్కువ' ను 5 - x గా రాయడం. నిజమైన సంఖ్యతో ప్రయత్నించు: 12 కంటే 5 తక్కువ అంటే 7. 12 - 5 = 7, కానీ 5 - 12 = -7. కాబట్టి 'x కంటే 5 తక్కువ' అంటే **x - 5**. 'కంటే తక్కువ', 'కంటే ఎక్కువ' మాటల క్రమాన్ని తిరగేస్తాయి: x తో మొదలుపెట్టి, తర్వాత 5 తీసివేయి."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.SEQ.SETUP.R.hint.01",
+    "conceptId": "M7.SEQ.SETUP",
+    "type": "hint",
+    "body": {
+      "en": "Choose a letter for the unknown, then replace each phrase with a symbol, one at a time.",
+      "te": "తెలియని దానికి ఒక అక్షరం ఎంచుకుని, ప్రతి పదబంధాన్ని ఒక్కొక్కటిగా గుర్తుతో మార్చు."
+    },
+    "reviewStatus": "draft"
+  }
+]

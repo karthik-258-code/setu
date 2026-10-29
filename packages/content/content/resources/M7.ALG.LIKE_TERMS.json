@@ -1,0 +1,54 @@
+[
+  {
+    "id": "M7.ALG.LIKE_TERMS.R.explanation.01",
+    "conceptId": "M7.ALG.LIKE_TERMS",
+    "type": "explanation",
+    "body": {
+      "en": "Like terms have exactly the same variable part: 3x and -5x are like terms, and so are 2ab and 7ab. Unlike terms have different variable parts, such as 3x and 3y, or x and x². Only like terms can be combined, by adding their coefficients: 3x + 5x = 8x and 4y - y = 3y. Unlike terms stay separate: 3x + 2 cannot be simplified, just as 3 apples and 2 oranges do not make 5 apples.",
+      "te": "సజాతి పదాలకు చరరాశి భాగం సరిగ్గా ఒకటే: 3x, -5x సజాతి పదాలు, 2ab, 7ab కూడా. విజాతి పదాలకు చరరాశి భాగాలు వేరు, ఉదాహరణకు 3x, 3y లేదా x, x². సజాతి పదాలను మాత్రమే, వాటి గుణకాలను కలిపి, కలపగలం: 3x + 5x = 8x, 4y - y = 3y. విజాతి పదాలు వేరుగానే ఉంటాయి: 3x + 2 ను ఇంకా సూక్ష్మీకరించలేం, 3 ఆపిల్స్, 2 నారింజలు కలిసి 5 ఆపిల్స్ కానట్లే."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.ALG.LIKE_TERMS.R.worked_example.01",
+    "conceptId": "M7.ALG.LIKE_TERMS",
+    "type": "worked_example",
+    "body": {
+      "en": "**Simplify 4x + 3 - x + 5.** Group like terms: (4x - x) + (3 + 5). 4x - x = 3x (because x is 1x). 3 + 5 = 8. Answer: **3x + 8**.",
+      "te": "**4x + 3 - x + 5 ను సూక్ష్మీకరించు.** సజాతి పదాలను సమూహపరచు: (4x - x) + (3 + 5). 4x - x = 3x (ఎందుకంటే x అంటే 1x). 3 + 5 = 8. జవాబు: **3x + 8**."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.ALG.LIKE_TERMS.R.worked_example.02.A-UNLIKE-COMBINE",
+    "conceptId": "M7.ALG.LIKE_TERMS",
+    "type": "worked_example",
+    "targetsMisconception": "A-UNLIKE-COMBINE",
+    "body": {
+      "en": "**A common slip:** writing 3x + 2 = 5x. Test it with x = 10: 3 × 10 + 2 = 32, but 5 × 10 = 50. They are not equal, so 3x and 2 cannot be joined. 3x means three x's; 2 is just two ones. Like apples and oranges, they stay separate: the simplest form is **3x + 2**.",
+      "te": "**తరచూ జరిగే పొరపాటు:** 3x + 2 = 5x అని రాయడం. x = 10 తో పరీక్షించు: 3 × 10 + 2 = 32, కానీ 5 × 10 = 50. అవి సమానం కావు, కాబట్టి 3x, 2 కలవవు. 3x అంటే మూడు x లు; 2 అంటే కేవలం రెండు ఒకట్లు. ఆపిల్స్, నారింజల లాగా అవి వేరుగానే ఉంటాయి: సూక్ష్మ రూపం **3x + 2**."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.ALG.LIKE_TERMS.R.worked_example.03.A-COEFF-DROP",
+    "conceptId": "M7.ALG.LIKE_TERMS",
+    "type": "worked_example",
+    "targetsMisconception": "A-COEFF-DROP",
+    "body": {
+      "en": "**A common slip:** writing 4x - x = 4. The x on its own is really 1x. So 4x - x = 4x - 1x = **3x**. Think of 4 bags of marbles minus 1 bag: 3 bags are left, not 4 marbles.",
+      "te": "**తరచూ జరిగే పొరపాటు:** 4x - x = 4 అని రాయడం. ఒంటరి x నిజానికి 1x. కాబట్టి 4x - x = 4x - 1x = **3x**. 4 గోళీల సంచుల నుండి 1 సంచి తీసివేస్తే 3 సంచులు మిగులుతాయి, 4 గోళీలు కాదు."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.ALG.LIKE_TERMS.R.hint.01",
+    "conceptId": "M7.ALG.LIKE_TERMS",
+    "type": "hint",
+    "body": {
+      "en": "Underline terms with the same letters and powers. Add only their numbers; the letters stay the same.",
+      "te": "ఒకే అక్షరాలు, ఘాతాలు ఉన్న పదాల కింద గీత గీయి. వాటి సంఖ్యలను మాత్రమే కలుపు; అక్షరాలు మారవు."
+    },
+    "reviewStatus": "draft"
+  }
+]

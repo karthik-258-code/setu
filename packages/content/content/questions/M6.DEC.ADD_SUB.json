@@ -1,0 +1,21 @@
+[
+  {"id": "M6.DEC.ADD_SUB.Q01", "conceptId": "M6.DEC.ADD_SUB", "type": "numeric", "difficulty": 1,
+   "stem": {"en": "Find 2.4 + 1.3.", "te": "2.4 + 1.3 విలువ కనుగొను."},
+   "answer": 3.7,
+   "solution": {"en": "Tenths: 4 + 3 = 7; ones: 2 + 1 = 3. So 2.4 + 1.3 = 3.7.", "te": "పదో వంతులు: 4 + 3 = 7; ఒకట్లు: 2 + 1 = 3. కాబట్టి 2.4 + 1.3 = 3.7."},
+   "boardTags": ["NCERT", "TS_SCERT"], "tags": ["paper_friendly"], "reviewStatus": "draft"},
+  {"id": "M6.DEC.ADD_SUB.Q02", "conceptId": "M6.DEC.ADD_SUB", "type": "mcq", "difficulty": 2,
+   "stem": {"en": "Find 4.5 + 2.37.", "te": "4.5 + 2.37 విలువ కనుగొను."},
+   "options": [
+     {"id": "a", "text": {"en": "2.82", "te": "2.82"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "6.42", "te": "6.42"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "6.87", "te": "6.87"}, "isCorrect": true},
+     {"id": "d", "text": {"en": "7.07", "te": "7.07"}, "isCorrect": false}],
+   "solution": {"en": "Line up the points and write 4.5 as 4.50: 4.50 + 2.37 = 6.87.", "te": "బిందువులను ఒకే వరుసలో ఉంచి 4.5 ను 4.50 గా రాయి: 4.50 + 2.37 = 6.87."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M6.DEC.ADD_SUB.Q03", "conceptId": "M6.DEC.ADD_SUB", "type": "numeric", "difficulty": 3,
+   "stem": {"en": "Find 5 - 1.25.", "te": "5 - 1.25 విలువ కనుగొను."},
+   "answer": 3.75,
+   "solution": {"en": "Write 5 as 5.00: 5.00 - 1.25 = 3.75.", "te": "5 ను 5.00 గా రాయి: 5.00 - 1.25 = 3.75."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"}
+]

@@ -1,0 +1,25 @@
+[
+  {"id": "M6.DEC.CONCEPT.Q01", "conceptId": "M6.DEC.CONCEPT", "type": "mcq", "difficulty": 1,
+   "stem": {"en": "What is the place value of the digit 4 in 3.47?", "te": "3.47 లో 4 అంకె స్థాన విలువ ఎంత?"},
+   "options": [
+     {"id": "a", "text": {"en": "4 tenths", "te": "4 పదో వంతులు"}, "isCorrect": true},
+     {"id": "b", "text": {"en": "4 hundredths", "te": "4 వందో వంతులు"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "4 ones", "te": "4 ఒకట్లు"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "4 tens", "te": "4 పదులు"}, "isCorrect": false}],
+   "solution": {"en": "The first place after the decimal point is tenths, so the 4 in 3.47 means 4/10.", "te": "దశాంశ బిందువు తర్వాత మొదటి స్థానం పదో వంతులు, కాబట్టి 3.47 లో 4 అంటే 4/10."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M6.DEC.CONCEPT.Q02", "conceptId": "M6.DEC.CONCEPT", "type": "numeric", "difficulty": 2,
+   "stem": {"en": "Write 3 + 2/10 + 7/100 as a decimal.", "te": "3 + 2/10 + 7/100 ను దశాంశంగా రాయి."},
+   "answer": 3.27,
+   "solution": {"en": "3 ones, 2 tenths and 7 hundredths make 3.27.", "te": "3 ఒకట్లు, 2 పదో వంతులు, 7 వందో వంతులు కలిసి 3.27."},
+   "boardTags": ["NCERT", "TS_SCERT"], "tags": ["paper_friendly"], "reviewStatus": "draft"},
+  {"id": "M6.DEC.CONCEPT.Q03", "conceptId": "M6.DEC.CONCEPT", "type": "mcq", "difficulty": 3,
+   "stem": {"en": "Which is the greatest: 0.5, 0.45 or 0.405?", "te": "ఏది అత్యధికం: 0.5, 0.45 లేదా 0.405?"},
+   "options": [
+     {"id": "a", "text": {"en": "0.405", "te": "0.405"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "0.45", "te": "0.45"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "0.5", "te": "0.5"}, "isCorrect": true},
+     {"id": "d", "text": {"en": "All are equal", "te": "అన్నీ సమానం"}, "isCorrect": false}],
+   "solution": {"en": "Compare tenths first: 0.5 has 5 tenths and the others have 4, so 0.5 is the greatest.", "te": "ముందు పదో వంతులను పోల్చు: 0.5 లో 5 పదో వంతులు, మిగతా వాటిలో 4, కాబట్టి 0.5 అత్యధికం."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"}
+]

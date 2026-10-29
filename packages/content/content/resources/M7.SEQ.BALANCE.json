@@ -1,0 +1,43 @@
+[
+  {
+    "id": "M7.SEQ.BALANCE.R.explanation.01",
+    "conceptId": "M7.SEQ.BALANCE",
+    "type": "explanation",
+    "body": {
+      "en": "An equation is like a balance with equal weights on both pans. You can add, subtract, multiply or divide by the same number on both sides, and the balance stays level. To solve x + 7 = 15, subtract 7 from both sides: x + 7 - 7 = 15 - 7, so x = 8. To solve 4x = 20, divide both sides by 4: x = 5. If you change only one side, the balance tips and the equation is no longer true.",
+      "te": "సమీకరణం రెండు పళ్ళాలలో సమాన బరువులు ఉన్న త్రాసు లాంటిది. రెండు వైపులా ఒకే సంఖ్యను కలపవచ్చు, తీసివేయవచ్చు, గుణించవచ్చు లేదా భాగించవచ్చు; త్రాసు సమతుల్యంగానే ఉంటుంది. x + 7 = 15 ను సాధించడానికి రెండు వైపులా 7 తీసివేయి: x + 7 - 7 = 15 - 7, కాబట్టి x = 8. 4x = 20 ను సాధించడానికి రెండు వైపులా 4 తో భాగించు: x = 5. ఒక వైపు మాత్రమే మార్చితే త్రాసు ఒరుగుతుంది, సమీకరణం నిజం కాదు."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.SEQ.BALANCE.R.worked_example.01",
+    "conceptId": "M7.SEQ.BALANCE",
+    "type": "worked_example",
+    "body": {
+      "en": "**Solve x/3 - 2 = 4.** Add 2 to both sides: x/3 = 6. Multiply both sides by 3: **x = 18**. Check: 18/3 - 2 = 6 - 2 = 4.",
+      "te": "**x/3 - 2 = 4 ను సాధించు.** రెండు వైపులా 2 కలుపు: x/3 = 6. రెండు వైపులా 3 తో గుణించు: **x = 18**. సరిచూడు: 18/3 - 2 = 6 - 2 = 4."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.SEQ.BALANCE.R.worked_example.02.E-BOTH-SIDES-ONE",
+    "conceptId": "M7.SEQ.BALANCE",
+    "type": "worked_example",
+    "targetsMisconception": "E-BOTH-SIDES-ONE",
+    "body": {
+      "en": "**A common slip:** in x + 7 = 15, subtracting 7 on the left only and writing x = 15. Picture the balance: taking 7 kg off one pan makes it rise. To keep it level, take 7 kg off the other pan too: x = 15 - 7 = **8**. Whatever you do to one side, do the same to the other.",
+      "te": "**తరచూ జరిగే పొరపాటు:** x + 7 = 15 లో ఎడమ వైపు మాత్రమే 7 తీసివేసి x = 15 అని రాయడం. త్రాసును ఊహించు: ఒక పళ్ళెం నుండి 7 కిలోలు తీస్తే అది పైకి లేస్తుంది. సమతుల్యంగా ఉంచడానికి మరో పళ్ళెం నుండి కూడా 7 కిలోలు తీయి: x = 15 - 7 = **8**. ఒక వైపు ఏం చేస్తే, మరో వైపు కూడా అదే చేయాలి."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.SEQ.BALANCE.R.hint.01",
+    "conceptId": "M7.SEQ.BALANCE",
+    "type": "hint",
+    "body": {
+      "en": "Undo the operations on x one at a time, doing the same thing to both sides.",
+      "te": "x పై ఉన్న పరిక్రియలను ఒక్కొక్కటిగా తొలగించు, రెండు వైపులా ఒకే పని చేస్తూ."
+    },
+    "reviewStatus": "draft"
+  }
+]

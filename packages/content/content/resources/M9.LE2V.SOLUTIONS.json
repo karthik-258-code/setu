@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M9.LE2V.SOLUTIONS.R.explanation.01",
+    "conceptId": "M9.LE2V.SOLUTIONS",
+    "type": "explanation",
+    "body": {
+      "en": "A solution of a linear equation in two variables is a pair (x, y) that makes the equation true. To check (3, 2) for 2x + 3y = 12: 2 × 3 + 3 × 2 = 12, so it is a solution. To find solutions, choose a value for one variable and solve for the other: in 2x + 3y = 12, x = 0 gives 3y = 12 and y = 4, so (0, 4); y = 0 gives x = 6, so (6, 0). Because x can be chosen freely, such an equation has infinitely many solutions.",
+      "te": "రెండు చరరాశులలో రేఖీయ సమీకరణానికి సాధన అంటే సమీకరణాన్ని సత్యం చేసే జత (x, y). 2x + 3y = 12 కు (3, 2) ను సరిచూడడానికి: 2 × 3 + 3 × 2 = 12, కాబట్టి అది సాధన. సాధనలు కనుగొనడానికి ఒక చరరాశికి విలువ ఎంచుకుని మరొకదాన్ని సాధించు: 2x + 3y = 12 లో x = 0 అయితే 3y = 12, y = 4, కాబట్టి (0, 4); y = 0 అయితే x = 6, కాబట్టి (6, 0). x ను స్వేచ్ఛగా ఎంచుకోవచ్చు కాబట్టి ఇలాంటి సమీకరణానికి అనంతమైన సాధనలు ఉంటాయి."
+    },
+    "reviewStatus": "draft"
+  }
+]

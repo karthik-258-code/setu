@@ -1,0 +1,29 @@
+[
+  {"id": "M10.PLE.GRAPHICAL.Q01", "conceptId": "M10.PLE.GRAPHICAL", "type": "mcq", "difficulty": 1,
+   "stem": {"en": "At which point do the lines x + y = 5 and x - y = 1 meet?", "te": "x + y = 5, x - y = 1 రేఖలు ఏ బిందువు వద్ద ఖండించుకుంటాయి?"},
+   "options": [
+     {"id": "a", "text": {"en": "(2, 3)", "te": "(2, 3)"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "(3, 2)", "te": "(3, 2)"}, "isCorrect": true},
+     {"id": "c", "text": {"en": "(5, 1)", "te": "(5, 1)"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "(4, 1)", "te": "(4, 1)"}, "isCorrect": false}],
+   "solution": {"en": "(3, 2) is on both lines: 3 + 2 = 5 and 3 - 2 = 1. (2, 3) is on the first line only.", "te": "(3, 2) రెండు రేఖలపైనా ఉంది: 3 + 2 = 5, 3 - 2 = 1. (2, 3) మొదటి రేఖపై మాత్రమే ఉంది."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M10.PLE.GRAPHICAL.Q02", "conceptId": "M10.PLE.GRAPHICAL", "type": "mcq", "difficulty": 2,
+   "stem": {"en": "If the graphs of two linear equations are parallel lines, how many solutions does the pair have?", "te": "రెండు రేఖీయ సమీకరణాల రేఖాచిత్రాలు సమాంతర రేఖలైతే, ఆ జతకు ఎన్ని సాధనలు ఉంటాయి?"},
+   "options": [
+     {"id": "a", "text": {"en": "Exactly one", "te": "సరిగ్గా ఒకటి"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "Two", "te": "రెండు"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "Infinitely many", "te": "అనంతమైనవి"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "None", "te": "ఒక్కటి కూడా లేదు"}, "isCorrect": true}],
+   "solution": {"en": "Parallel lines never meet, so no point lies on both: the pair has no solution.", "te": "సమాంతర రేఖలు ఎప్పుడూ కలవవు, కాబట్టి రెండింటిపై ఉండే బిందువు లేదు: ఆ జతకు సాధన లేదు."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M10.PLE.GRAPHICAL.Q03", "conceptId": "M10.PLE.GRAPHICAL", "type": "mcq", "difficulty": 3,
+   "stem": {"en": "How many solutions does the pair 2x + 4y = 8 and x + 2y = 4 have?", "te": "2x + 4y = 8, x + 2y = 4 జతకు ఎన్ని సాధనలు ఉంటాయి?"},
+   "options": [
+     {"id": "a", "text": {"en": "Exactly one", "te": "సరిగ్గా ఒకటి"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "None", "te": "ఒక్కటి కూడా లేదు"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "Infinitely many", "te": "అనంతమైనవి"}, "isCorrect": true},
+     {"id": "d", "text": {"en": "Two", "te": "రెండు"}, "isCorrect": false}],
+   "solution": {"en": "2x + 4y = 8 is x + 2y = 4 multiplied by 2, so the two lines coincide and every point on the line is a solution.", "te": "2x + 4y = 8 అంటే x + 2y = 4 ను 2 తో గుణించడమే, కాబట్టి రెండు రేఖలు ఒకదానిపై ఒకటి ఉంటాయి, రేఖపై ప్రతి బిందువూ సాధనే."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"}
+]

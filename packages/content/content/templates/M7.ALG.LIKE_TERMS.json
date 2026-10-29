@@ -1,0 +1,22 @@
+[
+  {
+    "id": "M7.ALG.LIKE_TERMS.T01",
+    "conceptId": "M7.ALG.LIKE_TERMS",
+    "difficulty": 1,
+    "generator": "combine_like_terms",
+    "paramSpace": { "p": [2, 9], "q": [1, 9], "r": [1, 12], "v": [0, 3] },
+    "count": 8,
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.ALG.LIKE_TERMS.T02",
+    "conceptId": "M7.ALG.LIKE_TERMS",
+    "difficulty": 2,
+    "generator": "combine_like_terms",
+    "paramSpace": { "p": [2, 9], "q": [-9, -1], "r": [1, 12], "v": [0, 3] },
+    "count": 8,
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "reviewStatus": "draft"
+  }
+]

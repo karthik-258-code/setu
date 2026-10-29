@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M9.COORD.PLOT.R.explanation.01",
+    "conceptId": "M9.COORD.PLOT",
+    "type": "explanation",
+    "body": {
+      "en": "A point on the plane is located by an ordered pair (x, y). The first number, x, says how far to move along the x-axis from the origin: right if positive, left if negative. The second, y, says how far to move up (positive) or down (negative). So (3, -2) is 3 right and 2 down. Order matters: (2, 5) and (5, 2) are different points. The axes divide the plane into four quadrants: (+, +) is the first, (-, +) the second, (-, -) the third and (+, -) the fourth. Points on an axis lie in no quadrant.",
+      "te": "తలంపై ఒక బిందువును క్రమ జత (x, y) తో గుర్తిస్తాము. మొదటి సంఖ్య x, మూలబిందువు నుండి x-అక్షం వెంబడి ఎంత దూరం జరగాలో చెబుతుంది: ధనమైతే కుడివైపు, రుణమైతే ఎడమవైపు. రెండవది y, ఎంత పైకి (ధనం) లేదా కిందికి (రుణం) జరగాలో చెబుతుంది. కాబట్టి (3, -2) అంటే 3 కుడివైపు, 2 కిందికి. క్రమం ముఖ్యం: (2, 5), (5, 2) వేర్వేరు బిందువులు. అక్షాలు తలాన్ని నాలుగు పాదాలుగా విభజిస్తాయి: (+, +) మొదటి, (-, +) రెండవ, (-, -) మూడవ, (+, -) నాలుగవ పాదం. అక్షం మీది బిందువులు ఏ పాదంలోనూ ఉండవు."
+    },
+    "reviewStatus": "draft"
+  }
+]

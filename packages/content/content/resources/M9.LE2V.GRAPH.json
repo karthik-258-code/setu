@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M9.LE2V.GRAPH.R.explanation.01",
+    "conceptId": "M9.LE2V.GRAPH",
+    "type": "explanation",
+    "body": {
+      "en": "The graph of a linear equation in two variables is a straight line, and every point on that line is a solution. To draw it, find two or three solutions, plot them and join them with a ruler. For x + y = 5, the points (0, 5), (5, 0) and (2, 3) all lie on one line. A third point is a useful check: if it is not on the line, there is a mistake. The line x = a is vertical (parallel to the y-axis), and y = b is horizontal.",
+      "te": "రెండు చరరాశులలో రేఖీయ సమీకరణం యొక్క రేఖాచిత్రం ఒక సరళ రేఖ, ఆ రేఖపై ప్రతి బిందువూ ఒక సాధన. దాన్ని గీయడానికి రెండు లేదా మూడు సాధనలు కనుగొని, వాటిని గుర్తించి, స్కేలుతో కలుపు. x + y = 5 కు (0, 5), (5, 0), (2, 3) బిందువులన్నీ ఒకే రేఖపై ఉంటాయి. మూడవ బిందువు మంచి సరిచూపు: అది రేఖపై లేకపోతే ఎక్కడో పొరపాటు ఉంది. x = a రేఖ నిలువుగా (y-అక్షానికి సమాంతరంగా), y = b రేఖ అడ్డంగా ఉంటుంది."
+    },
+    "reviewStatus": "draft"
+  }
+]

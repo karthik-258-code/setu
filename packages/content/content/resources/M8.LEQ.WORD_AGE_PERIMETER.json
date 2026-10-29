@@ -1,0 +1,32 @@
+[
+  {
+    "id": "M8.LEQ.WORD_AGE_PERIMETER.R.explanation.01",
+    "conceptId": "M8.LEQ.WORD_AGE_PERIMETER",
+    "type": "explanation",
+    "body": {
+      "en": "Age problems compare ages now, in the past and in the future. If someone is x years old now, they were x - 4 four years ago and will be x + 6 in six years; everyone's age changes by the same amount. Perimeter problems use the formula for the shape: a rectangle's perimeter is 2 × (length + breadth). If the length is 3 cm more than the breadth b and the perimeter is 26 cm, then 2(b + 3 + b) = 26, so 4b + 6 = 26 and b = 5 cm.",
+      "te": "వయస్సు సమస్యలు ఇప్పటి, గతంలోని, భవిష్యత్తులోని వయస్సులను పోలుస్తాయి. ఎవరి వయస్సు అయినా ఇప్పుడు x సంవత్సరాలు అయితే, నాలుగేళ్ళ క్రితం x - 4, ఆరేళ్ళ తర్వాత x + 6; అందరి వయస్సూ ఒకే మొత్తంలో మారుతుంది. చుట్టుకొలత సమస్యలు ఆకారపు సూత్రాన్ని వాడతాయి: దీర్ఘచతురస్రం చుట్టుకొలత 2 × (పొడవు + వెడల్పు). పొడవు వెడల్పు b కంటే 3 సెం.మీ. ఎక్కువ, చుట్టుకొలత 26 సెం.మీ. అయితే 2(b + 3 + b) = 26, కాబట్టి 4b + 6 = 26, b = 5 సెం.మీ."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.WORD_AGE_PERIMETER.R.worked_example.01",
+    "conceptId": "M8.LEQ.WORD_AGE_PERIMETER",
+    "type": "worked_example",
+    "body": {
+      "en": "**A mother is three times as old as her daughter. In 12 years she will be twice as old. Find their ages now.** Let the daughter be d; the mother is 3d. In 12 years: 3d + 12 = 2(d + 12). So 3d + 12 = 2d + 24 and d = 12. **The daughter is 12 and the mother is 36.** Check: in 12 years they will be 24 and 48.",
+      "te": "**ఒక తల్లి వయస్సు ఆమె కూతురు వయస్సుకు మూడు రెట్లు. 12 సంవత్సరాల తర్వాత రెండు రెట్లు అవుతుంది. ఇప్పటి వయస్సులు కనుగొను.** కూతురు వయస్సు d అనుకో; తల్లి 3d. 12 సంవత్సరాల తర్వాత: 3d + 12 = 2(d + 12). కాబట్టి 3d + 12 = 2d + 24, d = 12. **కూతురు వయస్సు 12, తల్లి వయస్సు 36.** సరిచూడు: 12 సంవత్సరాల తర్వాత వారి వయస్సులు 24, 48."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.WORD_AGE_PERIMETER.R.hint.01",
+    "conceptId": "M8.LEQ.WORD_AGE_PERIMETER",
+    "type": "hint",
+    "body": {
+      "en": "Make a small table of each person's age now and at the other time, then use the condition to form the equation.",
+      "te": "ప్రతి వ్యక్తి ఇప్పటి వయస్సు, మరో సమయంలోని వయస్సుతో ఒక చిన్న పట్టిక తయారుచేయి, తర్వాత షరతుతో సమీకరణం ఏర్పరచు."
+    },
+    "reviewStatus": "draft"
+  }
+]

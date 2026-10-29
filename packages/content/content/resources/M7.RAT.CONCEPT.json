@@ -1,0 +1,12 @@
+[
+  {
+    "id": "M7.RAT.CONCEPT.R.explanation.01",
+    "conceptId": "M7.RAT.CONCEPT",
+    "type": "explanation",
+    "body": {
+      "en": "A rational number is any number that can be written as p/q, where p and q are integers and q is not 0. Integers are rational (5 = 5/1, -3 = -3/1), and so are fractions and negative fractions such as -2/3. The sign can be moved: -2/3 = 2/(-3) = -(2/3). A rational number is in standard form when q is positive and p and q have no common factor other than 1: -6/8 in standard form is -3/4. On the number line, -3/4 lies between -1 and 0.",
+      "te": "p, q పూర్ణ సంఖ్యలు, q సున్నా కాకుండా p/q రూపంలో రాయగలిగే ఏ సంఖ్య అయినా అకరణీయ సంఖ్య. పూర్ణ సంఖ్యలు అకరణీయాలే (5 = 5/1, -3 = -3/1), భిన్నాలు, -2/3 వంటి రుణ భిన్నాలు కూడా. గుర్తును జరపవచ్చు: -2/3 = 2/(-3) = -(2/3). q ధనాత్మకంగా ఉండి, p, q లకు 1 తప్ప ఉమ్మడి కారణాంకం లేనప్పుడు అకరణీయ సంఖ్య ప్రామాణిక రూపంలో ఉంటుంది: -6/8 ప్రామాణిక రూపం -3/4. సంఖ్యా రేఖపై -3/4, -1 మరియు 0 మధ్య ఉంటుంది."
+    },
+    "reviewStatus": "draft"
+  }
+]

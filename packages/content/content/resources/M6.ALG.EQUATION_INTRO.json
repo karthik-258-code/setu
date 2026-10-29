@@ -1,0 +1,32 @@
+[
+  {
+    "id": "M6.ALG.EQUATION_INTRO.R.explanation.01",
+    "conceptId": "M6.ALG.EQUATION_INTRO",
+    "type": "explanation",
+    "body": {
+      "en": "An equation says that two expressions are equal, using the = sign. In x + 4 = 10, the left side and the right side must have the same value. Solving the equation means finding the value of the variable that makes it true. Here x = 6, because 6 + 4 = 10. Any other value, like x = 5, makes the two sides unequal. An expression such as x + 4 has no = sign, so it is not an equation.",
+      "te": "సమీకరణం = గుర్తును వాడి రెండు సమాసాలు సమానమని చెబుతుంది. x + 4 = 10 లో ఎడమ వైపు, కుడి వైపు విలువలు సమానంగా ఉండాలి. సమీకరణాన్ని సాధించడం అంటే దాన్ని నిజం చేసే చరరాశి విలువను కనుగొనడం. ఇక్కడ x = 6, ఎందుకంటే 6 + 4 = 10. x = 5 వంటి వేరే విలువ పెడితే రెండు వైపులా సమానం కావు. x + 4 వంటి సమాసంలో = గుర్తు లేదు, కాబట్టి అది సమీకరణం కాదు."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.ALG.EQUATION_INTRO.R.worked_example.01",
+    "conceptId": "M6.ALG.EQUATION_INTRO",
+    "type": "worked_example",
+    "body": {
+      "en": "**Is x = 3 a solution of 2x + 1 = 7?** Put 3 in place of x: 2 × 3 + 1 = 6 + 1 = 7. The left side equals the right side, so **yes, x = 3 is the solution**.",
+      "te": "**2x + 1 = 7 కి x = 3 సాధనా?** x స్థానంలో 3 పెట్టు: 2 × 3 + 1 = 6 + 1 = 7. ఎడమ వైపు కుడి వైపుకు సమానం, కాబట్టి **అవును, x = 3 సాధన**."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.ALG.EQUATION_INTRO.R.hint.01",
+    "conceptId": "M6.ALG.EQUATION_INTRO",
+    "type": "hint",
+    "body": {
+      "en": "Put the value into the equation. If both sides come out the same, it is a solution.",
+      "te": "విలువను సమీకరణంలో పెట్టు. రెండు వైపులా ఒకటే వస్తే అది సాధన."
+    },
+    "reviewStatus": "draft"
+  }
+]

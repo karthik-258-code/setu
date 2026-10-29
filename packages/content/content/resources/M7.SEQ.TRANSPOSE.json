@@ -1,0 +1,54 @@
+[
+  {
+    "id": "M7.SEQ.TRANSPOSE.R.explanation.01",
+    "conceptId": "M7.SEQ.TRANSPOSE",
+    "type": "explanation",
+    "body": {
+      "en": "Transposing is a shortcut for doing the same thing to both sides. When a term moves to the other side of =, its operation reverses: + becomes -, - becomes +, × becomes ÷ and ÷ becomes ×. In x + 5 = 12, move +5 across as -5: x = 12 - 5 = 7. In 3x = 12, the 3 is multiplying, so it moves across as division: x = 12 ÷ 3 = 4. In x/4 = 3, the 4 is dividing, so it moves across as multiplication: x = 12.",
+      "te": "పక్షాంతరం అంటే రెండు వైపులా ఒకే పని చేయడానికి ఒక సులభ మార్గం. ఒక పదం = అవతలి వైపుకు వెళ్ళినప్పుడు దాని పరిక్రియ తిరగబడుతుంది: + అవుతుంది -, - అవుతుంది +, × అవుతుంది ÷, ÷ అవుతుంది ×. x + 5 = 12 లో +5 అవతలికి -5 గా వెళ్తుంది: x = 12 - 5 = 7. 3x = 12 లో 3 గుణిస్తోంది, కాబట్టి అవతలికి భాగహారంగా వెళ్తుంది: x = 12 ÷ 3 = 4. x/4 = 3 లో 4 భాగిస్తోంది, కాబట్టి అవతలికి గుణకారంగా వెళ్తుంది: x = 12."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.SEQ.TRANSPOSE.R.worked_example.01",
+    "conceptId": "M7.SEQ.TRANSPOSE",
+    "type": "worked_example",
+    "body": {
+      "en": "**Solve 5x - 8 = 17.** Move -8 across as +8: 5x = 17 + 8 = 25. The 5 is multiplying x, so move it across as division: x = 25 ÷ 5 = **5**. Check: 5 × 5 - 8 = 17.",
+      "te": "**5x - 8 = 17 ను సాధించు.** -8 ను అవతలికి +8 గా పంపు: 5x = 17 + 8 = 25. 5, x ను గుణిస్తోంది, కాబట్టి అవతలికి భాగహారంగా పంపు: x = 25 ÷ 5 = **5**. సరిచూడు: 5 × 5 - 8 = 17."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.SEQ.TRANSPOSE.R.worked_example.02.E-TRANSPOSE-SIGN",
+    "conceptId": "M7.SEQ.TRANSPOSE",
+    "type": "worked_example",
+    "targetsMisconception": "E-TRANSPOSE-SIGN",
+    "body": {
+      "en": "**A common slip:** from x + 5 = 12 writing x = 12 + 5 = 17. Check it: 17 + 5 = 22, not 12. When +5 crosses the = sign it must become **-5**, because you are really subtracting 5 from both sides: x = 12 - 5 = **7**. Check: 7 + 5 = 12.",
+      "te": "**తరచూ జరిగే పొరపాటు:** x + 5 = 12 నుండి x = 12 + 5 = 17 అని రాయడం. సరిచూడు: 17 + 5 = 22, 12 కాదు. +5, = గుర్తు దాటినప్పుడు **-5** గా మారాలి, ఎందుకంటే నిజానికి రెండు వైపులా 5 తీసివేస్తున్నాం: x = 12 - 5 = **7**. సరిచూడు: 7 + 5 = 12."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.SEQ.TRANSPOSE.R.worked_example.03.E-TRANSPOSE-DIVIDE",
+    "conceptId": "M7.SEQ.TRANSPOSE",
+    "type": "worked_example",
+    "targetsMisconception": "E-TRANSPOSE-DIVIDE",
+    "body": {
+      "en": "**A common slip:** from 3x = 12 writing x = 12 - 3 = 9. Check it: 3 × 9 = 27, not 12. In 3x the 3 is **multiplying** x, so it moves across as division: x = 12 ÷ 3 = **4**. Check: 3 × 4 = 12. Ask what the number is doing to x, then do the opposite.",
+      "te": "**తరచూ జరిగే పొరపాటు:** 3x = 12 నుండి x = 12 - 3 = 9 అని రాయడం. సరిచూడు: 3 × 9 = 27, 12 కాదు. 3x లో 3, x ను **గుణిస్తోంది**, కాబట్టి అవతలికి భాగహారంగా వెళ్తుంది: x = 12 ÷ 3 = **4**. సరిచూడు: 3 × 4 = 12. సంఖ్య x కు ఏం చేస్తోందో అడిగి, దానికి వ్యతిరేకం చేయి."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M7.SEQ.TRANSPOSE.R.hint.01",
+    "conceptId": "M7.SEQ.TRANSPOSE",
+    "type": "hint",
+    "body": {
+      "en": "When a term crosses the = sign, do the opposite operation. Check your answer in the original equation.",
+      "te": "పదం = గుర్తు దాటినప్పుడు వ్యతిరేక పరిక్రియ చేయి. జవాబును అసలు సమీకరణంలో సరిచూడు."
+    },
+    "reviewStatus": "draft"
+  }
+]

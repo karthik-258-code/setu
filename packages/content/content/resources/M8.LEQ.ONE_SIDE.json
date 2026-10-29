@@ -1,0 +1,32 @@
+[
+  {
+    "id": "M8.LEQ.ONE_SIDE.R.explanation.01",
+    "conceptId": "M8.LEQ.ONE_SIDE",
+    "type": "explanation",
+    "body": {
+      "en": "A linear equation in one variable has the variable only to the power 1, like 2x + 3 = 11. When the variable is on one side only, solve it in two steps: first move the constant term across, then divide by the coefficient. In 2x + 3 = 11: 2x = 11 - 3 = 8, so x = 8 ÷ 2 = 4. The answer can be a fraction or a negative number: in 4x - 1 = -7, 4x = -6, so x = -6/4 = -3/2. Always check by substituting back.",
+      "te": "ఏక చరరాశిలో రేఖీయ సమీకరణంలో చరరాశి ఘాతం 1 మాత్రమే, ఉదాహరణకు 2x + 3 = 11. చరరాశి ఒక వైపు మాత్రమే ఉన్నప్పుడు రెండు దశలలో సాధించు: ముందుగా స్థిరాంక పదాన్ని అవతలికి పంపు, తర్వాత గుణకంతో భాగించు. 2x + 3 = 11 లో: 2x = 11 - 3 = 8, కాబట్టి x = 8 ÷ 2 = 4. జవాబు భిన్నం లేదా రుణ సంఖ్య కూడా కావచ్చు: 4x - 1 = -7 లో 4x = -6, కాబట్టి x = -6/4 = -3/2. ఎప్పుడూ తిరిగి ప్రతిక్షేపించి సరిచూడు."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.ONE_SIDE.R.worked_example.01",
+    "conceptId": "M8.LEQ.ONE_SIDE",
+    "type": "worked_example",
+    "body": {
+      "en": "**Solve 7 - 3x = 19.** Move 7 across: -3x = 19 - 7 = 12. Divide by -3: x = 12 ÷ (-3) = **-4**. Check: 7 - 3 × (-4) = 7 + 12 = 19.",
+      "te": "**7 - 3x = 19 ను సాధించు.** 7 ను అవతలికి పంపు: -3x = 19 - 7 = 12. -3 తో భాగించు: x = 12 ÷ (-3) = **-4**. సరిచూడు: 7 - 3 × (-4) = 7 + 12 = 19."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.ONE_SIDE.R.hint.01",
+    "conceptId": "M8.LEQ.ONE_SIDE",
+    "type": "hint",
+    "body": {
+      "en": "First get the x-term alone on one side, then divide by its coefficient, sign included.",
+      "te": "ముందుగా x పదాన్ని ఒక వైపు ఒంటరిగా ఉంచు, తర్వాత గుర్తుతో సహా దాని గుణకంతో భాగించు."
+    },
+    "reviewStatus": "draft"
+  }
+]

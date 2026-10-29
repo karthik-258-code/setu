@@ -1,0 +1,32 @@
+[
+  {
+    "id": "M6.INT.CONCEPT.R.explanation.01",
+    "conceptId": "M6.INT.CONCEPT",
+    "type": "explanation",
+    "body": {
+      "en": "Integers are the whole numbers together with their negatives: ..., -3, -2, -1, 0, 1, 2, 3, .... On a number line, positive numbers are to the right of 0 and negative numbers are to the left. A negative number shows a value below zero, like a temperature of -5 °C or a loss of ₹20. The further right a number is, the bigger it is, so -2 is bigger than -7. Every integer has an opposite at the same distance from 0: the opposite of 4 is -4.",
+      "te": "పూర్ణ సంఖ్యలు అంటే సున్నా, ధన సంఖ్యలు మరియు వాటి రుణ సంఖ్యలు: ..., -3, -2, -1, 0, 1, 2, 3, .... సంఖ్యారేఖపై ధన సంఖ్యలు 0 కి కుడివైపు, రుణ సంఖ్యలు ఎడమవైపు ఉంటాయి. రుణ సంఖ్య సున్నా కంటే తక్కువ విలువను చూపిస్తుంది, ఉదాహరణకు -5 °C ఉష్ణోగ్రత లేదా ₹20 నష్టం. సంఖ్యారేఖపై కుడివైపుకు వెళ్ళే కొద్దీ సంఖ్య పెద్దది, కాబట్టి -7 కంటే -2 పెద్దది. ప్రతి పూర్ణ సంఖ్యకు 0 నుండి అంతే దూరంలో ఒక వ్యతిరేక సంఖ్య ఉంటుంది: 4 కి వ్యతిరేకం -4."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.INT.CONCEPT.R.worked_example.01",
+    "conceptId": "M6.INT.CONCEPT",
+    "type": "worked_example",
+    "body": {
+      "en": "**Which is bigger, -3 or -8?** Mark both on a number line. -3 is 3 steps left of 0; -8 is 8 steps left of 0. -3 is further right, so **-3 > -8**. Check with money: owing ₹3 is better than owing ₹8.",
+      "te": "**-3, -8 లలో ఏది పెద్దది?** రెండింటినీ సంఖ్యారేఖపై గుర్తించు. -3, 0 కి ఎడమవైపు 3 అడుగుల దూరంలో ఉంది; -8, 0 కి ఎడమవైపు 8 అడుగుల దూరంలో ఉంది. -3 కుడివైపు ఉంది, కాబట్టి **-3 > -8**. డబ్బుతో సరిచూడు: ₹8 బాకీ ఉండటం కంటే ₹3 బాకీ ఉండటం మేలు."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.INT.CONCEPT.R.hint.01",
+    "conceptId": "M6.INT.CONCEPT",
+    "type": "hint",
+    "body": {
+      "en": "Draw a number line. The number further to the right is always bigger.",
+      "te": "సంఖ్యారేఖ గీయి. కుడివైపు ఉన్న సంఖ్య ఎల్లప్పుడూ పెద్దది."
+    },
+    "reviewStatus": "draft"
+  }
+]

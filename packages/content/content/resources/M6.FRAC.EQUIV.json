@@ -1,0 +1,43 @@
+[
+  {
+    "id": "M6.FRAC.EQUIV.R.explanation.01",
+    "conceptId": "M6.FRAC.EQUIV",
+    "type": "explanation",
+    "body": {
+      "en": "Equivalent fractions name the same amount in different ways. Half a roti is the same as 2 quarters or 4 eighths, so 1/2 = 2/4 = 4/8. To make an equivalent fraction, multiply (or divide) the numerator and the denominator by the same number: 2/3 = (2 × 4)/(3 × 4) = 8/12. Adding the same number to both does not work: 2/3 is not 3/4. Dividing both by their HCF gives the simplest form: 8/12 = 2/3.",
+      "te": "సమాన భిన్నాలు ఒకే పరిమాణాన్ని వేర్వేరు విధాలుగా చూపిస్తాయి. సగం రొట్టె అంటే 2 నాలుగోవంతులు లేదా 4 ఎనిమిదోవంతులతో సమానం, కాబట్టి 1/2 = 2/4 = 4/8. సమాన భిన్నం తయారుచేయడానికి లవాన్ని, హారాన్ని ఒకే సంఖ్యతో గుణించాలి (లేదా భాగించాలి): 2/3 = (2 × 4)/(3 × 4) = 8/12. రెండింటికీ ఒకే సంఖ్యను కలిపితే సరిపోదు: 2/3, 3/4 కి సమానం కాదు. రెండింటినీ వాటి గ.సా.భా.తో భాగిస్తే కనిష్ఠ రూపం వస్తుంది: 8/12 = 2/3."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.FRAC.EQUIV.R.worked_example.01",
+    "conceptId": "M6.FRAC.EQUIV",
+    "type": "worked_example",
+    "body": {
+      "en": "**Write 3/5 with denominator 20.** 5 becomes 20 when multiplied by 4. Multiply the top by the same 4: 3 × 4 = 12. So **3/5 = 12/20**.",
+      "te": "**3/5 ను హారం 20 తో రాయి.** 5 ను 4 తో గుణిస్తే 20 వస్తుంది. పై సంఖ్యనూ అదే 4 తో గుణించు: 3 × 4 = 12. కాబట్టి **3/5 = 12/20**."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.FRAC.EQUIV.R.worked_example.02.F-EQUIV-ADD",
+    "conceptId": "M6.FRAC.EQUIV",
+    "type": "worked_example",
+    "targetsMisconception": "F-EQUIV-ADD",
+    "body": {
+      "en": "**A common slip:** thinking 2/3 = 3/4 because you added 1 to the top and to the bottom. Check with a picture: eating 2/3 of a roti leaves 1/3, but eating 3/4 leaves only 1/4, a smaller piece. So they are not equal. Equivalent fractions come from **multiplying** both parts by the same number: 2/3 = 4/6 = 6/9.",
+      "te": "**తరచూ జరిగే పొరపాటు:** పై, కింది సంఖ్యలకు 1 కలిపి 2/3 = 3/4 అనుకోవడం. చిత్రంతో సరిచూడు: రొట్టెలో 2/3 తింటే 1/3 మిగులుతుంది, కానీ 3/4 తింటే 1/4 మాత్రమే మిగులుతుంది, అది చిన్న ముక్క. కాబట్టి అవి సమానం కాదు. సమాన భిన్నాలు రెండు భాగాలనూ ఒకే సంఖ్యతో **గుణించడం** ద్వారా వస్తాయి: 2/3 = 4/6 = 6/9."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M6.FRAC.EQUIV.R.hint.01",
+    "conceptId": "M6.FRAC.EQUIV",
+    "type": "hint",
+    "body": {
+      "en": "Ask: what was the denominator multiplied by? Multiply the numerator by the same number.",
+      "te": "అడుగు: హారాన్ని దేనితో గుణించారు? లవాన్ని కూడా అదే సంఖ్యతో గుణించు."
+    },
+    "reviewStatus": "draft"
+  }
+]

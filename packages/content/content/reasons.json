@@ -1,1 +1,42 @@
-{}
+{
+  "R0_READINESS": {
+    "en": "Before we start {chapter}, let's see what you already know. It takes about 10 minutes.",
+    "te": "{chapter} మొదలుపెట్టే ముందు, నీకు ఇప్పటికే ఏమి తెలుసో చూద్దాం. దీనికి సుమారు 10 నిమిషాలు పడుతుంది."
+  },
+  "R1_VERIFY_OVERRIDE": {
+    "en": "Your teacher saw that you understand {concept}. Three quick questions will confirm it.",
+    "te": "{concept} నీకు అర్థమైందని మీ ఉపాధ్యాయులు గమనించారు. మూడు చిన్న ప్రశ్నలు దానిని నిర్ధారిస్తాయి."
+  },
+  "R2_RECHECK_DUE": {
+    "en": "A quick check on {concept}, so that you don't forget it.",
+    "te": "{concept} మర్చిపోకుండా ఉండటానికి ఒక చిన్న పునఃపరిశీలన."
+  },
+  "R3_ASSIGNED": {
+    "en": "Your teacher asked you to work on {concept}.",
+    "te": "మీ ఉపాధ్యాయులు {concept} పై పని చేయమన్నారు."
+  },
+  "R4_FRONTIER": {
+    "en": "Next on your path: {concept}.",
+    "te": "నీ మార్గంలో తర్వాత: {concept}."
+  },
+  "R5_LEARN": {
+    "en": "Before {chapter}, we are learning {concept}. Read this short example first.",
+    "te": "{chapter} కంటే ముందు, మనం {concept} నేర్చుకుంటున్నాం. ముందుగా ఈ చిన్న ఉదాహరణ చదువు."
+  },
+  "R6_TEST": {
+    "en": "You are nearly there with {concept}. Answer {count} questions without hints to show it.",
+    "te": "{concept} లో నువ్వు దాదాపు సిద్ధంగా ఉన్నావు. సూచనలు లేకుండా {count} ప్రశ్నలకు జవాబిచ్చి చూపించు."
+  },
+  "R7_SOLVE": {
+    "en": "Let's practise {concept} at level {difficulty}.",
+    "te": "{concept} ను స్థాయి {difficulty} లో అభ్యాసం చేద్దాం."
+  },
+  "R8_EXTENSION": {
+    "en": "You have finished {chapter}. Try these harder problems.",
+    "te": "నువ్వు {chapter} పూర్తి చేశావు. ఈ కఠినమైన సమస్యలు ప్రయత్నించు."
+  },
+  "R9_DONE": {
+    "en": "All done for now. Well done!",
+    "te": "ప్రస్తుతానికి అంతా పూర్తైంది. చాలా బాగా చేశావు!"
+  }
+}

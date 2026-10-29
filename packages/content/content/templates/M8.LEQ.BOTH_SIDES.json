@@ -1,0 +1,22 @@
+[
+  {
+    "id": "M8.LEQ.BOTH_SIDES.T01",
+    "conceptId": "M8.LEQ.BOTH_SIDES",
+    "difficulty": 2,
+    "generator": "linear_both_sides",
+    "paramSpace": { "a": [3, 9], "b": [-12, 12], "c": [1, 8], "x": [1, 10] },
+    "count": 10,
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.BOTH_SIDES.T02",
+    "conceptId": "M8.LEQ.BOTH_SIDES",
+    "difficulty": 3,
+    "generator": "linear_both_sides",
+    "paramSpace": { "a": [2, 9], "b": [-15, 15], "c": [1, 9], "x": [-8, -1] },
+    "count": 10,
+    "boardTags": ["NCERT", "TS_SCERT"],
+    "reviewStatus": "draft"
+  }
+]

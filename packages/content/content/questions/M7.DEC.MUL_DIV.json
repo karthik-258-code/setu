@@ -1,0 +1,21 @@
+[
+  {"id": "M7.DEC.MUL_DIV.Q01", "conceptId": "M7.DEC.MUL_DIV", "type": "numeric", "difficulty": 1,
+   "stem": {"en": "Find 2.5 × 10.", "te": "2.5 × 10 విలువ కనుగొను."},
+   "answer": 25,
+   "solution": {"en": "Multiplying by 10 moves the decimal point one place to the right: 2.5 × 10 = 25.", "te": "10 తో గుణిస్తే దశాంశ బిందువు ఒక స్థానం కుడివైపుకు జరుగుతుంది: 2.5 × 10 = 25."},
+   "boardTags": ["NCERT", "TS_SCERT"], "tags": ["paper_friendly"], "reviewStatus": "draft"},
+  {"id": "M7.DEC.MUL_DIV.Q02", "conceptId": "M7.DEC.MUL_DIV", "type": "mcq", "difficulty": 2,
+   "stem": {"en": "Find 0.3 × 0.2.", "te": "0.3 × 0.2 విలువ కనుగొను."},
+   "options": [
+     {"id": "a", "text": {"en": "0.6", "te": "0.6"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "0.06", "te": "0.06"}, "isCorrect": true},
+     {"id": "c", "text": {"en": "6", "te": "6"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "0.006", "te": "0.006"}, "isCorrect": false}],
+   "solution": {"en": "3 × 2 = 6, and there are two decimal places in all, so 0.3 × 0.2 = 0.06.", "te": "3 × 2 = 6, మొత్తం రెండు దశాంశ స్థానాలు ఉన్నాయి, కాబట్టి 0.3 × 0.2 = 0.06."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"},
+  {"id": "M7.DEC.MUL_DIV.Q03", "conceptId": "M7.DEC.MUL_DIV", "type": "numeric", "difficulty": 3,
+   "stem": {"en": "Find 1.5 ÷ 0.5.", "te": "1.5 ÷ 0.5 విలువ కనుగొను."},
+   "answer": 3,
+   "solution": {"en": "Multiply both numbers by 10 so the divisor is whole: 15 ÷ 5 = 3.", "te": "భాజకం పూర్ణ సంఖ్య అయ్యేలా రెండు సంఖ్యలను 10 తో గుణించు: 15 ÷ 5 = 3."},
+   "boardTags": ["NCERT", "TS_SCERT"], "reviewStatus": "draft"}
+]

@@ -10,6 +10,8 @@ coverage/
 .DS_Store
 .vite/
 apps/web/dev-dist/
+apps/web/public/packs/
+apps/api/packs/
 apps/api/prisma/*.db
 sim/.venv/
 sim/**/__pycache__/

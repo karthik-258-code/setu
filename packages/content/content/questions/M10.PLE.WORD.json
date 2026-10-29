@@ -1,0 +1,25 @@
+[
+  {"id": "M10.PLE.WORD.Q01", "conceptId": "M10.PLE.WORD", "type": "numeric", "difficulty": 1,
+   "stem": {"en": "The sum of two numbers is 30 and their difference is 6. What is the larger number?", "te": "రెండు సంఖ్యల మొత్తం 30, వాటి భేదం 6. పెద్ద సంఖ్య ఏది?"},
+   "answer": 18,
+   "solution": {"en": "x + y = 30 and x - y = 6. Adding: 2x = 36, so x = 18 (and y = 12).", "te": "x + y = 30, x - y = 6. కూడితే: 2x = 36, కాబట్టి x = 18 (y = 12)."},
+   "boardTags": ["NCERT", "TS_SCERT"], "tags": ["word_problem"], "reviewStatus": "draft"},
+  {"id": "M10.PLE.WORD.Q02", "conceptId": "M10.PLE.WORD", "type": "mcq", "difficulty": 2,
+   "stem": {"en": "2 pens and 3 pencils cost ₹34; 1 pen and 2 pencils cost ₹19. What does one pen cost?", "te": "2 పెన్నులు, 3 పెన్సిళ్ల ధర ₹34; 1 పెన్ను, 2 పెన్సిళ్ల ధర ₹19. ఒక పెన్ను ధర ఎంత?"},
+   "options": [
+     {"id": "a", "text": {"en": "₹4", "te": "₹4"}, "isCorrect": false, "misconceptionCode": "W-SETUP-REVERSE"},
+     {"id": "b", "text": {"en": "₹11", "te": "₹11"}, "isCorrect": true},
+     {"id": "c", "text": {"en": "₹15", "te": "₹15"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "₹8", "te": "₹8"}, "isCorrect": false}],
+   "solution": {"en": "Let a pen cost p and a pencil q: 2p + 3q = 34 and p + 2q = 19. Doubling the second: 2p + 4q = 38. Subtract: q = 4, so p = 19 - 8 = 11. A pen costs ₹11.", "te": "పెన్ను ధర p, పెన్సిల్ ధర q అనుకో: 2p + 3q = 34, p + 2q = 19. రెండవ దాన్ని రెట్టింపు చేస్తే: 2p + 4q = 38. తీసివేస్తే: q = 4, కాబట్టి p = 19 - 8 = 11. ఒక పెన్ను ధర ₹11."},
+   "boardTags": ["NCERT", "TS_SCERT"], "tags": ["word_problem"], "reviewStatus": "draft"},
+  {"id": "M10.PLE.WORD.Q03", "conceptId": "M10.PLE.WORD", "type": "mcq", "difficulty": 3,
+   "stem": {"en": "A father is 3 times as old as his son. Five years ago he was 4 times as old as his son. How old is the son now?", "te": "ఒక తండ్రి వయస్సు కొడుకు వయస్సుకు 3 రెట్లు. 5 సంవత్సరాల క్రితం అది 4 రెట్లు. కొడుకు ఇప్పటి వయస్సు ఎంత?"},
+   "options": [
+     {"id": "a", "text": {"en": "10 years", "te": "10 సంవత్సరాలు"}, "isCorrect": false},
+     {"id": "b", "text": {"en": "20 years", "te": "20 సంవత్సరాలు"}, "isCorrect": false},
+     {"id": "c", "text": {"en": "45 years", "te": "45 సంవత్సరాలు"}, "isCorrect": false},
+     {"id": "d", "text": {"en": "15 years", "te": "15 సంవత్సరాలు"}, "isCorrect": true}],
+   "solution": {"en": "Let the son be s and the father 3s. Five years ago: 3s - 5 = 4(s - 5) = 4s - 20, so s = 15. Check: the father is 45; five years ago they were 40 and 10, and 40 = 4 × 10.", "te": "కొడుకు వయస్సు s, తండ్రి 3s అనుకో. 5 సంవత్సరాల క్రితం: 3s - 5 = 4(s - 5) = 4s - 20, కాబట్టి s = 15. సరిచూడు: తండ్రి వయస్సు 45; 5 సంవత్సరాల క్రితం వారి వయస్సులు 40, 10, 40 = 4 × 10."},
+   "boardTags": ["NCERT", "TS_SCERT"], "tags": ["word_problem"], "reviewStatus": "draft"}
+]

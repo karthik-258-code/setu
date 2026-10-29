@@ -1,0 +1,32 @@
+[
+  {
+    "id": "M8.LEQ.BOTH_SIDES.R.explanation.01",
+    "conceptId": "M8.LEQ.BOTH_SIDES",
+    "type": "explanation",
+    "body": {
+      "en": "When the variable appears on both sides, collect all the x-terms on one side and all the numbers on the other, then solve as before. In 5x - 4 = 2x + 11: move 2x to the left as -2x and -4 to the right as +4, giving 5x - 2x = 11 + 4. Combine like terms: 3x = 15, so x = 5. It is usually easiest to move the smaller x-term, so the coefficient stays positive.",
+      "te": "చరరాశి రెండు వైపులా ఉన్నప్పుడు, x పదాలన్నింటినీ ఒక వైపు, సంఖ్యలన్నింటినీ మరో వైపు చేర్చి, ముందులాగే సాధించు. 5x - 4 = 2x + 11 లో 2x ను ఎడమకు -2x గా, -4 ను కుడికి +4 గా పంపితే 5x - 2x = 11 + 4. సజాతి పదాలను కలుపు: 3x = 15, కాబట్టి x = 5. సాధారణంగా చిన్న x పదాన్ని పంపడం సులభం, అప్పుడు గుణకం ధనంగానే ఉంటుంది."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.BOTH_SIDES.R.worked_example.01",
+    "conceptId": "M8.LEQ.BOTH_SIDES",
+    "type": "worked_example",
+    "body": {
+      "en": "**Solve 3x + 7 = 8x - 13.** Move 3x to the right and -13 to the left: 7 + 13 = 8x - 3x. So 20 = 5x, and **x = 4**. Check: 3 × 4 + 7 = 19 and 8 × 4 - 13 = 19.",
+      "te": "**3x + 7 = 8x - 13 ను సాధించు.** 3x ను కుడికి, -13 ను ఎడమకు పంపు: 7 + 13 = 8x - 3x. కాబట్టి 20 = 5x, **x = 4**. సరిచూడు: 3 × 4 + 7 = 19, 8 × 4 - 13 = 19."
+    },
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "M8.LEQ.BOTH_SIDES.R.hint.01",
+    "conceptId": "M8.LEQ.BOTH_SIDES",
+    "type": "hint",
+    "body": {
+      "en": "Gather the x-terms on the side with the bigger x-coefficient and the numbers on the other side.",
+      "te": "పెద్ద x గుణకం ఉన్న వైపు x పదాలను, మరో వైపు సంఖ్యలను చేర్చు."
+    },
+    "reviewStatus": "draft"
+  }
+]

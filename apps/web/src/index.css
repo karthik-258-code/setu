@@ -9,5 +9,5 @@ body,
 }
 
 body {
-  @apply bg-brand-50 text-slate-900 antialiased;
+  @apply bg-slate-50 text-slate-900 antialiased;
 }

@@ -41,7 +41,7 @@ One-off costs not in the table: printing the teacher quick card and paper Readin
 Owner: the school's Setu coordinator (usually the maths head of department) with one Setu team member.
 
 1. **Agreement and consent.** The school signs the data agreement; consent is collected *through the school* in its usual way (circular to parents), stating the only student data kept: first name, roll number, class, language and a hashed PIN. No phone numbers, no photos, no surnames.
-2. **Accounts.** Setu creates the school, the classrooms (class and section) and teacher accounts; the coordinator gets a coordinator login.
+2. **Accounts.** Setu creates the school and teacher accounts; the coordinator gets a coordinator login. The school sends a roster spreadsheet as CSV with columns `class,section,roll,first_name` and optionally `lang` (en, te, hi); nothing else is collected. `pnpm --filter @setu/api db:import -- roster.csv --school <schoolId> --teacher <email>` checks every row (and imports nothing if any row is wrong), creates the missing classrooms with a readable code such as `8B-KTM`, adds or updates students by roll number, and writes `roster.csv.pins.csv` for printing PIN slips.
 3. **Classroom codes and PINs.** Each classroom gets a short code; each student a roll number and a 4-digit PIN, printed on a slip the teacher hands out. PINs are stored only as salted hashes.
 4. **Devices.** Check that shared phones or the lab machines run a current Chrome or Edge; install the PWA to the home screen.
 5. **Pack download day.** On a day with internet (school Wi-Fi or a teacher's hotspot), each device opens Setu once and downloads the chapter packs; the home card shows "Downloaded for offline". After this, students can work without internet; events sync whenever a connection appears.
@@ -81,5 +81,5 @@ Owner: the school's Setu coordinator (usually the maths head of department) with
 - Content covers one full chapter (Class 8 Linear Equations in One Variable) and skeleton chapters for Classes 6, 7, 9 and 10. Telugu text is a first draft and needs review by a Telugu-medium maths teacher before use with students.
 - Mastery thresholds and learning parameters are defaults from the literature, not yet fitted to Indian classroom data.
 - Shared phones rely on the PIN and the profile picker; a student who knows another's PIN could answer for them. On-device data is not encrypted by the app.
-- Accounts are created by the Setu team from the school's roster (no in-app rostering yet); a coordinator screen to add teachers and students and reset PINs is the next feature after the pilot. Coordinators already see classroom summaries only (`GET /classrooms/:id/summary`), never individual students' answers.
+- Accounts are created by the Setu team from the school's roster CSV with `db:import` (no in-app rostering yet); a coordinator screen to add teachers and students and reset PINs is the next feature after the pilot. Coordinators already see classroom summaries only (`GET /classrooms/:id/summary`), never individual students' answers.
 - Costs above are estimates for planning, and do not include devices, internet, or the people who run the pilot.

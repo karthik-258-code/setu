@@ -6,29 +6,39 @@ import { loadDemoClassroom } from "../data/demo-load";
 import type { FetchJson } from "../data/demo-load";
 import { DEMO_CLASSROOM, DEMO_TEACHER } from "../data/demo-seed";
 import { useLang } from "../i18n/lang-context";
-import { TEACHER_TOKEN_KEY } from "../teacher/teacher-context";
 import type { StringKey } from "../i18n/strings";
-import { Placeholder } from "./placeholder";
+import { TEACHER_TOKEN_KEY } from "../teacher/teacher-context";
 
-const ROLES: [string, StringKey][] = [
-  ["/s/login", "roleStudent"],
-  ["/t/login", "roleTeacher"],
-  ["/demo", "roleDemo"],
+const ROLES: { to: string; label: StringKey; hint: StringKey; primary: boolean }[] = [
+  { to: "/s/login", label: "roleStudent", hint: "roleStudentHint", primary: true },
+  { to: "/t/login", label: "roleTeacher", hint: "roleTeacherHint", primary: false },
+  { to: "/demo", label: "roleDemo", hint: "roleDemoHint", primary: false },
 ];
 
+/** The landing page: one entry each for students, teachers and the demo. */
 export function RoleChooser() {
   const { ui } = useLang();
   return (
-    <div className="space-y-4">
-      <Placeholder name="role-chooser" />
-      <nav className="flex flex-col gap-2">
-        {ROLES.map(([to, key]) => (
+    <div className="mx-auto w-full max-w-md space-y-6 pt-6">
+      <div className="space-y-2 text-center">
+        <h1 className="text-3xl font-bold text-brand-800">{ui("appName")}</h1>
+        <p className="text-slate-600">{ui("tagline")}</p>
+      </div>
+      <nav className="flex flex-col gap-3">
+        {ROLES.map((r) => (
           <Link
-            key={to}
-            to={to}
-            className="flex min-h-12 items-center rounded-lg bg-white px-4 shadow-sm"
+            key={r.to}
+            to={r.to}
+            className={`block rounded-2xl border px-5 py-4 shadow-soft transition active:scale-[0.99] ${
+              r.primary
+                ? "border-brand-700 bg-brand-700 text-white hover:bg-brand-800"
+                : "border-slate-200 bg-white text-slate-900 hover:border-brand-600"
+            }`}
           >
-            {ui(key)}
+            <span className="block text-lg font-semibold">{ui(r.label)}</span>
+            <span className={`block text-sm ${r.primary ? "text-brand-50" : "text-slate-600"}`}>
+              {ui(r.hint)}
+            </span>
           </Link>
         ))}
       </nav>

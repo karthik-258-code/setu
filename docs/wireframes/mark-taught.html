@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframe: Mark taught confirmation</title>
+<style>
+  body { font: 15px/1.4 system-ui, sans-serif; margin: 0; background: #eee; }
+  .phone { max-width: 360px; margin: 16px auto; background: #fff; border: 2px solid #333; border-radius: 16px; padding: 12px; height: 560px; position: relative; }
+  .card { border: 1px solid #999; border-radius: 8px; padding: 8px; margin: 10px 0; }
+  .btn { display: inline-block; border: 2px solid #333; border-radius: 6px; padding: 6px 10px; margin: 4px 4px 0 0; font-size: 13px; }
+  .pressed { background: #333; color: #fff; }
+  .toast { position: absolute; left: 12px; right: 12px; bottom: 12px; background: #222; color: #fff; border-radius: 8px; padding: 10px; }
+  .muted { color: #666; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <b>Groups</b>
+  <div class="card">
+    <b>Gap: Adding unlike fractions</b> <span class="muted">(Accepted)</span><br>
+    <span class="muted">15 students</span><br>
+    <span class="btn pressed">Mark taught</span><span class="btn">Assign</span>
+  </div>
+  <div class="muted">What happens: each of the 15 students gets a three-question re-check on adding unlike fractions at their next session, shown first on their home card. Results appear in the weekly view.</div>
+  <div class="toast">Re-check scheduled for 15 students.</div>
+</div>
+</body>
+</html>

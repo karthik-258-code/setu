@@ -5,7 +5,7 @@ export function Toast({ message }: { message: string | null }) {
     <p
       role="status"
       data-testid="toast"
-      className="fixed inset-x-4 bottom-4 z-20 rounded-md bg-slate-900 px-4 py-3 text-white shadow-lg"
+      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-md rounded-xl bg-slate-900 px-4 py-3 text-sm font-medium text-white shadow-lg"
     >
       {message}
     </p>

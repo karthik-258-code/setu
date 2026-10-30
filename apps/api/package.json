@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "node --import tsx --watch src/server.ts",
+    "prebuild": "prisma generate",
     "build": "tsc --noEmit && esbuild src/server.ts --bundle --platform=node --format=esm --target=node20 --outfile=dist/server.js --external:fastify --external:@prisma/client --external:zod",
     "start": "node dist/server.js",
     "test": "vitest run",

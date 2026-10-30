@@ -98,11 +98,11 @@ function LaunchScreen({ classroomId }: { classroomId: string }) {
     }
   }
 
-  const button = "min-h-11 rounded-md border px-3";
+  const button = "min-h-11 rounded-xl border px-3";
   return (
-    <div className="mx-auto max-w-2xl space-y-4">
+    <div className="mx-auto w-full max-w-5xl space-y-4">
       <header className="flex items-baseline justify-between gap-2 print:hidden">
-        <h1 className="text-xl font-semibold">{ui("launchChapter")}</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">{ui("launchChapter")}</h1>
         <Link to="/t/classrooms" className="min-h-11 py-2 text-brand-800 underline">
           {ui("back")}
         </Link>
@@ -116,7 +116,7 @@ function LaunchScreen({ classroomId }: { classroomId: string }) {
             <div key={level} className="space-y-1">
               <h2 className="text-sm font-semibold text-slate-600">{format(ui("classOnly"), { level })}</h2>
               {ofClass.map((c) => (
-                <label key={c.id} className="flex min-h-11 items-center gap-2 rounded-md bg-white px-3 shadow-sm">
+                <label key={c.id} className="flex min-h-11 items-center gap-2 rounded-xl bg-white px-3 shadow-soft">
                   <input
                     type="radio"
                     name="chapter"
@@ -179,7 +179,7 @@ function LaunchScreen({ classroomId }: { classroomId: string }) {
         </section>
       )}
       {paper !== null && pack !== null && (
-        <article data-testid="paper-check" className="space-y-3 rounded-lg bg-white p-4 shadow-sm print:shadow-none">
+        <article data-testid="paper-check" className="space-y-3 rounded-xl bg-white p-4 shadow-soft print:shadow-none">
           <div className="flex items-center justify-between gap-2">
             <h2 className="text-lg font-semibold">{format(ui("paperCheckTitle"), { chapter: chapterTitle })}</h2>
             <button type="button" onClick={() => window.print()} className={`${button} border-slate-300 print:hidden`}>

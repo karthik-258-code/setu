@@ -31,6 +31,7 @@ describe("paper entry", () => {
   it("cycles a box through right, each wrong option and blank, and saves paper attempts", async () => {
     const user = userEvent.setup();
     renderTeacher("/t/classrooms/demo-8b/paper-entry", { db });
+    expect(await screen.findByRole("columnheader", { name: "Question 1" })).toBeInTheDocument();
     await user.click(await screen.findByRole("button", { name: "Anjali, 1: blank" }));
     expect(screen.getByRole("button", { name: "Anjali, 1: right" })).toBeInTheDocument();
 

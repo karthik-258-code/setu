@@ -55,9 +55,9 @@ function LearnView({ data, conceptId }: { data: StudentData; conceptId: string }
   }
 
   return (
-    <div className="mx-auto max-w-sm space-y-4">
+    <div className="mx-auto w-full max-w-md space-y-4">
       {concept && (
-        <h1 className="text-xl font-semibold">
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">
           <L text={concept.title} />
         </h1>
       )}
@@ -65,12 +65,12 @@ function LearnView({ data, conceptId }: { data: StudentData; conceptId: string }
         <button
           type="button"
           onClick={() => setShown(shown === "te" ? "en" : "te")}
-          className="min-h-11 rounded-md border border-slate-300 px-3 text-sm"
+          className="min-h-11 rounded-xl border border-slate-300 px-3 text-sm"
         >
           {ui(shown === "te" ? "readInEnglish" : "readInTelugu")}
         </button>
       )}
-      <article data-testid="learn-body" lang={body.fallback ? "en" : shown} className="rounded-lg bg-white p-4 shadow-sm">
+      <article data-testid="learn-body" lang={body.fallback ? "en" : shown} className="rounded-2xl border border-slate-200 bg-white p-5 text-base leading-7 shadow-soft sm:p-6">
         {body.fallback && (
           <span
             data-testid="english-only"
@@ -92,7 +92,7 @@ function LearnView({ data, conceptId }: { data: StudentData; conceptId: string }
         type="button"
         disabled={busy}
         onClick={() => void understood()}
-        className="min-h-12 w-full rounded-md bg-brand-700 text-lg font-semibold text-white disabled:opacity-50"
+        className="min-h-12 w-full rounded-xl bg-brand-700 text-lg font-semibold text-white disabled:opacity-50"
       >
         {ui("understood")}
       </button>

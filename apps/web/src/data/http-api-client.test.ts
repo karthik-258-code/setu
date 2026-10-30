@@ -57,6 +57,18 @@ describe("HttpApiClient", () => {
     expect(header(3, "authorization")).toBe("Bearer a2");
   });
 
+  it("gives a student device its own classroom from /me/classroom", async () => {
+    const client = new HttpApiClient("http://api.test", db, fake);
+    responses.push(json({ accessToken: "tok-s1", student }));
+    await client.studentLogin({ classroomCode: "C8B", rollNo: "2", pin: "2222" });
+    await db.meta.put({ key: "activeStudentId", value: "s1" });
+    const classroom = { id: "c1", classLevel: 8, section: "B", code: "C8B", launchedChapters: [] };
+    responses.push(json(classroom));
+    expect(await client.getClassrooms()).toEqual([classroom]);
+    expect(calls[1]?.url).toBe("http://api.test/me/classroom");
+    expect(header(1, "authorization")).toBe("Bearer tok-s1");
+  });
+
   it("turns API errors into ApiRequestError with the server's code", async () => {
     const client = new HttpApiClient("http://api.test", db, fake);
     responses.push(json({ error: { code: "INVALID_CREDENTIALS", message: "Wrong credentials" } }, 401));

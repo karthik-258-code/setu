@@ -39,7 +39,7 @@ export function QuestionCard({
                 type="button"
                 disabled={disabled}
                 onClick={() => onAnswer({ optionId: option.id })}
-                className="min-h-12 w-full rounded-md border border-slate-300 bg-white px-4 text-left text-lg disabled:opacity-50"
+                className="min-h-14 w-full rounded-xl border border-slate-200 bg-white px-4 text-left text-lg shadow-soft transition hover:border-brand-600 hover:bg-brand-50 active:scale-[0.99] disabled:opacity-50"
               >
                 <L text={option.text} />
               </button>
@@ -57,7 +57,7 @@ export function QuestionCard({
           <label className="block space-y-1">
             <span className="font-medium">{ui("yourAnswer")}</span>
             <input
-              className="min-h-12 w-full rounded-md border border-slate-300 px-3 text-lg"
+              className="min-h-12 w-full rounded-xl border border-slate-300 px-3 text-lg"
               value={typed}
               onChange={(e) => setTyped(e.target.value)}
               inputMode="decimal"
@@ -67,7 +67,7 @@ export function QuestionCard({
           <button
             type="submit"
             disabled={disabled || value === null}
-            className="min-h-12 w-full rounded-md bg-brand-700 text-lg font-semibold text-white disabled:opacity-50"
+            className="min-h-12 w-full rounded-xl bg-brand-700 text-lg font-semibold text-white disabled:opacity-50"
           >
             {ui("submit")}
           </button>

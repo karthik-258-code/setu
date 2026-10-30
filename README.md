@@ -51,7 +51,35 @@ The six-minute walkthrough is [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md).
 - **Student (phone, offline):** sign-in and shared-phone profiles with hashed PINs, Readiness Check (up to 12 questions, walking back into Classes 6 and 7), home card with the reason for the next step, Learn with a Telugu/English toggle, Solve with hints and the three-level ladder, Test, re-check and verification.
 - **Teacher:** sign-in, classrooms, Gap Map with evidence drawer, groups with warm-up questions (accept, dismiss, move, merge, split), mark taught, assign, override with note, extension lock, launch a chapter with prerequisite trimming and a printable paper check.
 - **Demo mode:** every screen runs on `LocalDemoApiClient`, the same engine functions the API uses.
-- **Not yet:** progress screen, sync and the API, paper entry, weekly view, simulation report. See [docs/BUILD_PLAN.md](docs/BUILD_PLAN.md).
+- **Progress, paper entry and weekly view:** mastery bars by class with re-check dates; a paper grid for students without a phone; group moves, blocking concepts and re-check pass rates.
+- **API:** Fastify + Prisma with sign-in, packs with ETag, idempotent sync replayed by the same engine (checked against the golden vectors), and teacher reads and writes. Set `VITE_API_URL` to use it instead of demo mode.
+- **Known limits:** see [docs/DECISIONS.md](docs/DECISIONS.md); single-gap recall in the simulation is 74% against an 85% target ([docs/EVALUATION.md](docs/EVALUATION.md)).
+
+## Screenshots
+
+From demo mode (`/demo`); the low-fidelity wireframes are in [docs/wireframes/](docs/wireframes/).
+
+| Gap Map | Evidence drawer | Groups |
+|---|---|---|
+| ![Gap Map](docs/wireframes/screenshots/gapmap.png) | ![Evidence drawer](docs/wireframes/screenshots/evidence.png) | ![Groups](docs/wireframes/screenshots/groups.png) |
+
+| Student home (Ravi) | Learn | Solve |
+|---|---|---|
+| ![Student home](docs/wireframes/screenshots/student-home.png) | ![Learn](docs/wireframes/screenshots/learn.png) | ![Solve](docs/wireframes/screenshots/solve.png) |
+
+## Documentation
+
+| Document | What it covers |
+|---|---|
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | Design: engine, content, data model, API |
+| [BUILD_PLAN.md](docs/BUILD_PLAN.md) | Every task and its status |
+| [DECISIONS.md](docs/DECISIONS.md) | Choices made during the build, and known limits |
+| [DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) | Six-minute walkthrough |
+| [EVALUATION.md](docs/EVALUATION.md) | Simulation report (`pnpm sim`) |
+| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Hosting, costs, onboarding, training, support |
+| [SCALING.md](docs/SCALING.md) | Adding chapters, boards, languages and subjects |
+| [wireframes/](docs/wireframes/) | Teacher wireframes and the five-minute routine |
+| [hackathon/](docs/hackathon/) | Problem statement and Decode submission |
 
 Telugu content is a first draft and needs review by a Telugu-medium maths teacher.
 

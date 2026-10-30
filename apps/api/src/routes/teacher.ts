@@ -1,4 +1,4 @@
-import { buildGapGroups, buildGapMap, buildWeeklyView } from "@setu/engine";
+import { MASTERY_THRESHOLD, buildGapGroups, buildGapMap, buildWeeklyView } from "@setu/engine";
 import type {
   AttemptEvent,
   ClassroomStudent,
@@ -38,8 +38,13 @@ const isAttempt = (e: StudentEvent): e is AttemptEvent => e.type === "attempt";
  * POST /classrooms/:id/events (ARCHITECTURE 8.1). Every view is built by the engine from events.
  */
 export const teacherRoutes: FastifyPluginAsync<{ deps: ApiDeps }> = async (app, { deps }) => {
-  async function chapterView(request: Parameters<typeof teacherClassroom>[1], chapterId: string, classroomId: string) {
-    const { classroom, teacherId } = await teacherClassroom(deps, request, classroomId);
+  async function chapterView(
+    request: Parameters<typeof teacherClassroom>[1],
+    chapterId: string,
+    classroomId: string,
+    scope: "individual" | "aggregate" = "individual",
+  ) {
+    const { classroom, teacherId } = await teacherClassroom(deps, request, classroomId, scope);
     const pack = await packFor(deps, chapterId);
     const students = await deps.store.studentsInClassroom(classroom.id);
     const rows = await Promise.all(
@@ -88,6 +93,44 @@ export const teacherRoutes: FastifyPluginAsync<{ deps: ApiDeps }> = async (app, 
       state: r.state,
     }));
     return buildGapMap(pack, chapterId, students);
+  });
+
+  // Aggregates only (no names, ids or answers): for coordinators, and teachers may use it too.
+  app.get("/classrooms/:id/summary", async (request) => {
+    const { id } = parseOr400(classroomParamsSchema, request.params);
+    const { chapterId } = parseOr400(chapterQuerySchema, request.query);
+    const { pack, rows } = await chapterView(request, chapterId, id, "aggregate");
+    const students: ClassroomStudent[] = rows.map((r) => ({
+      studentId: r.student.id,
+      displayName: r.student.firstName,
+      rollNo: r.student.rollNo,
+      state: r.state,
+    }));
+    const map = buildGapMap(pack, chapterId, students);
+    const attempts = Object.fromEntries(rows.map((r) => [r.student.id, r.events.filter(isAttempt)]));
+    const groups = buildGapGroups(pack, chapterId, students, attempts);
+    return {
+      chapterId,
+      students: map.rows.length,
+      readinessDone: map.rows.filter((r) => r.readinessDone).length,
+      concepts: [...map.columns.prerequisites, ...map.columns.chapter].map((conceptId) => {
+        const values = map.rows
+          .map((r) => r.mastery[conceptId])
+          .filter((v): v is number => typeof v === "number");
+        return {
+          conceptId,
+          started: values.length,
+          mastered: values.filter((v) => v >= MASTERY_THRESHOLD).length,
+          averagePKnown: values.length === 0 ? null : values.reduce((s, v) => s + v, 0) / values.length,
+        };
+      }),
+      groups: groups.map((g) => ({
+        id: g.id,
+        kind: g.kind,
+        ...(g.conceptId !== undefined ? { conceptId: g.conceptId } : {}),
+        students: g.studentIds.length,
+      })),
+    };
   });
 
   app.get("/classrooms/:id/groups", async (request): Promise<GapGroup[]> => {

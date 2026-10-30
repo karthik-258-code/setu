@@ -37,12 +37,12 @@ export function StudentProfiles() {
 
   if (chosen) {
     return (
-      <form onSubmit={(e) => void open(e, chosen)} className="mx-auto max-w-sm space-y-4">
-        <h1 className="text-xl font-semibold">{chosen.firstName}</h1>
+      <form onSubmit={(e) => void open(e, chosen)} className="mx-auto w-full max-w-md space-y-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-soft sm:p-6">
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">{chosen.firstName}</h1>
         <label className="block space-y-1">
           <span className="font-medium">{ui("enterPin")}</span>
           <input
-            className="min-h-12 w-full rounded-md border border-slate-300 px-3 text-lg"
+            className="min-h-12 w-full rounded-xl border border-slate-300 px-3 text-lg"
             value={pin}
             onChange={(e) => setPin(e.target.value.replace(/\D/g, "").slice(0, 4))}
             type="password"
@@ -59,7 +59,7 @@ export function StudentProfiles() {
         <button
           type="submit"
           disabled={!PIN_PATTERN.test(pin)}
-          className="min-h-12 w-full rounded-md bg-brand-700 text-lg font-semibold text-white disabled:opacity-50"
+          className="min-h-12 w-full rounded-xl bg-brand-700 text-lg font-semibold text-white disabled:opacity-50"
         >
           {ui("open")}
         </button>
@@ -79,15 +79,15 @@ export function StudentProfiles() {
   }
 
   return (
-    <div className="mx-auto max-w-sm space-y-3">
-      <h1 className="text-xl font-semibold">{ui("whoIsLearning")}</h1>
+    <div className="mx-auto w-full max-w-md space-y-3">
+      <h1 className="text-2xl font-bold tracking-tight text-slate-900">{ui("whoIsLearning")}</h1>
       <ul className="space-y-2">
         {profiles.map((p) => (
           <li key={p.studentId}>
             <button
               type="button"
               onClick={() => setChosen(p)}
-              className="flex min-h-14 w-full items-center justify-between rounded-md border border-slate-300 bg-white px-4 text-left text-lg"
+              className="flex min-h-16 w-full items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 text-left text-lg shadow-soft transition hover:border-brand-200 hover:bg-brand-50"
             >
               <span>{p.firstName}</span>
               <span className="text-sm text-slate-600">

@@ -73,11 +73,13 @@ Owner: the school's Setu coordinator (usually the maths head of department) with
 - **On the device:** events wait in Dexie until the server accepts them; a phone that is lost before syncing loses only its unsynced work.
 - **Retention:** student events are kept for the school year plus one year for the teacher's records, then deleted or anonymised. A school can ask for a student's or the whole school's data to be exported or deleted at any time.
 - **Access:** teachers see only their own classrooms; coordinators see their school; the API checks this on every request.
+- **Encryption.** In transit: TLS everywhere (the reverse proxy terminates HTTPS; HTTP redirects). At rest: use a managed Postgres with storage encryption enabled (the default on major providers) or an encrypted disk on the VM; backups go to object storage with server-side encryption and a bucket that is not public. Passwords and PINs are stored only as salted scrypt hashes. On the device, data sits in the browser's IndexedDB for the signed-in profiles only; the browser does not encrypt it, so shared phones rely on the device lock and the profile PIN (see Honest limits).
 
 ## 7. Honest limits
 
 - At the time of writing the API (BUILD_PLAN Phase 4) and real sync (3.10) are not finished; the demo runs entirely on the device with `LocalDemoApiClient`. The deployment above is the plan for the production path.
 - Content covers one full chapter (Class 8 Linear Equations in One Variable) and skeleton chapters for Classes 6, 7, 9 and 10. Telugu text is a first draft and needs review by a Telugu-medium maths teacher before use with students.
 - Mastery thresholds and learning parameters are defaults from the literature, not yet fitted to Indian classroom data.
-- Shared phones rely on the PIN and the profile picker; a student who knows another's PIN could answer for them.
+- Shared phones rely on the PIN and the profile picker; a student who knows another's PIN could answer for them. On-device data is not encrypted by the app.
+- Accounts are created by the Setu team from the school's roster (no in-app rostering yet); a coordinator screen to add teachers and students and reset PINs is the next feature after the pilot. Coordinators already see classroom summaries only (`GET /classrooms/:id/summary`), never individual students' answers.
 - Costs above are estimates for planning, and do not include devices, internet, or the people who run the pilot.

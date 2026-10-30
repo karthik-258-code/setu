@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframe: Gap Map</title>
+<style>
+  body { font: 15px/1.4 system-ui, sans-serif; margin: 0; background: #eee; }
+  .screen { max-width: 760px; margin: 16px auto; background: #fff; border: 2px solid #333; border-radius: 12px; padding: 12px; overflow-x: auto; }
+  .bar { display: flex; justify-content: space-between; border-bottom: 1px dashed #999; padding-bottom: 8px; margin-bottom: 8px; }
+  table { border-collapse: collapse; font-size: 13px; }
+  th, td { border: 1px solid #ccc; padding: 4px 6px; text-align: center; }
+  th.name { text-align: left; position: sticky; left: 0; background: #fff; }
+  .split { border-left: 3px solid #333; }
+  .r { background: #f99; } .a { background: #fd9; } .l { background: #dfb; } .g { background: #6c6; } .n { background: #ddd; }
+  .root { outline: 3px solid #b00; outline-offset: -3px; }
+  .legend span { display: inline-block; padding: 2px 6px; margin-right: 4px; font-size: 12px; }
+  .note { background: #ffd; border: 1px dashed #aa0; padding: 6px; font-size: 13px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="bar"><b>Gap Map &middot; Linear Equations in One Variable</b><span>Back</span></div>
+  <div class="legend"><span class="r">&lt; 40%</span><span class="a">40-69%</span><span class="l">70-89%</span><span class="g">&ge; 90%</span><span class="n">Not started</span></div>
+  <table>
+    <tr><th class="name"></th><th colspan="4">Prerequisites</th><th colspan="3" class="split">This chapter</th></tr>
+    <tr><th class="name">Student</th><th>Integers</th><th>Unlike fractions</th><th>Like terms</th><th>Transpose</th><th class="split">One side</th><th>Both sides</th><th>Fractions</th></tr>
+    <tr><th class="name">Anjali #1</th><td class="g">95</td><td class="g">94</td><td class="g">93</td><td class="g">95</td><td class="l split">72</td><td class="l">70</td><td class="n">&ndash;</td></tr>
+    <tr><th class="name">Ravi #2</th><td class="g">92</td><td class="r root">18</td><td class="a">55</td><td class="a">48</td><td class="n split">&ndash;</td><td class="n">&ndash;</td><td class="n">&ndash;</td></tr>
+    <tr><th class="name">Lakshmi #3</th><td class="r root">22</td><td class="a">50</td><td class="a">45</td><td class="n">&ndash;</td><td class="n split">&ndash;</td><td class="n">&ndash;</td><td class="n">&ndash;</td></tr>
+    <tr><th class="name">Suresh #4</th><td class="n">&ndash;</td><td class="n">&ndash;</td><td class="n">&ndash;</td><td class="n">&ndash;</td><td class="n split">&ndash;</td><td class="n">&ndash;</td><td class="n">&ndash;</td></tr>
+    <tr><th class="name">... 46 rows</th><td colspan="7"></td></tr>
+  </table>
+  <div class="note">The student column stays fixed while the concepts scroll. A red ring marks each student's root gap. Tap a name for the student page; tap a cell for the evidence drawer.</div>
+</div>
+</body>
+</html>

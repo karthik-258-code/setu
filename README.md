@@ -53,7 +53,7 @@ The six-minute walkthrough is [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md).
 - **Demo mode:** every screen runs on `LocalDemoApiClient`, the same engine functions the API uses.
 - **Progress, paper entry and weekly view:** mastery bars by class with re-check dates; a paper grid for students without a phone; group moves, blocking concepts and re-check pass rates.
 - **API:** Fastify + Prisma with sign-in, packs with ETag, idempotent sync replayed by the same engine (checked against the golden vectors), and teacher reads and writes. Set `VITE_API_URL` to use it instead of demo mode.
-- **Known limits:** see [docs/DECISIONS.md](docs/DECISIONS.md); single-gap recall in the simulation is 74% against an 85% target ([docs/EVALUATION.md](docs/EVALUATION.md)).
+- **Known limits:** see [docs/DECISIONS.md](docs/DECISIONS.md); single-gap recall in the simulation is 86.2% (target 85%), with precision 66.4% and the Gap Map root cause right for 47.4% of students; these are simulated learners, not classroom data ([docs/EVALUATION.md](docs/EVALUATION.md)).
 
 ## Screenshots
 

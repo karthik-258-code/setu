@@ -17,6 +17,12 @@ import type {
 
 /** Difficulty asked first (ARCHITECTURE 5.3); the nearest available one is the fallback. */
 const TARGET_DIFFICULTY: Difficulty = 2;
+/**
+ * Difficulty for descents (depth >= 1) and second questions. A learner who lacks the concept
+ * guesses a harder item less often, so a gap below a failure, or a lucky first answer, is
+ * caught more often; first questions on the targets and chapter questions stay at 2.
+ */
+const PROBE_DIFFICULTY: Difficulty = 3;
 /** Chapter questions asked when every prerequisite is cleared. */
 const CHAPTER_QUESTIONS = 2;
 
@@ -71,18 +77,19 @@ function availableQuestions(
 }
 
 /**
- * A difficulty-2 question if one is left, else the nearest difficulty (the easier one on a
- * tie). `rng` is used only to pick among questions of that difficulty.
+ * A question of difficulty `target` if one is left, else the nearest difficulty (the easier one
+ * on a tie). `rng` is used only to pick among questions of that difficulty.
  */
 function chooseQuestion(
   pack: ContentPack,
   asked: readonly QuestionId[],
   conceptId: ConceptId,
+  target: Difficulty,
   rng: () => number,
 ): Question | null {
   const candidates = availableQuestions(pack, asked, conceptId);
   if (candidates.length === 0) return null;
-  const distance = (q: Question): number => Math.abs(q.difficulty - TARGET_DIFFICULTY);
+  const distance = (q: Question): number => Math.abs(q.difficulty - target);
   const best = candidates.reduce((a, q) =>
     distance(q) < distance(a) || (distance(q) === distance(a) && q.difficulty < a.difficulty)
       ? q
@@ -127,7 +134,50 @@ function descend(
   return { ...session, results, queue: [...front, ...session.queue] };
 }
 
-/** Cleared concepts answered exactly once, closest to the chapter (lowest depth) first, then by impact. */
+/**
+ * What the chapter phase says about each chapter concept it asked: -1 (backed) when every
+ * chapter question was right, +1 (pointing down) when every one was wrong. A mixed result is
+ * not attributed, because the session keeps only the count of correct chapter answers.
+ */
+function chapterEvidence(pack: ContentPack, session: ReadinessSession): Map<ConceptId, number> {
+  const inChapter = new Set(pack.graph.chapters[session.chapterId]?.conceptIds ?? []);
+  const asked = new Set(session.askedQuestionIds);
+  const served = pack.questions.filter((q) => asked.has(q.id) && inChapter.has(q.conceptId));
+  const evidence = new Map<ConceptId, number>();
+  if (served.length === 0) return evidence;
+  const value =
+    session.chapterCorrect === served.length ? -1 : session.chapterCorrect === 0 ? 1 : 0;
+  if (value === 0) return evidence;
+  for (const q of served) evidence.set(q.conceptId, value);
+  return evidence;
+}
+
+/**
+ * Failed or uncertain descendants of `conceptId` in the check, minus cleared ones; asked
+ * chapter concepts count through `chapterEvidence`.
+ */
+function suspicion(
+  pack: ContentPack,
+  session: ReadinessSession,
+  chapter: ReadonlyMap<ConceptId, number>,
+  conceptId: ConceptId,
+): number {
+  let score = 0;
+  for (const id of descendants(pack.graph, conceptId)) {
+    const status = session.results[id]?.status;
+    if (status === "failed" || status === "uncertain") score += 1;
+    else if (status === "cleared") score -= 1;
+    else score += chapter.get(id) ?? 0;
+  }
+  return score;
+}
+
+/**
+ * Cleared concepts answered exactly once, in the order the failures point to them: highest
+ * `suspicion` first, then closest to the chapter (lowest depth), then impact. A concept answered
+ * right under a failed dependant is the likeliest lucky guess; one whose dependants were
+ * answered right is already backed by them.
+ */
 function confirmItems(pack: ContentPack, session: ReadinessSession): ReadinessQueueItem[] {
   const byDepth = new Map<number, ConceptId[]>();
   for (const [id, result] of Object.entries(session.results)) {
@@ -141,7 +191,12 @@ function confirmItems(pack: ContentPack, session: ReadinessSession): ReadinessQu
       items.push({ conceptId: id, depth });
     }
   }
-  return items;
+  // Stable sort: equal scores keep the depth-then-impact order built above.
+  const chapter = chapterEvidence(pack, session);
+  return items
+    .map((item) => ({ item, score: suspicion(pack, session, chapter, item.conceptId) }))
+    .sort((a, b) => b.score - a.score)
+    .map(({ item }) => item);
 }
 
 /** The first two chapter concepts in topo order, when both have a question left. */
@@ -261,7 +316,16 @@ export function nextReadinessQuestion(
   while (current.phase !== "done") {
     const head = current.queue[0] as ReadinessQueueItem;
     const rest = current.queue.slice(1);
-    const question = chooseQuestion(pack, current.askedQuestionIds, head.conceptId, rng);
+    const probe =
+      current.phase !== "chapter" &&
+      (head.depth > 0 || (current.results[head.conceptId]?.asked ?? 0) > 0);
+    const question = chooseQuestion(
+      pack,
+      current.askedQuestionIds,
+      head.conceptId,
+      probe ? PROBE_DIFFICULTY : TARGET_DIFFICULTY,
+      rng,
+    );
     if (!question) {
       current = settle(pack, { ...current, queue: rest });
       continue;

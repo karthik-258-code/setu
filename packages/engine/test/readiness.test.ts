@@ -205,6 +205,30 @@ describe("nextReadinessQuestion", () => {
     expect(session.askedQuestionIds).toEqual([question?.id]);
   });
 
+  it("asks difficulty 2 on a target's first question and difficulty 3 when descending", () => {
+    const run = play(
+      spine,
+      start(spine, SPINE_CHAPTER_ID),
+      byConcept({ "M6.FRAC.ADD_SUB_UNLIKE": [false] }),
+    );
+    const seen = new Set<string>();
+    for (const q of run.asked) {
+      const first = !seen.has(q.conceptId);
+      seen.add(q.conceptId);
+      if (!first) continue;
+      const depth = run.session.results[q.conceptId]?.depth;
+      expect(q.difficulty).toBe(depth === 0 ? 2 : 3);
+    }
+    // The three prerequisites of adding unlike fractions were reached by descending.
+    expect(run.session.results["M6.FRAC.EQUIV"]?.depth).toBe(1);
+  });
+
+  it("confirms a target with a difficulty-3 question and keeps chapter questions at 2", () => {
+    const run = play(spine, start(spine, SPINE_CHAPTER_ID), allCorrect);
+    expect(run.asked.slice(7, 9).every((q) => q.difficulty === 2)).toBe(true);
+    expect(run.asked.slice(9).every((q) => q.difficulty === 3)).toBe(true);
+  });
+
   it("returns the same question until the answer is recorded", () => {
     const first = nextReadinessQuestion(spine, start(spine, SPINE_CHAPTER_ID), mulberry32(3));
     const again = nextReadinessQuestion(spine, first.session, mulberry32(99));
@@ -422,6 +446,20 @@ describe("confirming and clearing", () => {
     expect(depths[0]).toBe(0);
   });
 
+  it("confirms the cleared prerequisites of a failed concept before the targets", () => {
+    // Ravi: adding unlike fractions fails and its three prerequisites are answered right once.
+    // Equivalent fractions is backed by the right answers on multiplying and dividing fractions,
+    // so like fractions and LCM take the two confirmations left.
+    const run = play(
+      spine,
+      start(spine, SPINE_CHAPTER_ID),
+      byConcept({ "M6.FRAC.ADD_SUB_UNLIKE": [false] }),
+    );
+    const order = run.asked.map((q) => q.conceptId);
+    const secondTimes = order.filter((id, i) => order.indexOf(id) !== i);
+    expect(new Set(secondTimes)).toEqual(new Set(["M6.FRAC.ADD_SUB_LIKE", "M6.NUM.LCM_HCF"]));
+  });
+
   it("keeps a concept cleared after a correct second answer and never asks the same question twice", () => {
     const run = play(fixture, start(fixture, FIXTURE_CHAPTER_ID), allCorrect);
     const summary = readinessSummary(run.session, NOW);
@@ -579,15 +617,30 @@ describe("chapter phase and advancedEntry", () => {
     expect(summary.pending).toEqual([]);
     expect(summary.uncertain).toEqual([]);
 
-    // 7 direct, then 2 chapter, then 3 confirm (one per concept, lowest depth then impact).
+    // 7 direct, then 2 chapter, then 3 confirm. The two right chapter answers back
+    // transposing, both fraction targets and like terms, so the confirmations go to the three
+    // targets the chapter questions do not depend on.
     const concepts = run.asked.map((q) => q.conceptId);
     const direct = concepts.slice(0, 7);
     expect(direct).toEqual(targets);
     expect(concepts.slice(7, 9)).toEqual(["M8.LEQ.ONE_SIDE", "M8.LEQ.BOTH_SIDES"]);
     const confirm = concepts.slice(9);
-    expect(confirm).toHaveLength(3);
-    expect(confirm).toEqual(direct.slice(0, 3));
+    expect(confirm).toEqual(["M6.FRAC.ADD_SUB_UNLIKE", "M7.INT.PROPERTIES", "M7.SEQ.SETUP"]);
     expect(run.session.phase).toBe("done");
+  });
+
+  it("confirms the prerequisites of the chapter questions first when both are wrong", () => {
+    const run = play(
+      spine,
+      start(spine, SPINE_CHAPTER_ID),
+      byConcept({ "M8.LEQ.ONE_SIDE": [false], "M8.LEQ.BOTH_SIDES": [false] }),
+    );
+    const concepts = run.asked.map((q) => q.conceptId);
+    expect(concepts.slice(7, 9)).toEqual(["M8.LEQ.ONE_SIDE", "M8.LEQ.BOTH_SIDES"]);
+    // Both chapter concepts sit on transposing and dividing fractions; multiplying fractions is
+    // also below them but is backed by the right dividing-fractions answer.
+    expect(concepts.slice(9)).toEqual(["M7.FRAC.DIV", "M7.SEQ.TRANSPOSE", "M7.FRAC.MUL"]);
+    expect(readinessSummary(run.session, NOW).advancedEntry).toBe(false);
   });
 
   it("does not set advancedEntry when a chapter question is wrong", () => {

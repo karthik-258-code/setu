@@ -8,7 +8,7 @@ import { listProfiles, saveProfile } from "../data/profiles";
 import { useLang } from "../i18n/lang-context";
 import { useStudent } from "../student/student-context";
 
-const field = "min-h-12 w-full rounded-md border border-slate-300 px-3 text-lg";
+const field = "min-h-12 w-full rounded-xl border border-slate-300 px-3 text-lg";
 
 /** Classroom code + roll number + 4-digit PIN; adds the student's profile to this device. */
 export function StudentLogin() {
@@ -51,7 +51,8 @@ export function StudentLogin() {
   }
 
   return (
-    <form onSubmit={(e) => void submit(e)} className="mx-auto max-w-sm space-y-4">
+    <form onSubmit={(e) => void submit(e)} className="mx-auto w-full max-w-md space-y-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-soft sm:p-6">
+      <h1 className="text-2xl font-bold tracking-tight text-slate-900">{ui("roleStudent")}</h1>
       <label className="block space-y-1">
         <span className="font-medium">{ui("classroomCode")}</span>
         <input
@@ -94,7 +95,7 @@ export function StudentLogin() {
       <button
         type="submit"
         disabled={busy || !PIN_PATTERN.test(pin)}
-        className="min-h-12 w-full rounded-md bg-brand-700 text-lg font-semibold text-white disabled:opacity-50"
+        className="min-h-14 w-full rounded-xl bg-brand-700 text-lg font-bold text-white shadow-soft transition hover:bg-brand-800 disabled:opacity-50"
       >
         {busy ? ui("signingIn") : ui("signIn")}
       </button>

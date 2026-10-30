@@ -44,6 +44,13 @@ afterEach(async () => {
 });
 
 describe("gap map", () => {
+  it("shows concept progress beside each pinned student name", async () => {
+    renderTeacher("/t/classrooms/demo-8b/gapmap", { db });
+    const table = await screen.findByTestId("gapmap");
+
+    expect(within(table).getByRole("img", { name: "1 of 2 concepts with evidence" })).toBeInTheDocument();
+  });
+
   it("puts prerequisite columns before chapter columns, greys untouched cells and opens evidence on tap", async () => {
     const user = userEvent.setup();
     renderTeacher("/t/classrooms/demo-8b/gapmap", { db });

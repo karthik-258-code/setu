@@ -121,14 +121,14 @@ function ReadinessRunner({ data, chapterId }: { data: StudentData; chapterId: st
         ? format(ui("readinessStartWith"), { concept: t(concept.title).text })
         : format(ui("readinessReady"), { chapter: chapter ? t(chapter.title).text : chapterId });
     return (
-      <div data-testid="readiness-summary" className="mx-auto max-w-sm space-y-4">
-        <h1 className="text-xl font-semibold">{ui("readinessTitle")}</h1>
+      <div data-testid="readiness-summary" className="mx-auto w-full max-w-md space-y-4">
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">{ui("readinessTitle")}</h1>
         <p data-testid="readiness-line">{first}</p>
         <p data-testid="readiness-line">{second}</p>
         <button
           type="button"
           onClick={() => navigate("/s/home")}
-          className="min-h-12 w-full rounded-md bg-brand-700 text-lg font-semibold text-white"
+          className="min-h-12 w-full rounded-xl bg-brand-700 text-lg font-semibold text-white"
         >
           {ui("continue")}
         </button>
@@ -138,15 +138,28 @@ function ReadinessRunner({ data, chapterId }: { data: StudentData; chapterId: st
 
   if (!step.question) return <p role="status">{ui("loading")}</p>;
 
+  const asked = step.session.askedQuestionIds.length;
   return (
-    <div className="mx-auto max-w-sm space-y-4">
-      <h1 className="text-xl font-semibold">{ui("readinessTitle")}</h1>
-      <p data-testid="readiness-progress" className="text-sm text-slate-600">
-        {format(ui("questionOfUpTo"), {
-          n: step.session.askedQuestionIds.length,
+    <div className="mx-auto w-full max-w-md space-y-4">
+      <h1 className="text-2xl font-bold tracking-tight text-slate-900">{ui("readinessTitle")}</h1>
+      <div className="space-y-2">
+        <p data-testid="readiness-progress" className="text-sm font-semibold text-slate-600">
+          {format(ui("questionOfUpTo"), {
+          n: asked,
           max: READINESS_MAX_ITEMS,
-        })}
-      </p>
+          })}
+        </p>
+        <div
+          role="progressbar"
+          aria-label={format(ui("questionOfUpTo"), { n: asked, max: READINESS_MAX_ITEMS })}
+          aria-valuemin={0}
+          aria-valuemax={READINESS_MAX_ITEMS}
+          aria-valuenow={asked}
+          className="h-2 overflow-hidden rounded-full bg-slate-200"
+        >
+          <div className="h-full rounded-full bg-brand-700 transition-[width]" style={{ width: `${(asked / READINESS_MAX_ITEMS) * 100}%` }} />
+        </div>
+      </div>
       <QuestionCard
         key={step.question.id}
         question={step.question}

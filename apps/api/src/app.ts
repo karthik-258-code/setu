@@ -10,6 +10,7 @@ import { authRoutes } from "./routes/auth";
 import { healthRoutes } from "./routes/health";
 import { studentRoutes } from "./routes/student";
 import { teacherRoutes } from "./routes/teacher";
+import { registerCors } from "./cors";
 
 const STATUS_CODES: Record<number, string> = {
   400: "BAD_REQUEST",
@@ -30,8 +31,13 @@ function errorBody(code: string, message: string): ErrorResponse {
  * Builds the Fastify instance without listening, so tests can use `app.inject`. Without `deps`
  * only `/health` is served; with them, every route of ARCHITECTURE 8.1.
  */
-export function buildApp(options: FastifyServerOptions = {}, deps?: ApiDeps): FastifyInstance {
+export function buildApp(
+  options: FastifyServerOptions = {},
+  deps?: ApiDeps,
+  allowedOrigins: readonly string[] = [],
+): FastifyInstance {
   const app = Fastify(options);
+  registerCors(app, allowedOrigins);
 
   app.setNotFoundHandler((request, reply) =>
     reply

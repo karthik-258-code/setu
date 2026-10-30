@@ -2,14 +2,14 @@
 
 Low-fidelity wireframes for the teacher screens, as plain HTML files: open any of them in a browser, no build step. They show layout and content, not final styling. Screenshots of the built screens in demo mode live in [`screenshots/`](screenshots/).
 
-| Screen | Wireframe | Built screen (demo mode) |
-|---|---|---|
-| Launch a chapter | [launch.html](launch.html) | `/t/classrooms/demo-8b/launch` |
-| Gap Map | [gapmap.html](gapmap.html) | `/t/classrooms/demo-8b/gapmap` |
-| Evidence drawer | [evidence.html](evidence.html) | tap any Gap Map cell |
-| Groups | [groups.html](groups.html) | `/t/classrooms/demo-8b/groups` |
-| Mark taught confirmation | [mark-taught.html](mark-taught.html) | Groups, **Mark taught** |
-| Weekly view | [weekly.html](weekly.html) | `/t/classrooms/demo-8b/weekly` |
+| Screen | Wireframe | Built screen (demo mode) | Screenshot |
+|---|---|---|---|
+| Launch a chapter | [launch.html](launch.html) | `/t/classrooms/demo-8b/launch` | [launch.png](screenshots/launch.png) |
+| Gap Map | [gapmap.html](gapmap.html) | `/t/classrooms/demo-8b/gapmap` | [gapmap.png](screenshots/gapmap.png) |
+| Evidence drawer | [evidence.html](evidence.html) | tap any Gap Map cell | [evidence.png](screenshots/evidence.png) |
+| Groups | [groups.html](groups.html) | `/t/classrooms/demo-8b/groups` | [groups.png](screenshots/groups.png) |
+| Mark taught confirmation | [mark-taught.html](mark-taught.html) | Groups, **Mark taught** | [mark-taught.png](screenshots/mark-taught.png) |
+| Weekly view | [weekly.html](weekly.html) | `/t/classrooms/demo-8b/weekly` | [weekly.png](screenshots/weekly.png) |
 
 ## Five minutes before class
 

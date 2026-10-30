@@ -55,6 +55,9 @@ describe("weekly view", () => {
     expect(screen.getByRole("heading", { name: "Re-checks after mark taught" })).toBeInTheDocument();
 
     const weekly = await apiClient().getWeekly("demo-8b", TINY_CHAPTER);
+    expect(screen.getAllByText(/From Not attempted yet/)).not.toHaveLength(0);
+    expect(screen.getAllByText(/To Ready/)).not.toHaveLength(0);
+    expect(screen.queryByText(/not_attempted|gap:/)).not.toBeInTheDocument();
     expect(screen.queryAllByTestId("weekly-blocking")).toHaveLength(weekly.blockingConcepts.length);
     for (const b of weekly.blockingConcepts) {
       expect(screen.getByText(b.conceptId)).toBeInTheDocument();

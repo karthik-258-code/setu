@@ -70,11 +70,11 @@ function StudentActions({ view, studentId }: { view: ClassView; studentId: strin
     );
   }
 
-  const button = "min-h-11 rounded-md border border-slate-300 px-3";
+  const button = "min-h-11 rounded-xl border border-slate-300 px-3";
   return (
-    <div className="mx-auto max-w-sm space-y-5">
+    <div className="mx-auto w-full max-w-3xl space-y-5">
       <header className="flex items-baseline justify-between gap-2">
-        <h1 className="text-xl font-semibold">
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">
           {name} <span className="text-sm text-slate-500">#{row.rollNo}</span>
         </h1>
         <Link
@@ -94,7 +94,7 @@ function StudentActions({ view, studentId }: { view: ClassView; studentId: strin
         <select
           value={conceptId}
           onChange={(e) => setConceptId(e.target.value)}
-          className="min-h-11 w-full rounded-md border border-slate-300 bg-white px-2"
+          className="min-h-11 w-full rounded-xl border border-slate-300 bg-white px-2"
         >
           {columns.map((id) => {
             const c = pack.graph.concepts[id];
@@ -106,7 +106,7 @@ function StudentActions({ view, studentId }: { view: ClassView; studentId: strin
           })}
         </select>
       </label>
-      <form onSubmit={saveOverride} className="space-y-3 rounded-lg bg-white p-4 shadow-sm">
+      <form onSubmit={saveOverride} className="space-y-3 rounded-xl bg-white p-4 shadow-soft">
         <h2 className="font-semibold">{ui("override")}</h2>
         <label className="flex min-h-11 items-center gap-2">
           <input type="radio" name="override" checked={mastered} onChange={() => setMastered(true)} />
@@ -122,7 +122,7 @@ function StudentActions({ view, studentId }: { view: ClassView; studentId: strin
             value={note}
             onChange={(e) => setNote(e.target.value)}
             rows={2}
-            className="w-full rounded-md border border-slate-300 px-2 py-1"
+            className="w-full rounded-xl border border-slate-300 px-2 py-1"
           />
         </label>
         <button type="submit" disabled={conceptId === ""} className={`${button} bg-brand-700 text-white`}>

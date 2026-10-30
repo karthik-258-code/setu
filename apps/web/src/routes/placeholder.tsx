@@ -12,7 +12,7 @@ export function Placeholder({ name }: { name: string }) {
         <span className="sr-only">{ui("screen")}: </span>
         <span data-testid="route-name">{name}</span>
       </h1>
-      <dl className="rounded-lg bg-white p-3 text-sm shadow-sm">
+      <dl className="rounded-xl bg-white p-3 text-sm shadow-soft">
         <dt className="font-medium text-slate-600">{ui("parameters")}</dt>
         {entries.length === 0 ? (
           <dd className="text-slate-500">{ui("noParameters")}</dd>

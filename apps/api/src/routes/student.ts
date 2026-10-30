@@ -1,6 +1,6 @@
 import type { StudentEvent, StudentState } from "@setu/engine";
 import { MAX_SYNC_EVENTS, chapterParamsSchema, studentEventSchema } from "@setu/shared";
-import type { SyncResponse } from "@setu/shared";
+import type { ClassroomSummary, SyncResponse } from "@setu/shared";
 import type { FastifyPluginAsync } from "fastify";
 import { z } from "zod";
 import { signedInStudent } from "../authz";
@@ -33,6 +33,14 @@ export const studentRoutes: FastifyPluginAsync<{ deps: ApiDeps }> = async (app, 
     reply.header("ETag", etag).header("Cache-Control", "public, max-age=0, must-revalidate");
     if (request.headers["if-none-match"] === etag) return reply.code(304).send();
     return pack;
+  });
+
+  // The signed-in student's own classroom, so a device can pick up the latest launched chapter.
+  app.get("/me/classroom", async (request): Promise<ClassroomSummary> => {
+    const student = await signedInStudent(deps, request);
+    const c = await deps.store.classroomById(student.classroomId);
+    if (!c) throw new ApiError(404, "NOT_FOUND", "Classroom not found");
+    return { id: c.id, classLevel: c.classLevel, section: c.section, code: c.code, launchedChapters: c.launchedChapters };
   });
 
   app.get("/me/state", async (request): Promise<StudentState> => {

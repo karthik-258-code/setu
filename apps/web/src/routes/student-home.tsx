@@ -29,7 +29,7 @@ function HomeCard({ data }: { data: StudentData }) {
   const sync = useAutoSync(db, profile.studentId, state.eventCount);
 
   return (
-    <div className="mx-auto max-w-sm space-y-4">
+    <div className="mx-auto w-full max-w-md space-y-4">
       <header className="flex items-center justify-between gap-2">
         <p className="text-lg font-semibold">
           {ui("hello")}, {profile.firstName}
@@ -46,26 +46,26 @@ function HomeCard({ data }: { data: StudentData }) {
         <OfflineStatus />
         <SyncChip status={sync} />
       </div>
-      <section className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <section className="space-y-5 rounded-2xl border border-brand-100 bg-white p-5 shadow-soft sm:p-6">
         <p
           data-testid="home-mode"
-          className="inline-block rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-800 ring-1 ring-brand-100"
+          className="inline-flex min-h-8 items-center rounded-full bg-brand-50 px-3 py-1 text-xs font-bold uppercase tracking-wide text-brand-800 ring-1 ring-brand-100"
         >
           {ui(MODE_LABEL[rec.mode])}
         </p>
         {concept && (
-          <h1 className="text-xl font-semibold">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
             <L text={concept.title} />
           </h1>
         )}
-        <p data-testid="home-reason">
+        <p data-testid="home-reason" className="max-w-prose text-base leading-7 text-slate-700">
           <L text={renderReason(pack, rec)} />
         </p>
         {target !== null && (
           <button
             type="button"
             onClick={() => navigate(target, { state: { recommendation: rec } })}
-            className="min-h-12 w-full rounded-xl bg-brand-700 text-lg font-semibold text-white shadow-sm transition hover:bg-brand-800 active:scale-[0.99]"
+            className="min-h-14 w-full rounded-xl bg-brand-700 text-lg font-bold text-white shadow-soft transition hover:bg-brand-800 active:scale-[0.99]"
           >
             {ui("start")}
           </button>

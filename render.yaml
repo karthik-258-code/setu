@@ -1,16 +1,50 @@
-# Render Blueprint: the PWA as a free static site in demo mode (no backend needed).
-# Render dashboard: New > Blueprint > pick this repository.
+# Full Setu stack: static web app, Fastify API, and managed Postgres.
+# Free plans are for demos only; the free Postgres database expires after 30 days.
 services:
+  - type: web
+    name: setu-api
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm content:validate && pnpm content:pack && pnpm --filter @setu/api build
+    startCommand: pnpm --filter @setu/api db:migrate && pnpm --filter @setu/api start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: setu-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: WEB_ORIGINS
+        fromService:
+          name: setu
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
+
   - type: web
     name: setu
     runtime: static
-    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm content:pack && pnpm --filter @setu/web build
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm content:validate && pnpm content:pack && pnpm --filter @setu/web build
     staticPublishPath: apps/web/dist
     envVars:
       - key: NODE_VERSION
         value: "20"
+      - key: VITE_API_URL
+        fromService:
+          name: setu-api
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
     routes:
-      # Single-page app: unknown paths serve index.html; real files (packs, demo seed) are served as they are.
       - type: rewrite
         source: /*
         destination: /index.html
+
+databases:
+  - name: setu-db
+    plan: free
+    region: singapore
+    databaseName: setu
+    user: setu

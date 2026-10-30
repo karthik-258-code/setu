@@ -37,10 +37,12 @@ describe("teacher login and classrooms", () => {
     await waitFor(() => expect(router.state.location.pathname).toBe("/t/classrooms"));
     expect(await screen.findByRole("heading", { name: "Class 8 B" })).toBeInTheDocument();
     expect(screen.getByText("DEMO8B")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Gap Map" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /^Gap Map/ })).toHaveAttribute(
       "href",
       "/t/classrooms/demo-8b/gapmap",
     );
+    expect(screen.getByText("See learning progress by concept")).toBeInTheDocument();
+    expect(screen.getByText("Review suggested student groups")).toBeInTheDocument();
   });
 
   it("shows an error for a wrong password and stays signed out", async () => {

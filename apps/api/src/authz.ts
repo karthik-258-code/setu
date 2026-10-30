@@ -21,13 +21,21 @@ export function claimsOf(deps: ApiDeps, request: FastifyRequest, role: Role): To
   return claims;
 }
 
-/** The classroom, if the signed-in teacher may see it: 404 when it does not exist, 403 otherwise. */
+/**
+ * The classroom, if the signed-in teacher may see it: 404 when it does not exist, 403 otherwise.
+ * `individual` routes (student rows, evidence, writes) are for the class teacher only;
+ * coordinators get `aggregate` routes (counts, no names or answers), as the submission promises.
+ */
 export async function teacherClassroom(
   deps: ApiDeps,
   request: FastifyRequest,
   classroomId: string,
+  scope: "individual" | "aggregate" = "individual",
 ): Promise<{ teacherId: string; classroom: StoredClassroom }> {
   const { sub } = claimsOf(deps, request, "teacher");
+  if (scope === "individual" && (await deps.store.teacherById(sub))?.role === "coordinator") {
+    throw new ApiError(403, "FORBIDDEN", "Coordinators see classroom summaries, not individual students");
+  }
   const classroom = (await deps.store.classroomsForTeacher(sub)).find((c) => c.id === classroomId);
   if (classroom) return { teacherId: sub, classroom };
   if (await deps.store.classroomById(classroomId)) {

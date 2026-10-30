@@ -81,5 +81,5 @@ Owner: the school's Setu coordinator (usually the maths head of department) with
 - Content covers one full chapter (Class 8 Linear Equations in One Variable) and skeleton chapters for Classes 6, 7, 9 and 10. Telugu text is a first draft and needs review by a Telugu-medium maths teacher before use with students.
 - Mastery thresholds and learning parameters are defaults from the literature, not yet fitted to Indian classroom data.
 - Shared phones rely on the PIN and the profile picker; a student who knows another's PIN could answer for them. On-device data is not encrypted by the app.
-- Coordinators can currently open individual student pages; the submission's plan is aggregates only for coordinators, which is a planned change.
+- Accounts are created by the Setu team from the school's roster (no in-app rostering yet); a coordinator screen to add teachers and students and reset PINs is the next feature after the pilot. Coordinators already see classroom summaries only (`GET /classrooms/:id/summary`), never individual students' answers.
 - Costs above are estimates for planning, and do not include devices, internet, or the people who run the pilot.

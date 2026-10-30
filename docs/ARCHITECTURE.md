@@ -136,7 +136,7 @@ Mastery: `pKnown >= MASTERY_THRESHOLD (0.9)`. `masteredAt` is set the first time
 
 ### 5.3 Chapter Readiness Check (adaptive graph-traversal diagnostic)
 
-Budget `READINESS_MAX_ITEMS = 12`, depth `READINESS_MAX_DEPTH = 3`. Questions are difficulty 2 unless noted. Each answer also updates BKT (mode `readiness`).
+Budget `READINESS_MAX_ITEMS = 12`, depth `READINESS_MAX_DEPTH = 3`. A target's first question and the chapter questions are difficulty 2; descents (depth >= 1) and second questions are difficulty 3. The nearest difficulty is used when the preferred one has no question left. Each answer also updates BKT (mode `readiness`).
 
 1. **Direct phase.** `targets = chapterExternalPrereqs(graph, chapterId) minus trimmed` (teacher-removed), ordered by impact = number of chapter concepts that transitively depend on the prerequisite (desc), then topo order. Ask **one** question per target.
 2. **Descend phase.** For each target answered wrong: status `failed`; push its direct prerequisites (depth+1, if `<= 3` and not already asked/cleared) to the **front** of the queue, ordered by impact. Ask one question each; recurse on wrong answers.

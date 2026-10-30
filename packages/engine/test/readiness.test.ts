@@ -205,6 +205,30 @@ describe("nextReadinessQuestion", () => {
     expect(session.askedQuestionIds).toEqual([question?.id]);
   });
 
+  it("asks difficulty 2 on a target's first question and difficulty 3 when descending", () => {
+    const run = play(
+      spine,
+      start(spine, SPINE_CHAPTER_ID),
+      byConcept({ "M6.FRAC.ADD_SUB_UNLIKE": [false] }),
+    );
+    const seen = new Set<string>();
+    for (const q of run.asked) {
+      const first = !seen.has(q.conceptId);
+      seen.add(q.conceptId);
+      if (!first) continue;
+      const depth = run.session.results[q.conceptId]?.depth;
+      expect(q.difficulty).toBe(depth === 0 ? 2 : 3);
+    }
+    // The three prerequisites of adding unlike fractions were reached by descending.
+    expect(run.session.results["M6.FRAC.EQUIV"]?.depth).toBe(1);
+  });
+
+  it("confirms a target with a difficulty-3 question and keeps chapter questions at 2", () => {
+    const run = play(spine, start(spine, SPINE_CHAPTER_ID), allCorrect);
+    expect(run.asked.slice(7, 9).every((q) => q.difficulty === 2)).toBe(true);
+    expect(run.asked.slice(9).every((q) => q.difficulty === 3)).toBe(true);
+  });
+
   it("returns the same question until the answer is recorded", () => {
     const first = nextReadinessQuestion(spine, start(spine, SPINE_CHAPTER_ID), mulberry32(3));
     const again = nextReadinessQuestion(spine, first.session, mulberry32(99));

@@ -593,15 +593,30 @@ describe("chapter phase and advancedEntry", () => {
     expect(summary.pending).toEqual([]);
     expect(summary.uncertain).toEqual([]);
 
-    // 7 direct, then 2 chapter, then 3 confirm. Multiplying fractions goes to the back: the
-    // correct dividing-fractions answer depends on it, so it is the best-backed concept.
+    // 7 direct, then 2 chapter, then 3 confirm. The two right chapter answers back
+    // transposing, both fraction targets and like terms, so the confirmations go to the three
+    // targets the chapter questions do not depend on.
     const concepts = run.asked.map((q) => q.conceptId);
     const direct = concepts.slice(0, 7);
     expect(direct).toEqual(targets);
     expect(concepts.slice(7, 9)).toEqual(["M8.LEQ.ONE_SIDE", "M8.LEQ.BOTH_SIDES"]);
     const confirm = concepts.slice(9);
-    expect(confirm).toEqual(["M7.FRAC.DIV", "M7.SEQ.TRANSPOSE", "M7.ALG.LIKE_TERMS"]);
+    expect(confirm).toEqual(["M6.FRAC.ADD_SUB_UNLIKE", "M7.INT.PROPERTIES", "M7.SEQ.SETUP"]);
     expect(run.session.phase).toBe("done");
+  });
+
+  it("confirms the prerequisites of the chapter questions first when both are wrong", () => {
+    const run = play(
+      spine,
+      start(spine, SPINE_CHAPTER_ID),
+      byConcept({ "M8.LEQ.ONE_SIDE": [false], "M8.LEQ.BOTH_SIDES": [false] }),
+    );
+    const concepts = run.asked.map((q) => q.conceptId);
+    expect(concepts.slice(7, 9)).toEqual(["M8.LEQ.ONE_SIDE", "M8.LEQ.BOTH_SIDES"]);
+    // Both chapter concepts sit on transposing and dividing fractions; multiplying fractions is
+    // also below them but is backed by the right dividing-fractions answer.
+    expect(concepts.slice(9)).toEqual(["M7.FRAC.DIV", "M7.SEQ.TRANSPOSE", "M7.FRAC.MUL"]);
+    expect(readinessSummary(run.session, NOW).advancedEntry).toBe(false);
   });
 
   it("does not set advancedEntry when a chapter question is wrong", () => {

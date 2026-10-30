@@ -127,13 +127,40 @@ function descend(
   return { ...session, results, queue: [...front, ...session.queue] };
 }
 
-/** Failed or uncertain descendants of `conceptId` in the check, minus cleared ones. */
-function suspicion(pack: ContentPack, session: ReadinessSession, conceptId: ConceptId): number {
+/**
+ * What the chapter phase says about each chapter concept it asked: -1 (backed) when every
+ * chapter question was right, +1 (pointing down) when every one was wrong. A mixed result is
+ * not attributed, because the session keeps only the count of correct chapter answers.
+ */
+function chapterEvidence(pack: ContentPack, session: ReadinessSession): Map<ConceptId, number> {
+  const inChapter = new Set(pack.graph.chapters[session.chapterId]?.conceptIds ?? []);
+  const asked = new Set(session.askedQuestionIds);
+  const served = pack.questions.filter((q) => asked.has(q.id) && inChapter.has(q.conceptId));
+  const evidence = new Map<ConceptId, number>();
+  if (served.length === 0) return evidence;
+  const value =
+    session.chapterCorrect === served.length ? -1 : session.chapterCorrect === 0 ? 1 : 0;
+  if (value === 0) return evidence;
+  for (const q of served) evidence.set(q.conceptId, value);
+  return evidence;
+}
+
+/**
+ * Failed or uncertain descendants of `conceptId` in the check, minus cleared ones; asked
+ * chapter concepts count through `chapterEvidence`.
+ */
+function suspicion(
+  pack: ContentPack,
+  session: ReadinessSession,
+  chapter: ReadonlyMap<ConceptId, number>,
+  conceptId: ConceptId,
+): number {
   let score = 0;
   for (const id of descendants(pack.graph, conceptId)) {
     const status = session.results[id]?.status;
     if (status === "failed" || status === "uncertain") score += 1;
     else if (status === "cleared") score -= 1;
+    else score += chapter.get(id) ?? 0;
   }
   return score;
 }
@@ -158,8 +185,9 @@ function confirmItems(pack: ContentPack, session: ReadinessSession): ReadinessQu
     }
   }
   // Stable sort: equal scores keep the depth-then-impact order built above.
+  const chapter = chapterEvidence(pack, session);
   return items
-    .map((item) => ({ item, score: suspicion(pack, session, item.conceptId) }))
+    .map((item) => ({ item, score: suspicion(pack, session, chapter, item.conceptId) }))
     .sort((a, b) => b.score - a.score)
     .map(({ item }) => item);
 }

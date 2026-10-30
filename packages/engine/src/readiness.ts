@@ -127,7 +127,23 @@ function descend(
   return { ...session, results, queue: [...front, ...session.queue] };
 }
 
-/** Cleared concepts answered exactly once, closest to the chapter (lowest depth) first, then by impact. */
+/** Failed or uncertain descendants of `conceptId` in the check, minus cleared ones. */
+function suspicion(pack: ContentPack, session: ReadinessSession, conceptId: ConceptId): number {
+  let score = 0;
+  for (const id of descendants(pack.graph, conceptId)) {
+    const status = session.results[id]?.status;
+    if (status === "failed" || status === "uncertain") score += 1;
+    else if (status === "cleared") score -= 1;
+  }
+  return score;
+}
+
+/**
+ * Cleared concepts answered exactly once, in the order the failures point to them: highest
+ * `suspicion` first, then closest to the chapter (lowest depth), then impact. A concept answered
+ * right under a failed dependant is the likeliest lucky guess; one whose dependants were
+ * answered right is already backed by them.
+ */
 function confirmItems(pack: ContentPack, session: ReadinessSession): ReadinessQueueItem[] {
   const byDepth = new Map<number, ConceptId[]>();
   for (const [id, result] of Object.entries(session.results)) {
@@ -141,7 +157,11 @@ function confirmItems(pack: ContentPack, session: ReadinessSession): ReadinessQu
       items.push({ conceptId: id, depth });
     }
   }
-  return items;
+  // Stable sort: equal scores keep the depth-then-impact order built above.
+  return items
+    .map((item) => ({ item, score: suspicion(pack, session, item.conceptId) }))
+    .sort((a, b) => b.score - a.score)
+    .map(({ item }) => item);
 }
 
 /** The first two chapter concepts in topo order, when both have a question left. */

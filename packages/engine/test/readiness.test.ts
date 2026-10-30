@@ -422,6 +422,20 @@ describe("confirming and clearing", () => {
     expect(depths[0]).toBe(0);
   });
 
+  it("confirms the cleared prerequisites of a failed concept before the targets", () => {
+    // Ravi: adding unlike fractions fails and its three prerequisites are answered right once.
+    // Equivalent fractions is backed by the right answers on multiplying and dividing fractions,
+    // so like fractions and LCM take the two confirmations left.
+    const run = play(
+      spine,
+      start(spine, SPINE_CHAPTER_ID),
+      byConcept({ "M6.FRAC.ADD_SUB_UNLIKE": [false] }),
+    );
+    const order = run.asked.map((q) => q.conceptId);
+    const secondTimes = order.filter((id, i) => order.indexOf(id) !== i);
+    expect(new Set(secondTimes)).toEqual(new Set(["M6.FRAC.ADD_SUB_LIKE", "M6.NUM.LCM_HCF"]));
+  });
+
   it("keeps a concept cleared after a correct second answer and never asks the same question twice", () => {
     const run = play(fixture, start(fixture, FIXTURE_CHAPTER_ID), allCorrect);
     const summary = readinessSummary(run.session, NOW);
@@ -579,14 +593,14 @@ describe("chapter phase and advancedEntry", () => {
     expect(summary.pending).toEqual([]);
     expect(summary.uncertain).toEqual([]);
 
-    // 7 direct, then 2 chapter, then 3 confirm (one per concept, lowest depth then impact).
+    // 7 direct, then 2 chapter, then 3 confirm. Multiplying fractions goes to the back: the
+    // correct dividing-fractions answer depends on it, so it is the best-backed concept.
     const concepts = run.asked.map((q) => q.conceptId);
     const direct = concepts.slice(0, 7);
     expect(direct).toEqual(targets);
     expect(concepts.slice(7, 9)).toEqual(["M8.LEQ.ONE_SIDE", "M8.LEQ.BOTH_SIDES"]);
     const confirm = concepts.slice(9);
-    expect(confirm).toHaveLength(3);
-    expect(confirm).toEqual(direct.slice(0, 3));
+    expect(confirm).toEqual(["M7.FRAC.DIV", "M7.SEQ.TRANSPOSE", "M7.ALG.LIKE_TERMS"]);
     expect(run.session.phase).toBe("done");
   });
 

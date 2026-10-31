@@ -1,93 +1,81 @@
 # Presenter guide
 
-Everything you need for the Prove round in one place: deploy, last tasks, what to say, what to show, and how to answer questions. The timed script itself is [DEMO_SCRIPT.md](DEMO_SCRIPT.md).
+A practical guide for presenting Setu's current demo. Use [DEMO_SCRIPT.md](DEMO_SCRIPT.md) for the timed walkthrough.
 
-## 1. Deploy for free on Render (demo mode)
+## 1. Choose the right demo
 
-Demo mode needs no backend: the whole classroom runs in the browser. That is the version to show.
+The deployed site has two modes. They use separate data:
 
-1. Push `build/phase-6`, merge it into `main` (merge commit), wait for green CI.
-2. On [render.com](https://render.com), sign in with GitHub, then **New > Blueprint** and pick `karthik-258-code/setu`. Render reads `render.yaml` and creates a static site called `setu`.
-3. First build takes a few minutes. Open the URL Render gives you, then `/demo`.
-4. Check three things on the live site: `/demo` lands on a 46-student Gap Map; `/s/login` with `DEMO8B`, roll `2`, PIN `2222` works; after one load, DevTools **Network > Offline** and a reload still work.
-5. Put the URL at the top of the README and in the submission form.
+| Open | What it shows | Best for |
+|---|---|---|
+| [`/demo`](https://setu-3vfo.onrender.com/demo) | A local browser demo with 46 students and generated learning history. No sign-in or database needed. | The full teacher story: Gap Map, evidence, groups, and student pathways. |
+| [`/s/login`](https://setu-3vfo.onrender.com/s/login) | The API-backed app using the Render Postgres database. | Showing student sign-in, actual sync, or the deployed stack. |
 
-If `/demo` says the classroom could not be loaded, open `https://<your-site>/demo/seed.json`: it must return JSON, not the app page. If it returns the page, delete the rewrite rule in the Render dashboard (**Redirects/Rewrites**) and add it again with source `/*` and destination `/index.html`.
+The API database starts with 46 students in Class 8B and 40 in Class 9A. Class 8B has its chapter launched; Class 9A does not. The database seed does **not** fill every student's learning history. Most progress appears only after students use the app. For a populated classroom story, use `/demo`.
 
-The API (Phase 4) is optional for judging. Render's free Postgres expires after 30 days, so deploy the API only if a judge asks; demo mode shows the same engine.
+### Demo sign-ins
 
-## 2. Last tasks before submission
+| User | Classroom | Roll | PIN / password |
+|---|---|---:|---|
+| Teacher | — | — | `teacher@demo.setu.app` / `setu-demo` |
+| Anjali | `DEMO8B` | 1 | `1111` |
+| Ravi | `DEMO8B` | 2 | `2222` |
+| Class 8B students, rolls 3–46 | `DEMO8B` | their roll | `3000 + roll` (roll 3: `3003`) |
 
-| Task | What to do |
-|---|---|
-| Screenshots (6.4, 6.7) | Phone-width browser (360 px) on `/demo`. Save PNGs to `docs/wireframes/screenshots/`: `gapmap.png`, `evidence.png` (tap one of Ravi's red cells), `groups.png`, `student-home.png` (Ravi), `learn.png`, `solve.png`. |
-| Tick the plan | In `docs/BUILD_PLAN.md` change 6.4, 6.7 and 6.8 to `[x]`. |
-| Merge | Merge request `build/phase-6` into `main`, merge commit, green CI. |
-| Release (6.8) | `git checkout main`, `git pull`, `git tag v0.1.0`, `git push origin v0.1.0`; check GitHub shows the tag and Actions are green. |
-| Live link | Render URL in README and submission. |
+In `/demo`, open the route directly to enter as the demo teacher. The sign-ins above are for the login screens.
 
-If the demo ever looks empty (for example after clearing site data), open `/demo` again: it reloads the seeded classroom.
+## 2. Before presenting
 
-## 3. The story in one minute
+- Open [`/demo`](https://setu-3vfo.onrender.com/demo) and check that the Gap Map loads with 46 rows.
+- Open [`/s/login`](https://setu-3vfo.onrender.com/s/login) once if you plan to show the API-backed student app. Free Render services may be asleep; the first request can take a while to wake.
+- Keep the teacher demo in one tab and the student flow in another. Use a 360 px-wide viewport for the student tab.
+- Rehearse the walkthrough once. Avoid using the live database as the source of simulated learning history.
+- For an offline moment, load `/demo` first, then use DevTools **Network → Offline** and reload. Rehearse this before the presentation.
 
-> In a Class 8 room of 46, the teacher starts Linear Equations. Some students are ready; others are stuck on something from Class 6, like adding fractions, and nobody knows until the chapter test. Setu finds that in ten minutes, before the chapter starts, on a shared phone with no internet. Each student gets their own path, and the teacher gets a one-screen map of who is stuck on what, with the wrong answers as proof. The teacher decides; Setu diagnoses, practises and re-checks.
+If the demo seed fails to load, check that [`/demo/seed.json`](https://setu-3vfo.onrender.com/demo/seed.json) returns JSON. The seed is built by `pnpm content:pack` and published with the static app.
 
-## 4. What to show (six minutes)
+## 3. Six-minute walkthrough
 
-Follow [DEMO_SCRIPT.md](DEMO_SCRIPT.md). The beats:
+1. **Set the problem (30 sec).** One teacher, 46 learners, one chapter. Some students are blocked by earlier concepts; the teacher needs to know where before teaching.
+2. **Read the Gap Map (75 sec).** Open `/demo`. Prerequisites sit beside chapter concepts; each row is a student. Point out the root-gap marker and the difference between evidence and no attempt.
+3. **Show evidence (30 sec).** Open Ravi's fraction cell. Explain the answer and misconception shown in the drawer: the map is backed by the student's response.
+4. **Show groups and teacher control (60 sec).** Open **Groups**. Review a suggested group and its warm-up questions. Show that the teacher can accept or move students, then mark the lesson taught.
+5. **Compare students (90 sec).** Sign in as Anjali, then switch to Ravi. They have different next steps because their evidence differs. Show one resource or guided question and the reason for the recommendation.
+6. **Close the loop (45 sec).** Show the re-check or weekly view. Explain that the teacher reviews the result and chooses the next classroom action.
+7. **Show offline (60 sec).** Use the rehearsed offline step. Explain that student work is queued on the device and syncs when the connection returns.
 
-1. **Gap Map** (`/demo`): 46 students, prerequisites left, chapter right, red ring on each root gap.
-2. **Evidence**: tap Ravi's red fraction cell: he answered 2/5 for 1/2 + 1/3, *adds denominators*. Every colour can be explained.
-3. **Groups**: fraction group with three warm-up questions; accept, move one student, **Mark taught**: "Re-check scheduled for N students."
-4. **Two students, one chapter**: Anjali goes straight to harder practice; Ravi gets a worked example built for his exact mistake, in Telugu with one tap.
-5. **Solve and Test**: hints, the three-dot ladder, a three-question check with the mastery result and next re-check date.
-6. **Offline**: DevTools offline, reload, keep working; events wait on the phone.
-7. **Scaling**: Launch a chapter, pick Class 9, show prerequisites from Classes 8 and 7 and the printable 12-question paper check.
+Optional if time remains: show **Launch a chapter** and the printable paper check. Class 9A has no launched chapter in the database yet; use the local demo if you need a reliable launch walkthrough.
 
-## 5. Why this wins (say these out loud)
+## 4. One-minute explanation
 
-- **It finds the cause, not the symptom.** The Readiness Check walks backwards through a concept graph from Class 10 down to Class 6 and names the earlier concept and the misconception, in at most 12 questions.
-- **The teacher stays in charge.** Setu suggests groups and warm-ups; every accept, move, override and "mark taught" is the teacher's, and each one has a visible consequence.
-- **It works where schools are.** Offline-first PWA on a shared phone, PIN profiles, Telugu and English, a printable paper check and paper entry for students without a device.
-- **It closes the loop.** Mark taught schedules re-checks; spaced re-checks at 2, 7 and 21 days; the weekly view shows whether the lesson worked.
-- **One engine everywhere.** The same pure TypeScript engine runs on the phone, in the API and in the simulation; golden vectors prove the server reproduces the phone exactly.
-- **It scales by content, not code.** 7 chapters across Classes 6 to 10, about 1,100 questions (hand-written plus deterministic templates), all validated; adding a chapter is JSON ([SCALING.md](SCALING.md)).
-- **It is honest.** A 1,000-learner simulation ([EVALUATION.md](EVALUATION.md)) reports where it falls short; costs, training and limits are written down ([DEPLOYMENT.md](DEPLOYMENT.md)).
+> Setu helps a teacher find the earlier concept blocking a student before a new chapter starts. Students answer a short readiness check. Setu uses the answers to suggest a learning path, while the teacher sees the evidence, reviews groups, and decides what to do. The student app can keep working offline and sync later.
 
-## 6. Features at a glance
+## 5. Features to point out
 
 | Students | Teachers | Platform |
 |---|---|---|
-| Readiness Check, up to 12 questions | Gap Map heatmap with evidence drawer | Offline-first PWA, under 1 MB JS |
-| Home card with the reason for the next step | Groups: accept, dismiss, move, merge, split | One engine on phone, API and simulation |
-| Learn with Telugu/English toggle | Mark taught, assign, override with note | Event log as the source of truth |
-| Solve with hints and difficulty ladder | Lock extension problems | Fastify + Prisma API, idempotent sync |
-| Test, re-check, verification | Launch a chapter, trim prerequisites | Bilingual content packs with validator |
-| Progress by class | Printable paper check and paper entry | Deterministic demo seed and simulation |
-| Shared-phone profiles with PINs | Weekly view | Free static deploy on Render |
+| Readiness Check, up to 12 questions | Gap Map with evidence | Offline-first PWA |
+| Learn in English or Telugu | Suggested groups and warm-ups | Shared TypeScript learning engine |
+| Guided Solve with hints | Launch, paper check and paper entry | Fastify API and PostgreSQL |
+| Tests, mastery and re-checks | Assign, override and mark taught | Event log and sync queue |
 
-## 7. Questions judges may ask
+The same learning engine is used by the web app, API and simulation. Teacher suggestions support classroom decisions; the teacher remains in control.
 
-- **"Is the data real?"** No. Anjali and Ravi follow the submission's story; 44 students are simulated through the real Readiness Check with planted gaps. A pilot is the next step.
-- **"How accurate is the diagnosis?"** In simulation, 74% of single planted gaps are found within 12 items against our 85% target; we report it rather than hide it, and the fix is a deeper first probe on the highest-impact prerequisite.
-- **"Why not an AI chatbot?"** No runtime AI: it must work offline on cheap phones, be explainable to teachers and cost nothing per student. Every recommendation has a rule and a reason.
-- **"Who checks the Telugu?"** It is a first draft; a Telugu-medium maths teacher must review it before classroom use. The validator blocks machine drafts from shipping.
-- **"What does it cost?"** About 3,500 rupees a month for one school, under 2 rupees per student per month at 25 schools ([DEPLOYMENT.md](DEPLOYMENT.md)).
-- **"What about privacy?"** Only first name, roll number, class, language and a hashed PIN. No phone numbers or photos; consent through the school.
-- **"How do you add a subject?"** Add a concept graph and questions; the engine is subject-agnostic ([SCALING.md](SCALING.md)).
+## 6. Honest answers
 
-## 8. Demo sign-ins
+- **Are the 46 students real?** No. In `/demo`, Anjali and Ravi follow the demo story and the other 44 learners are simulated. The API database contains a demo roster; it is not pilot data.
+- **How accurate is it?** In a 1,000-learner simulation, single-gap recall is **86.2%**, precision is **66.4%**, and the Gap Map's root cause matches a planted gap for **47.4%**. With double gaps, recall is **79.2%**, precision is **80.5%**, and root-cause accuracy is **60.0%**. These are simulated results, not classroom measurements. See [EVALUATION.md](EVALUATION.md).
+- **Is the 85% target met?** Yes, for single planted gaps in this simulation: 86.2%. It is not met for double gaps.
+- **Has Telugu been reviewed by a teacher?** Not yet. Telugu content is a draft and needs review by a Telugu-medium mathematics teacher before classroom use.
+- **Does it use AI while students work?** No. There are no runtime LLM or translation calls. The product is designed to work offline and explain its recommendations.
+- **What about privacy?** The design limits student data to first name, roll number, classroom, language and a hashed PIN. The live demo is not a production school pilot; see [DEPLOYMENT.md](DEPLOYMENT.md) for current limits.
+- **What remains?** Phase 7 items are optional stretch work: Python/pyBKT analysis, translation drafting, a Capacitor wrapper and a virtualized Gap Map. A real classroom pilot and Telugu review are needed before making classroom-effectiveness claims.
 
-| Who | Sign in |
-|---|---|
-| Teacher | `teacher@demo.setu.app` / `setu-demo`, or open `/demo` |
-| Anjali | `DEMO8B`, roll `1`, PIN `1111` |
-| Ravi | `DEMO8B`, roll `2`, PIN `2222` |
-| Roll 3 to 46 | `DEMO8B`, roll `n`, PIN `3000 + n` |
+## 7. Useful links
 
-## 9. Ten minutes before you present
-
-- Open the live site, run `/demo` once (it caches the classroom offline).
-- Keep two tabs: teacher (`/demo`) and student (`/s/login`), phone width.
-- Have [DEMO_SCRIPT.md](DEMO_SCRIPT.md) open on a second screen.
-- If the network fails, keep going: everything you need is already on the device.
+- [Live demo](https://setu-3vfo.onrender.com/demo)
+- [Student sign-in](https://setu-3vfo.onrender.com/s/login)
+- [Six-minute demo script](DEMO_SCRIPT.md)
+- [Evaluation](EVALUATION.md)
+- [Deployment and privacy limits](DEPLOYMENT.md)
+- [Teacher screenshots](wireframes/screenshots/)

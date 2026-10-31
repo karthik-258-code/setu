@@ -10,6 +10,9 @@
   "scripts": {
     "dev": "pnpm -r --parallel --filter \"./apps/*\" dev",
     "build": "pnpm content:pack && pnpm -r build",
+    "build:capacitor": "pnpm content:pack && pnpm --filter @setu/web run build:capacitor",
+    "cap:add:android": "pnpm run build:capacitor && pnpm --filter @setu/web run cap:add:android",
+    "cap:sync": "pnpm content:pack && pnpm --filter @setu/web run cap:sync",
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
     "lint": "pnpm -r lint",

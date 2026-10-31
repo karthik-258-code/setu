@@ -12,6 +12,7 @@ export default tseslint.config(
       "**/coverage/**",
       "**/.vite/**",
       "**/dev-dist/**",
+      "apps/web/android/**",
       "apps/web/public/packs/**",
       "apps/api/packs/**",
     ],

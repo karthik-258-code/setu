@@ -1,8 +1,9 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { Outlet, RouterProvider, createMemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { setApiClient } from "../data/api";
+import { apiClient, setApiClient } from "../data/api";
 import { SetuDb } from "../data/db";
+import { HttpApiClient } from "../data/http-api-client";
 import { LocalDemoApiClient } from "../data/local-demo-api-client";
 import { LangProvider } from "../i18n/lang-context";
 import { TeacherProvider } from "../teacher/teacher-context";
@@ -52,7 +53,10 @@ const attempt = {
 function renderDemo(seed: unknown) {
   const router = createMemoryRouter(
     [
-      { path: "/demo", element: <Demo db={db} load={async () => seed} /> },
+      {
+        path: "/demo",
+        element: <Demo db={db} load={async () => seed} loadPack={async () => pack} />,
+      },
       {
         path: "/t",
         element: (
@@ -81,6 +85,17 @@ describe("/demo", () => {
     expect(cell).not.toHaveClass("bg-slate-200");
     expect(await db.events.count()).toBe(1);
     expect(await db.meta.get("teacherToken")).toMatchObject({ value: "demo:demo-teacher" });
+  });
+
+  it("uses the local seeded classroom when the app is configured for the live API", async () => {
+    setApiClient(new HttpApiClient("https://api.test", db, async () => {
+      throw new Error("The browser demo must not call the live API");
+    }));
+    const router = renderDemo({ packVersion: "tiny-1", chapterId: TINY_CHAPTER, students, events: [attempt] });
+
+    await waitFor(() => expect(router.state.location.pathname).toBe("/t/classrooms/demo-8b/gapmap"));
+    expect(await screen.findByTestId("cell-demo-s03-M7.SEQ.TRANSPOSE")).toBeInTheDocument();
+    expect(apiClient()).toBeInstanceOf(LocalDemoApiClient);
   });
 
   it("refuses a seed with an invalid event and says how to build it", async () => {

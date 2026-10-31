@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import type { ContentPack } from "@setu/engine";
+import { enterDemoMode, exitDemoMode } from "../data/api";
 import { db as defaultDb } from "../data/db";
 import type { SetuDb } from "../data/db";
 import { loadDemoClassroom } from "../data/demo-load";
@@ -18,6 +20,7 @@ const ROLES: { to: string; label: StringKey; hint: StringKey; primary: boolean }
 /** The landing page: one entry each for students, teachers and the demo. */
 export function RoleChooser() {
   const { ui } = useLang();
+  useEffect(() => exitDemoMode(), []);
   return (
     <div className="mx-auto w-full max-w-md space-y-6 pt-6">
       <div className="space-y-2 text-center">
@@ -47,7 +50,15 @@ export function RoleChooser() {
 }
 
 /** Loads the seeded classroom, signs the demo teacher in and lands on the Gap Map (6.1). */
-export function Demo({ db = defaultDb, load }: { db?: SetuDb; load?: FetchJson }) {
+export function Demo({
+  db = defaultDb,
+  load,
+  loadPack,
+}: {
+  db?: SetuDb;
+  load?: FetchJson;
+  loadPack?: (chapterId: string) => Promise<ContentPack>;
+}) {
   const { ui } = useLang();
   const navigate = useNavigate();
   const [failed, setFailed] = useState(false);
@@ -56,10 +67,12 @@ export function Demo({ db = defaultDb, load }: { db?: SetuDb; load?: FetchJson }
     let live = true;
     const run = async () => {
       try {
+        enterDemoMode(db, loadPack);
         await loadDemoClassroom(db, load);
         await db.meta.put({ key: TEACHER_TOKEN_KEY, value: `demo:${DEMO_TEACHER.teacherId}` });
         if (live) navigate(`/t/classrooms/${DEMO_CLASSROOM.id}/gapmap`, { replace: true });
       } catch {
+        exitDemoMode();
         if (live) setFailed(true);
       }
     };
@@ -67,7 +80,7 @@ export function Demo({ db = defaultDb, load }: { db?: SetuDb; load?: FetchJson }
     return () => {
       live = false;
     };
-  }, [db, load, navigate]);
+  }, [db, load, loadPack, navigate]);
 
   if (failed) return <p role="alert">{ui("demoFailed")}</p>;
   return <p role="status">{ui("demoLoading")}</p>;

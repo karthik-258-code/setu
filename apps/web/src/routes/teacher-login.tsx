@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiClient } from "../data/api";
+import { apiClient, exitDemoMode } from "../data/api";
 import { useLang } from "../i18n/lang-context";
 import { useTeacher } from "../teacher/teacher-context";
 
@@ -19,6 +19,7 @@ export function TeacherLogin() {
     setBusy(true);
     setFailed(false);
     try {
+      exitDemoMode();
       const { accessToken } = await apiClient().login({ email: email.trim(), password });
       await signIn(accessToken);
       navigate("/t/classrooms");

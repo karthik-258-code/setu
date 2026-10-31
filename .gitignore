@@ -15,5 +15,7 @@ apps/web/public/demo/
 apps/api/packs/
 apps/api/prisma/*.db
 sim/.venv/
+sim/data/*.csv
+sim/data/*.json
 sim/**/__pycache__/
 sim/**/*.ipynb_checkpoints/

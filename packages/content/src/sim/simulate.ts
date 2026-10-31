@@ -45,11 +45,13 @@ export type Strategy = "ladder" | "fixed";
 
 export interface ReadinessOutcome {
   kind: GapKind;
+  studentId: string;
   planted: ConceptId[];
   found: ConceptId[];
   truePositives: number;
   rootCause: ConceptId | null;
   itemsUsed: number;
+  attempts: AttemptEvent[];
 }
 
 export interface PracticeOutcome {
@@ -173,15 +175,25 @@ export function simulateReadinessCohort(
     const planted = kind === "single" ? [first] : [first, pickOne([first])];
     const studentId = `sim-${String(i).padStart(4, "0")}`;
     const result = simulateReadinessStudent(pack, chapterId, studentId, planted, rng);
-    outcomes.push({ kind, planted, found: result.found, truePositives: result.truePositives, itemsUsed: result.itemsUsed });
+    outcomes.push({
+      kind,
+      studentId,
+      planted,
+      found: result.found,
+      truePositives: result.truePositives,
+      itemsUsed: result.itemsUsed,
+      attempts: result.state.recentAttempts
+        .filter((attempt): attempt is AttemptEvent => attempt.type === "attempt")
+        .sort((a, b) => a.ts.localeCompare(b.ts) || a.id.localeCompare(b.id)),
+    });
     classroom.push({ studentId, displayName: studentId, rollNo: String(i + 1), state: result.state });
   }
   const roots = new Map(
     buildGapMap(pack, chapterId, classroom).rows.map((r) => [r.studentId, r.rootCauseGap]),
   );
-  return outcomes.map((o, i) => ({
+  return outcomes.map((o) => ({
     ...o,
-    rootCause: roots.get(classroom[i]?.studentId ?? "") ?? null,
+    rootCause: roots.get(o.studentId) ?? null,
   }));
 }
 

@@ -16,6 +16,7 @@
     "content:validate": "pnpm --filter @setu/content run validate",
     "content:pack": "pnpm --filter @setu/content run pack",
     "sim": "pnpm --filter @setu/content sim",
+    "sim:export": "pnpm --filter @setu/content run export-sim",
     "format": "prettier --write ."
   },
   "devDependencies": {

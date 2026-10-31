@@ -1,0 +1,4 @@
+pyBKT==1.4.3
+numpy<2
+pandas<3
+scikit-learn==1.5.2

@@ -13,6 +13,7 @@
     "prisma:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:seed": "node --import tsx src/seed.ts",
+    "db:seed-demo-progress": "node --import tsx src/seed-demo-progress.ts",
     "db:import": "node --import tsx src/import-roster.ts",
     "postinstall": "prisma generate",
     "pretypecheck": "prisma generate",

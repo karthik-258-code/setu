@@ -78,12 +78,12 @@ const NAMES = [
   "Haritha", "Gopi", "Mounika", "Nikhil", "Tejaswini", "Yashwanth", "Sahithi", "Venkat",
 ];
 
-/** 13 more ready, 14 more with the fraction gap, 9 with integer sign errors, 8 absent: 46 with Anjali and Ravi. */
-const SYNTHETIC: (Learner | null)[] = [
+/** 13 ready, 14 with the fraction gap, 9 with integer sign errors, then 8 more ready learners. */
+const SYNTHETIC: Learner[] = [
   ...Array<Learner>(13).fill(READY),
   ...Array<Learner>(14).fill(FRACTION_GAP),
   ...Array<Learner>(9).fill(SIGN_GAP),
-  ...Array<null>(8).fill(null),
+  ...Array<Learner>(8).fill(READY),
 ];
 
 /** A deterministic RFC 4122 version 4 UUID from `rng`. */
@@ -214,7 +214,7 @@ export function buildDemoSeed(
     { studentId: "demo-anjali", firstName: "Anjali", rollNo: "1", lang: "en", pin: "1111" },
     { studentId: "demo-ravi", firstName: "Ravi", rollNo: "2", lang: "en", pin: "2222" },
   ];
-  const learners: (Learner | null)[] = [SOLID, RAVI];
+  const learners: Learner[] = [SOLID, RAVI];
   SYNTHETIC.forEach((learner, i) => {
     const roll = i + 3;
     students.push({
@@ -232,7 +232,7 @@ export function buildDemoSeed(
   const events: StudentEvent[] = [];
   students.forEach((student, i) => {
     const learner = learners[i];
-    if (!learner) return; // absent on Monday: no events
+    if (!learner) throw new Error(`Missing demo learner for ${student.studentId}`);
     const offset = (i % 4) * 60_000; // four lab rows start a minute apart
     events.push(...simulateReadiness(pack, chapterId, student.studentId, learner, start + offset, rng));
   });

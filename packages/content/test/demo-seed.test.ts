@@ -16,11 +16,12 @@ function summaryOf(studentId: string) {
 }
 
 describe("demo seed", () => {
-  it("has 46 students, of whom 38 took the Readiness Check and 8 were absent", () => {
+  it("gives all 46 students a Readiness Check", () => {
     expect(seed.students).toHaveLength(46);
     const completed = seed.events.filter((e) => e.type === "readiness_completed");
-    expect(completed).toHaveLength(38);
+    expect(completed).toHaveLength(46);
     expect(new Set(seed.students.map((s) => s.studentId)).size).toBe(46);
+    expect(new Set(completed.map((event) => event.studentId)).size).toBe(46);
   });
 
   it("keeps every check within 12 items and gives every event a UUID", () => {

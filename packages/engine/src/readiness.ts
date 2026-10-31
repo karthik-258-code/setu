@@ -17,12 +17,10 @@ import type {
 
 /** Difficulty asked first (ARCHITECTURE 5.3); the nearest available one is the fallback. */
 const TARGET_DIFFICULTY: Difficulty = 2;
-/**
- * Difficulty for descents (depth >= 1) and second questions. A learner who lacks the concept
- * guesses a harder item less often, so a gap below a failure, or a lucky first answer, is
- * caught more often; first questions on the targets and chapter questions stay at 2.
- */
-const PROBE_DIFFICULTY: Difficulty = 3;
+/** Difficulty for prerequisite descents after a target has failed or become uncertain. */
+const DESCENT_DIFFICULTY: Difficulty = 3;
+/** Confirmation questions use the target difficulty to avoid false flags from hard probes. */
+const CONFIRM_DIFFICULTY: Difficulty = 2;
 /** Chapter questions asked when every prerequisite is cleared. */
 const CHAPTER_QUESTIONS = 2;
 
@@ -316,14 +314,19 @@ export function nextReadinessQuestion(
   while (current.phase !== "done") {
     const head = current.queue[0] as ReadinessQueueItem;
     const rest = current.queue.slice(1);
-    const probe =
-      current.phase !== "chapter" &&
-      (head.depth > 0 || (current.results[head.conceptId]?.asked ?? 0) > 0);
+    const targetDifficulty =
+      current.phase === "chapter"
+        ? TARGET_DIFFICULTY
+        : current.phase === "confirm"
+          ? CONFIRM_DIFFICULTY
+          : head.depth > 0
+            ? DESCENT_DIFFICULTY
+            : TARGET_DIFFICULTY;
     const question = chooseQuestion(
       pack,
       current.askedQuestionIds,
       head.conceptId,
-      probe ? PROBE_DIFFICULTY : TARGET_DIFFICULTY,
+      targetDifficulty,
       rng,
     );
     if (!question) {

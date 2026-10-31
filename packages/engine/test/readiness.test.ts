@@ -223,10 +223,26 @@ describe("nextReadinessQuestion", () => {
     expect(run.session.results["M6.FRAC.EQUIV"]?.depth).toBe(1);
   });
 
-  it("confirms a target with a difficulty-3 question and keeps chapter questions at 2", () => {
+  it("confirms a target and asks chapter questions at difficulty 2", () => {
     const run = play(spine, start(spine, SPINE_CHAPTER_ID), allCorrect);
     expect(run.asked.slice(7, 9).every((q) => q.difficulty === 2)).toBe(true);
-    expect(run.asked.slice(9).every((q) => q.difficulty === 3)).toBe(true);
+    expect(run.asked.slice(9).every((q) => q.difficulty === 2)).toBe(true);
+  });
+
+  it("uses difficulty 2 for confirmations after a difficulty-3 descent", () => {
+    const run = play(
+      spine,
+      start(spine, SPINE_CHAPTER_ID),
+      byConcept({ "M6.FRAC.ADD_SUB_UNLIKE": [false] }),
+    );
+    const confirmedConcept = Object.entries(run.session.results).find(
+      ([, result]) => result.depth > 0 && result.asked > 1,
+    )?.[0];
+    expect(confirmedConcept).toBeDefined();
+    expect(run.asked.filter((q) => q.conceptId === confirmedConcept).map((q) => q.difficulty)).toEqual([
+      3,
+      2,
+    ]);
   });
 
   it("returns the same question until the answer is recorded", () => {

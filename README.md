@@ -1,109 +1,114 @@
 # Setu · సేతు
 
-**Adaptive learning that finds the gap before the chapter begins.**
-Code Kernel '26 (X-Kernel, GRIET, with Canvas Classes) · Decode round: **rank 1, 94.3/100** · Build round in progress.
+**Find the learning gap before the lesson starts.**
 
-Setu is a teacher-centred, offline-first adaptive learning system for Classes 6 to 10. Before a teacher starts a chapter, every student takes a ten-minute **Chapter Readiness Check** that walks backwards through a prerequisite concept graph (reaching into Class 6 and 7) and pinpoints the exact earlier concept and misconception blocking them. Each student then gets their own Learn, Solve and Test pathway, and the teacher gets a class **Gap Map** with students grouped by the prerequisite they are missing, with the wrong answers as evidence. The teacher decides; Setu diagnoses, practises and re-checks.
+Setu is an offline-first learning system for Classes 6–10. A short Readiness Check traces mistakes through a prerequisite graph. Students get a path that fits what they know; teachers get a Gap Map and choose what to do next.
 
-First version: Class 8 Mathematics, *Linear Equations in One Variable*, in English and Telugu, on a shared Android phone without continuous internet, with the concept graph already spanning Classes 6 to 10.
+**First release:** Class 8 Mathematics, *Linear Equations in One Variable*, in English and Telugu.
 
-## Start here
+[Open the live app](https://setu-3vfo.onrender.com) · [Watch the six-minute walkthrough](docs/DEMO_SCRIPT.md) · [Read the architecture](docs/ARCHITECTURE.md)
 
-| If you are... | Read |
-|---|---|
-| Judging or reviewing | [Decode submission](docs/hackathon/02-decode-submission.md), then [ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-| A coding agent or developer | [AGENTS.md](AGENTS.md), [ARCHITECTURE.md](docs/ARCHITECTURE.md), [BUILD_PLAN.md](docs/BUILD_PLAN.md) |
-| Looking for the evaluator follow-ups | Scalability: [SCALING.md](docs/SCALING.md) · Deployment and training: [DEPLOYMENT.md](docs/DEPLOYMENT.md) · Teacher wireframes: [docs/wireframes/](docs/wireframes/) (Phase 6) |
+## Try the seeded demo
 
-## Repository map
-
-```
-packages/engine    @setu/engine   pure TS: concept graph, BKT, readiness check, pathway policy, re-checks, Gap Map grouping
-packages/content   @setu/content  concept graph JSON (Classes 6 to 10), bilingual questions and resources, validator, pack builder
-packages/shared    @setu/shared   API DTOs and the ApiClient interface
-apps/web           student + teacher PWA (React, Vite, Tailwind, Dexie, Workbox); /demo runs everything in-browser
-apps/api           Fastify + Prisma + PostgreSQL: auth, packs, idempotent event sync, teacher views
-docs/              architecture, build plan, decisions, deployment, evaluation, scaling, wireframes, hackathon docs
-```
-
-## Quick start
+The in-browser demo needs no database. From the repository root:
 
 ```bash
 pnpm install
-pnpm build               # content packs, the demo classroom (apps/web/public/demo/seed.json) and the apps
-pnpm dev                 # web on :5173, api on :3000 (needs `docker compose up -d` for Postgres)
-pnpm test                # engine, content, api, web tests
+pnpm content:pack
+pnpm --filter @setu/web dev
 ```
 
-Open `http://localhost:5173/demo` for the seeded classroom (Anjali, Ravi and 44 synthetic students) without any backend: it signs the demo teacher in and opens the Gap Map. For the offline demo use the production build: `pnpm build` then `pnpm --filter @setu/web preview`.
+Open [http://localhost:5173/demo](http://localhost:5173/demo). It loads a seeded Class 8B with Anjali, Ravi and 44 synthetic students, then opens the teacher Gap Map.
 
-| Demo sign-in | |
+| Account | Sign-in |
 |---|---|
-| Teacher | `teacher@demo.setu.app` / `setu-demo` |
-| Anjali | classroom `DEMO8B`, roll `1`, PIN `1111` |
-| Ravi | classroom `DEMO8B`, roll `2`, PIN `2222` |
-| Roll 3 to 46 | classroom `DEMO8B`, roll `n`, PIN `3000 + n` |
+| Teacher | `teacher@demo.setu.app` / `setu-demo` (or open `/demo`) |
+| Anjali | `DEMO8B`, roll `1`, PIN `1111` |
+| Ravi | `DEMO8B`, roll `2`, PIN `2222` |
+| Class 8B, rolls 3–46 | PIN is `3000 + roll number` (roll 3: `3003`) |
 
-The six-minute walkthrough is [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md).
+### Demo mode and the live database
 
-## What works today
+These are two different data sets:
 
-- **Student (phone, offline):** sign-in and shared-phone profiles with hashed PINs, Readiness Check (up to 12 questions, walking back into Classes 6 and 7), home card with the reason for the next step, Learn with a Telugu/English toggle, Solve with hints and the three-level ladder, Test, re-check and verification.
-- **Teacher:** sign-in, classrooms, Gap Map with evidence drawer, groups with warm-up questions (accept, dismiss, move, merge, split), mark taught, assign, override with note, extension lock, launch a chapter with prerequisite trimming and a printable paper check.
-- **Demo mode:** every screen runs on `LocalDemoApiClient`, the same engine functions the API uses.
-- **Progress, paper entry and weekly view:** mastery bars by class with re-check dates; a paper grid for students without a phone; group moves, blocking concepts and re-check pass rates.
-- **API:** Fastify + Prisma with sign-in, packs with ETag, idempotent sync replayed by the same engine (checked against the golden vectors), and teacher reads and writes. Set `VITE_API_URL` to use it instead of demo mode.
-- **Known limits:** see [docs/DECISIONS.md](docs/DECISIONS.md); single-gap recall in the simulation is 86.2% (target 85%), with precision 66.4% and the Gap Map root cause right for 47.4% of students; these are simulated learners, not classroom data ([docs/EVALUATION.md](docs/EVALUATION.md)).
+| Mode | What you see |
+|---|---|
+| Local `/demo` | 46 students with generated learning history. Runs in the browser without an API or database. |
+| API-backed app | Students and classrooms are stored in Postgres. Progress appears as students use the app. Class 8B starts with its chapter launched; Class 9A needs a teacher to launch a chapter first. |
+
+The live database seed creates the roster, but does not create learning history for every student. Empty progress cells mean that student has not sent activity yet.
 
 ## Screenshots
 
-From demo mode (`/demo`); the low-fidelity wireframes are in [docs/wireframes/](docs/wireframes/).
+Teacher workflow screenshots are in [docs/wireframes](docs/wireframes/).
 
-| Gap Map | Evidence drawer | Groups |
-|---|---|---|
-| ![Gap Map](docs/wireframes/screenshots/gapmap.png) | ![Evidence drawer](docs/wireframes/screenshots/evidence.png) | ![Groups](docs/wireframes/screenshots/groups.png) |
-
-| Student home (Ravi) | Learn | Solve |
-|---|---|---|
-| ![Student home](docs/wireframes/screenshots/student-home.png) | ![Learn](docs/wireframes/screenshots/learn.png) | ![Solve](docs/wireframes/screenshots/solve.png) |
-
-## Documentation
-
-| Document | What it covers |
+| Gap Map | Evidence drawer |
 |---|---|
-| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | Design: engine, content, data model, API |
-| [BUILD_PLAN.md](docs/BUILD_PLAN.md) | Every task and its status |
-| [DECISIONS.md](docs/DECISIONS.md) | Choices made during the build, and known limits |
-| [DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) | Six-minute walkthrough |
-| [EVALUATION.md](docs/EVALUATION.md) | Simulation report (`pnpm sim`) |
-| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Hosting, costs, onboarding, training, support |
-| [SCALING.md](docs/SCALING.md) | Adding chapters, boards, languages and subjects |
-| [wireframes/](docs/wireframes/) | Teacher wireframes and the five-minute routine |
-| [hackathon/](docs/hackathon/) | Problem statement and Decode submission |
+| ![Classroom Gap Map](docs/wireframes/screenshots/gapmap.png) | ![Evidence for a student's answer](docs/wireframes/screenshots/evidence.png) |
 
-Telugu content is a first draft and needs review by a Telugu-medium maths teacher.
+| Group recommendations | Chapter launch |
+|---|---|
+| ![Student groups and actions](docs/wireframes/screenshots/groups.png) | ![Choose a chapter and prerequisites](docs/wireframes/screenshots/launch.png) |
 
-## How it works in one diagram
+| Weekly view | Re-check confirmation |
+|---|---|
+| ![Weekly classroom activity](docs/wireframes/screenshots/weekly.png) | ![Confirmation that re-checks were scheduled](docs/wireframes/screenshots/mark-taught.png) |
 
-```mermaid
-flowchart LR
-  RC[Readiness Check\n12 items, walks prerequisite graph] --> BKT[Per-concept mastery\nBayesian Knowledge Tracing]
-  BKT --> P[Pathway policy\nLearn / Solve / Test, difficulty, pace, reason]
-  BKT --> GM[Teacher Gap Map\ngroups by root-cause gap + misconception]
-  GM --> TA[Teacher actions\noverride, mark taught, assign, paper entry]
-  TA --> BKT
-  P --> RK[Spaced re-checks\n2, 7, 21 days]
-  RK --> BKT
+## What Setu does
+
+- **For students:** readiness check, bilingual Learn resources, guided Solve with hints, Test, mastery and re-checks.
+- **For teachers:** classroom Gap Map with evidence, suggested groups, paper entry, chapter launch, student actions and weekly progress.
+- **Offline-first:** the student PWA stores events on the device and syncs when connected.
+- **One learning engine:** the same TypeScript engine powers the app, API and simulation.
+
+## Evaluation
+
+The simulation uses 1,000 rule-based learners. These numbers are simulated—not classroom results.
+
+| Planted gaps | Recall | Precision | Gap Map root cause | Median questions |
+|---|---:|---:|---:|---:|
+| Single | 86.2% | 66.4% | 47.4% | 12 |
+| Double | 79.2% | 80.5% | 60.0% | 12 |
+
+See the full [evaluation report](docs/EVALUATION.md) and [known decisions and limits](docs/DECISIONS.md). Telugu content is a first draft and needs review by a Telugu-medium mathematics teacher.
+
+## Develop
+
+```bash
+pnpm install
+pnpm content:validate
+pnpm build
+pnpm typecheck
+pnpm lint
+pnpm test
 ```
 
-## Status
+To run the API locally, start Postgres with `docker compose up -d`, then run `pnpm dev`. See [deployment notes](docs/DEPLOYMENT.md) for the API-backed setup.
 
-See the checkboxes in [docs/BUILD_PLAN.md](docs/BUILD_PLAN.md). CI: GitHub Actions (`.github/workflows/ci.yml`), mirrored on GitLab CI.
+## Project map
 
-## GitHub
+```text
+apps/web          React + Vite student and teacher PWA
+apps/api          Fastify API, Prisma and PostgreSQL
+packages/engine   Pure TypeScript learning and readiness engine
+packages/content  Concept graphs, bilingual questions, resources and pack builder
+packages/shared   API types and client interface
+docs/             Architecture, decisions, evaluation and demo materials
+```
 
-The repository's final home is GitHub. During the event it is developed on GitLab and push-mirrored to GitHub so both stay identical; see [docs/DECISIONS.md](docs/DECISIONS.md).
+## Further reading
+
+| Document | Purpose |
+|---|---|
+| [Architecture](docs/ARCHITECTURE.md) | Engine, content, data model and API |
+| [Build plan](docs/BUILD_PLAN.md) | Completed phases and optional stretch work |
+| [Decisions](docs/DECISIONS.md) | Product and technical choices, known limits |
+| [Demo script](docs/DEMO_SCRIPT.md) | Six-minute walkthrough |
+| [Presenter guide](docs/PRESENTER_GUIDE.md) | Setup and presentation notes |
+| [Deployment](docs/DEPLOYMENT.md) | Hosting, database, onboarding and support |
+| [Scaling](docs/SCALING.md) | Adding chapters, languages, boards and subjects |
+| [Wireframes](docs/wireframes/) | Teacher workflows and classroom routine |
 
 ## Team
 
-Karthik Chiluveru (team `mr.karthik258`). Problem statement by X-Kernel, GRIET, Hyderabad, in collaboration with Canvas Classes.
+Karthik Chiluveru · Code Kernel '26, X-Kernel, GRIET, with Canvas Classes.

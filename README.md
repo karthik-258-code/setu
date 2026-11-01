@@ -70,8 +70,7 @@ The simulation uses 1,000 rule-based learners. These numbers are simulated—not
 | Single | 86.2% | 66.4% | 47.4% | 12 |
 | Double | 79.2% | 80.5% | 60.0% | 12 |
 
-See the full [evaluation report](docs/EVALUATION.md) and [known decisions and limits](docs/DECISIONS.md). The Telugu content has been reviewed and approved by the project owner. IndicTrans2 is an offline drafting tool; actually running its model still requires a local checkpoint and optional Python dependencies.
-
+See the full [evaluation report](docs/EVALUATION.md) and [known decisions and limits](docs/DECISIONS.md). The Telugu content has been reviewed and approved by the project owner.
 ## Develop
 
 ```bash

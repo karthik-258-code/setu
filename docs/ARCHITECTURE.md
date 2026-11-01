@@ -36,14 +36,14 @@ flowchart LR
   B --> P[(chapter packs *.json)]
 
   subgraph Web["apps/web (PWA)"]
-    S[Student screens] --> E1[@setu/engine]
+    S[Student screens] --> E1["@setu/engine"]
     T[Teacher screens] --> AC[ApiClient]
     E1 --> D[(Dexie / IndexedDB: events, state, packs)]
     AC -. demo mode .-> E1
   end
 
   subgraph Api["apps/api (Fastify)"]
-    SY[/POST sync/] --> E2[@setu/engine replay]
+    SY[/POST sync/] --> E2["@setu/engine replay"]
     E2 --> PG[(PostgreSQL: events, mastery)]
     TV[/teacher views/] --> PG
     PK[/GET packs/] --> P

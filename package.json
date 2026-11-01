@@ -14,6 +14,7 @@
     "cap:add:android": "pnpm run build:capacitor && pnpm --filter @setu/web run cap:add:android",
     "cap:sync": "pnpm content:pack && pnpm --filter @setu/web run cap:sync",
     "test": "pnpm -r test",
+    "test:e2e": "pnpm content:pack && pnpm --filter @setu/web run build && pnpm --filter @setu/web run test:e2e",
     "typecheck": "pnpm -r typecheck",
     "lint": "pnpm -r lint",
     "content:validate": "pnpm --filter @setu/content run validate",

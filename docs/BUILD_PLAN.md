@@ -179,7 +179,7 @@ Expected `chapterExternalPrereqs(CH.M8.LINEAR_EQ_ONE_VAR)`: `M7.SEQ.TRANSPOSE`, 
 
 ## Phase 7: Stretch (only after 6.8)
 
-- [ ] 7.1 Python `sim/` with pyBKT fitting on exported synthetic logs.
-- [ ] 7.2 IndicTrans2 drafting script producing `machine_draft` Telugu/Hindi for review.
-- [ ] 7.3 Capacitor wrapper build.
-- [ ] 7.4 Virtualised Gap Map for 100+ rows.
+- [x] 7.1 Python `sim/` with pyBKT fitting on exported synthetic logs. **Tested:** 4 Python tests pass; the full fit completed for 12,000 synthetic attempts across 1,000 students and produced 20 skill estimates. Synthetic-only, not classroom evidence.
+- [ ] 7.2 IndicTrans2 drafting script producing `machine_draft` Telugu/Hindi for review. **Tested:** 6 Python tests pass for missing-text selection, batching and review-status output. Actual model inference is unverified: the optional model dependencies and local checkpoint are not installed.
+- [ ] 7.3 Capacitor wrapper build. **Tested:** production web build and `pnpm cap:sync` pass. An APK build was attempted with `apps/web/android/gradlew.bat assembleDebug` but did not complete: Gradle 8.11.1 under Java 25 reports `Unsupported class file major version 69`; no Android SDK is configured.
+- [x] 7.4 Virtualised Gap Map for 100+ rows. **Tested:** 4 Gap Map component tests pass. Both `pnpm test:e2e` Chromium runs pass against the production-built PWA with 120 students at desktop and 390-pixel mobile-sized viewports, checking row height, bounded DOM rows, scrolling to the final student and removal of off-screen rows.

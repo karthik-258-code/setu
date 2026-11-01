@@ -85,6 +85,25 @@ pnpm test
 
 To run the API locally, start Postgres with `docker compose up -d`, then run `pnpm dev`. See [deployment notes](docs/DEPLOYMENT.md) for the API-backed setup.
 
+### Browser and Phase 7 validation
+
+The normal `pnpm test` command runs the Vitest suites. For a real-browser check of the built PWA, install Chromium once and run:
+
+```bash
+pnpm --filter @setu/web exec playwright install chromium
+pnpm test:e2e
+```
+
+`pnpm test:e2e` rebuilds the content packs and production web app, starts a local preview, then uses Playwright Chromium. The Gap Map browser tests expand the demo roster to 120 students at desktop and 390-pixel mobile-sized viewports, checking actual row layout, bounded rendered rows, scrolling to the last student and removal of off-screen rows.
+
+On 2026-11-01, `pnpm typecheck`, `pnpm lint`, `pnpm test` (498 Vitest tests), `pnpm content:validate`, `pnpm build`, and `pnpm test:e2e` passed. The separate pyBKT and translation-drafter suites passed 4 and 6 Python tests respectively. This desktop-browser flow does not verify Android WebView behavior or offline service-worker behavior.
+
+Phase 7 checks are deliberately explicit about what was exercised:
+
+- The pyBKT fit and its input/parameter tests run on synthetic data only; the estimates are not classroom evidence.
+- The IndicTrans2 drafter's tests cover its review-queue output, but translation-model inference still needs a local model checkpoint and its optional Python dependencies.
+- `pnpm cap:sync` verifies Capacitor web-asset synchronization. An Android APK build is **not verified** here: Gradle 8.11.1 failed under the installed Java 25 (`Unsupported class file major version 69`), and no Android SDK is configured.
+
 ## Project map
 
 ```text

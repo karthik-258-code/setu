@@ -1,5 +1,5 @@
 import type { GapMapRow } from "@setu/engine";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { format } from "../i18n/format";
 import { L } from "../i18n/l";
@@ -9,6 +9,10 @@ import type { ClassView } from "../teacher/class-view";
 import { EvidenceDrawer } from "../teacher/evidence-drawer";
 import { LEGEND, masteryColour } from "../teacher/mastery-colour";
 import { TeacherGate } from "../teacher/teacher-context";
+
+const GAPMAP_ROW_HEIGHT = 64;
+const OVERSCAN_ROWS = 5;
+const FALLBACK_VIEWPORT_HEIGHT = 480;
 
 export function TeacherGapMap() {
   const { id } = useParams();
@@ -32,9 +36,37 @@ function GapMapTable({ view }: { view: ClassView }) {
   const { ui } = useLang();
   const { pack, gapMap, classroom } = view;
   const [selected, setSelected] = useState<{ row: GapMapRow; conceptId: string } | null>(null);
+  const [scrollTop, setScrollTop] = useState(0);
+  const [viewportHeight, setViewportHeight] = useState(FALLBACK_VIEWPORT_HEIGHT);
+  const scrollContainer = useRef<HTMLDivElement>(null);
   const { prerequisites, chapter } = gapMap.columns;
   const columns = [...prerequisites, ...chapter];
   const chapterInfo = pack.graph.chapters[view.chapterId];
+  const firstRow = Math.min(
+    gapMap.rows.length,
+    Math.max(0, Math.floor(scrollTop / GAPMAP_ROW_HEIGHT) - OVERSCAN_ROWS),
+  );
+  const lastRow = Math.max(
+    firstRow,
+    Math.min(
+      gapMap.rows.length,
+      Math.ceil((scrollTop + viewportHeight) / GAPMAP_ROW_HEIGHT) + OVERSCAN_ROWS,
+    ),
+  );
+  const visibleRows = gapMap.rows.slice(firstRow, lastRow);
+
+  useEffect(() => {
+    const element = scrollContainer.current;
+    if (!element) return;
+
+    const updateViewport = () => {
+      setScrollTop(element.scrollTop);
+      setViewportHeight(element.clientHeight || FALLBACK_VIEWPORT_HEIGHT);
+    };
+    updateViewport();
+    window.addEventListener("resize", updateViewport);
+    return () => window.removeEventListener("resize", updateViewport);
+  }, []);
 
   return (
     <div className="mx-auto w-full max-w-screen-2xl space-y-6">
@@ -60,10 +92,26 @@ function GapMapTable({ view }: { view: ClassView }) {
           ))}
         </ul>
       </div>
-      <div className="overflow-x-auto overscroll-x-contain rounded-2xl bg-white shadow-soft ring-1 ring-slate-200/80">
-        <table className="min-w-full border-separate border-spacing-1.5 text-sm" data-testid="gapmap" data-classroom={classroom.id}>
+      <div
+        ref={scrollContainer}
+        data-testid="gapmap-scroll"
+        role="region"
+        aria-label={ui("gapMap")}
+        tabIndex={0}
+        onScroll={(event) => {
+          setScrollTop(event.currentTarget.scrollTop);
+          setViewportHeight(event.currentTarget.clientHeight || FALLBACK_VIEWPORT_HEIGHT);
+        }}
+        className="max-h-[70vh] overflow-auto overscroll-contain rounded-2xl bg-white shadow-soft ring-1 ring-slate-200/80"
+      >
+        <table
+          aria-rowcount={gapMap.rows.length + 2}
+          className="min-w-full border-separate border-spacing-x-1.5 border-spacing-y-0 text-sm"
+          data-testid="gapmap"
+          data-classroom={classroom.id}
+        >
           <thead className="sticky top-0 z-10 bg-white">
-            <tr>
+            <tr aria-rowindex={1}>
               <th className="sticky left-0 z-20 min-w-44 bg-slate-50" />
               {prerequisites.length > 0 && (
                 <th colSpan={prerequisites.length} className="rounded-lg bg-slate-50 px-3 py-2.5 text-left text-[11px] font-bold uppercase tracking-[0.12em] text-slate-600">
@@ -74,7 +122,7 @@ function GapMapTable({ view }: { view: ClassView }) {
                 {ui("thisChapter")}
               </th>
             </tr>
-            <tr>
+            <tr aria-rowindex={2}>
               <th className="sticky left-0 z-20 min-w-44 bg-slate-50 px-3 py-3 text-left text-[11px] font-bold uppercase tracking-[0.12em] text-slate-600">{ui("student")}</th>
               {columns.map((conceptId, i) => {
                 const concept = pack.graph.concepts[conceptId];
@@ -92,54 +140,95 @@ function GapMapTable({ view }: { view: ClassView }) {
             </tr>
           </thead>
           <tbody>
-            {gapMap.rows.map((row) => (
-              <tr key={row.studentId} className="group/row">
-                {(() => {
-                  const values = columns.map((conceptId) => row.mastery[conceptId] ?? null);
-                  const seen = values.filter((value) => value !== null).length;
-                  const progressLabel = format(ui("conceptsWithEvidence"), { seen, total: columns.length });
-                  return (
-                    <th scope="row" className="sticky left-0 z-[5] min-w-44 bg-white px-3 py-2.5 text-left shadow-[6px_0_12px_-12px_rgba(24,39,29,0.45)] group-hover/row:bg-brand-50">
-                      <div className="flex items-center justify-between gap-2">
-                        <Link
-                          to={`/t/classrooms/${encodeURIComponent(classroom.id)}/students/${encodeURIComponent(row.studentId)}`}
-                          className="min-w-0 truncate font-bold text-brand-800 underline decoration-brand-200 underline-offset-2 hover:decoration-brand-700"
-                        >
-                          {row.displayName}
-                        </Link>
-                        <span className="shrink-0 text-xs font-medium tabular-nums text-slate-500">#{row.rollNo}</span>
-                      </div>
-                      <div role="img" aria-label={progressLabel} className="mt-2">
-                        <div aria-hidden="true" className="flex gap-0.5">
-                          {values.map((value, index) => (
-                            <span key={`${columns[index]}-${index}`} className={`h-3.5 min-w-1 flex-1 rounded-[2px] ${masteryColour(value)}`} />
-                          ))}
-                        </div>
-                        <span className="mt-1 block text-[10px] font-semibold tabular-nums text-slate-600">{seen}/{columns.length}</span>
-                      </div>
-                    </th>
-                  );
-                })()}
-                {columns.map((conceptId, i) => {
-                  const p = row.mastery[conceptId] ?? null;
-                  const root = row.rootCauseGap === conceptId;
-                  const shown = p === null ? "\u2013" : `${Math.round(p * 100)}`;
-                  return (
-                    <td key={conceptId} className={`p-0.5 ${i === prerequisites.length ? "border-l-2 border-l-brand-600" : ""}`}>
-                      <button
-                        type="button"
-                        data-testid={`cell-${row.studentId}-${conceptId}`}
-                        aria-label={`${row.displayName}, ${conceptId}: ${p === null ? ui("notStarted") : `${shown}%`}${root ? `, ${ui("rootGap")}` : ""}`}
-                        onClick={() => setSelected({ row, conceptId })}
-                        className={`h-12 min-w-14 rounded-lg border border-white/80 text-xs font-bold tabular-nums shadow-sm transition hover:brightness-95 focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-brand-700 ${masteryColour(p)} ${root ? "ring-2 ring-rose-800 ring-offset-1" : ""}`}
-                      >
-                        {shown}
-                      </button>
-                    </td>
-                  );
-                })}
+            {firstRow > 0 && (
+              <tr aria-hidden="true" data-testid="gapmap-top-spacer">
+                <td
+                  colSpan={columns.length + 1}
+                  className="p-0"
+                  style={{ height: firstRow * GAPMAP_ROW_HEIGHT }}
+                />
               </tr>
-            ))}
+            )}
+            {visibleRows.map((row, index) => {
+              const rowIndex = firstRow + index;
+              const values = columns.map((conceptId) => row.mastery[conceptId] ?? null);
+              const seen = values.filter((value) => value !== null).length;
+              const progressLabel = format(ui("conceptsWithEvidence"), {
+                seen,
+                total: columns.length,
+              });
+              return (
+                <tr
+                  key={row.studentId}
+                  aria-rowindex={rowIndex + 3}
+                  data-testid={`gapmap-row-${row.studentId}`}
+                  className="group/row"
+                  style={{ height: GAPMAP_ROW_HEIGHT }}
+                >
+                  <th
+                    scope="row"
+                    className="sticky left-0 z-[5] min-w-44 bg-white px-3 py-1 text-left shadow-[6px_0_12px_-12px_rgba(24,39,29,0.45)] group-hover/row:bg-brand-50"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <Link
+                        to={`/t/classrooms/${encodeURIComponent(classroom.id)}/students/${encodeURIComponent(row.studentId)}`}
+                        className="min-w-0 truncate font-bold text-brand-800 underline decoration-brand-200 underline-offset-2 hover:decoration-brand-700"
+                      >
+                        {row.displayName}
+                      </Link>
+                      <span className="shrink-0 text-xs font-medium tabular-nums text-slate-500">
+                        #{row.rollNo}
+                      </span>
+                    </div>
+                    <div role="img" aria-label={progressLabel} className="mt-1">
+                      <div aria-hidden="true" className="flex gap-0.5">
+                        {values.map((value, index) => (
+                          <span
+                            key={`${columns[index]}-${index}`}
+                            className={`h-3 min-w-1 flex-1 rounded-[2px] ${masteryColour(value)}`}
+                          />
+                        ))}
+                      </div>
+                      <span className="mt-0.5 block text-[10px] font-semibold tabular-nums text-slate-600">
+                        {seen}/{columns.length}
+                      </span>
+                    </div>
+                  </th>
+                  {columns.map((conceptId, i) => {
+                    const p = row.mastery[conceptId] ?? null;
+                    const root = row.rootCauseGap === conceptId;
+                    const shown = p === null ? "\u2013" : `${Math.round(p * 100)}`;
+                    return (
+                      <td
+                        key={conceptId}
+                        className={`p-0.5 ${i === prerequisites.length ? "border-l-2 border-l-brand-600" : ""}`}
+                      >
+                        <button
+                          type="button"
+                          data-testid={`cell-${row.studentId}-${conceptId}`}
+                          aria-label={`${row.displayName}, ${conceptId}: ${
+                            p === null ? ui("notStarted") : `${shown}%`
+                          }${root ? `, ${ui("rootGap")}` : ""}`}
+                          onClick={() => setSelected({ row, conceptId })}
+                          className={`h-12 min-w-14 rounded-lg border border-white/80 text-xs font-bold tabular-nums shadow-sm transition hover:brightness-95 focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-brand-700 ${masteryColour(p)} ${root ? "ring-2 ring-rose-800 ring-offset-1" : ""}`}
+                        >
+                          {shown}
+                        </button>
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+            {lastRow < gapMap.rows.length && (
+              <tr aria-hidden="true" data-testid="gapmap-bottom-spacer">
+                <td
+                  colSpan={columns.length + 1}
+                  className="p-0"
+                  style={{ height: (gapMap.rows.length - lastRow) * GAPMAP_ROW_HEIGHT }}
+                />
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

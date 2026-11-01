@@ -1,4 +1,4 @@
-import { screen, within } from "@testing-library/react";
+import { fireEvent, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { setApiClient } from "../data/api";
@@ -71,6 +71,41 @@ describe("gap map", () => {
     expect(attempt).toHaveTextContent("Keeps the sign when moving a term");
     await user.click(within(drawer).getByRole("button", { name: "Close" }));
     expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  it("renders a window of a large class and scrolls to later students", async () => {
+    const client = new LocalDemoApiClient(db, async () => pack);
+    const getGapMap = client.getGapMap.bind(client);
+    client.getGapMap = async (classroomId, chapterId) => {
+      const gapMap = await getGapMap(classroomId, chapterId);
+      const template = gapMap.rows[0];
+      if (!template) throw new Error("The large-roster test needs a template row");
+      return {
+        ...gapMap,
+        rows: Array.from({ length: 120 }, (_, index) => ({
+          ...template,
+          studentId: `student-${String(index).padStart(3, "0")}`,
+          displayName: `Student ${index + 1}`,
+          rollNo: String(index + 1),
+        })),
+      };
+    };
+    setApiClient(client);
+    renderTeacher("/t/classrooms/demo-8b/gapmap", { db });
+
+    const table = await screen.findByTestId("gapmap");
+    const initialRows = within(table).getAllByTestId(/^gapmap-row-/);
+    expect(table).toHaveAttribute("aria-rowcount", "122");
+    expect(initialRows.length).toBeLessThan(30);
+    expect(screen.queryByTestId("gapmap-row-student-119")).not.toBeInTheDocument();
+
+    const scrollContainer = screen.getByTestId("gapmap-scroll");
+    scrollContainer.scrollTop = 110 * 64;
+    fireEvent.scroll(scrollContainer);
+
+    const finalRow = await screen.findByTestId("gapmap-row-student-119");
+    expect(finalRow).toHaveAttribute("aria-rowindex", "122");
+    expect(screen.queryByTestId("gapmap-row-student-000")).not.toBeInTheDocument();
   });
 
   it("sends a signed-out device to the teacher login", async () => {

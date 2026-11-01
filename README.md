@@ -70,7 +70,7 @@ The simulation uses 1,000 rule-based learners. These numbers are simulated—not
 | Single | 86.2% | 66.4% | 47.4% | 12 |
 | Double | 79.2% | 80.5% | 60.0% | 12 |
 
-See the full [evaluation report](docs/EVALUATION.md) and [known decisions and limits](docs/DECISIONS.md). Telugu content is a first draft and needs review by a Telugu-medium mathematics teacher.
+See the full [evaluation report](docs/EVALUATION.md) and [known decisions and limits](docs/DECISIONS.md). The Telugu content has been reviewed and approved by the project owner. IndicTrans2 is an offline drafting tool; actually running its model still requires a local checkpoint and optional Python dependencies.
 
 ## Develop
 
@@ -98,11 +98,11 @@ pnpm test:e2e
 
 On 2026-11-01, `pnpm typecheck`, `pnpm lint`, `pnpm test` (498 Vitest tests), `pnpm content:validate`, `pnpm build`, and `pnpm test:e2e` passed. The separate pyBKT and translation-drafter suites passed 4 and 6 Python tests respectively. This desktop-browser flow does not verify Android WebView behavior or offline service-worker behavior.
 
-Phase 7 checks are deliberately explicit about what was exercised:
+Phase 7 status and validation:
 
 - The pyBKT fit and its input/parameter tests run on synthetic data only; the estimates are not classroom evidence.
-- The IndicTrans2 drafter's tests cover its review-queue output, but translation-model inference still needs a local model checkpoint and its optional Python dependencies.
-- `pnpm cap:sync` verifies Capacitor web-asset synchronization. An Android APK build is **not verified** here: Gradle 8.11.1 failed under the installed Java 25 (`Unsupported class file major version 69`), and no Android SDK is configured.
+- Telugu content was reviewed and approved by the project owner. The IndicTrans2 drafter's six Python tests cover review-queue generation; model inference itself was not run because no local checkpoint or optional model dependencies are installed.
+- `pnpm cap:sync` verifies Capacitor web-asset synchronization. Native Android APK packaging remains **unverified**: Gradle 8.11.1 failed under the installed Java 25 (`Unsupported class file major version 69`), and no Android SDK is configured.
 
 ## Project map
 

@@ -1,4 +1,6 @@
 numpy>=2.1
 torch>=2.5
-transformers>=4.51
+# IndicTrans2's custom cache code was verified with the 4.51 API.
+transformers>=4.51,<4.52
 indictranstoolkit
+sentencepiece>=0.2.0
